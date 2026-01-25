@@ -1,43 +1,48 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Message } from './components/Message';
-import { Services } from './components/Services';
-import { ServiceFlow } from './components/ServiceFlow';
-import { Members } from './components/Members';
-import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { PrivacyModal } from './components/PrivacyModal';
 import { TermsModal } from './components/TermsModal';
+import { Home } from './pages/Home';
+import { NewsList } from './pages/NewsList';
+import { BlogList } from './pages/BlogList';
+import { Company } from './pages/Company';
+import { Service } from './pages/Service';
+import { Product } from './pages/Product';
 
 export default function App() {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   return (
-    <div className="bg-white text-[#374151] font-sans antialiased">
-      <Navbar />
-      <main>
-        <Hero />
-        <Message />
-        <Services />
-        <ServiceFlow />
-        <Members />
-        <FAQ />
-      </main>
-      <Footer 
-        onPrivacyClick={() => setIsPrivacyOpen(true)}
-        onTermsClick={() => setIsTermsOpen(true)}
-      />
-      
-      <PrivacyModal 
-        isOpen={isPrivacyOpen} 
-        onClose={() => setIsPrivacyOpen(false)} 
-      />
-      <TermsModal 
-        isOpen={isTermsOpen} 
-        onClose={() => setIsTermsOpen(false)} 
-      />
-    </div>
+    <Router>
+      <div className="bg-white text-[#374151] font-sans antialiased flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/company" element={<Company />} />
+            <Route path="/service" element={<Service />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/news" element={<NewsList />} />
+            <Route path="/blog" element={<BlogList />} />
+          </Routes>
+        </main>
+        <Footer
+          onPrivacyClick={() => setIsPrivacyOpen(true)}
+          onTermsClick={() => setIsTermsOpen(true)}
+        />
+
+        <PrivacyModal
+          isOpen={isPrivacyOpen}
+          onClose={() => setIsPrivacyOpen(false)}
+        />
+        <TermsModal
+          isOpen={isTermsOpen}
+          onClose={() => setIsTermsOpen(false)}
+        />
+      </div>
+    </Router>
   );
 }
