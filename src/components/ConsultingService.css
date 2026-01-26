@@ -1,0 +1,137 @@
+/* ConsultingService.css */
+
+.consulting-section {
+    background-color: #ffffff;
+    padding: 120px 0;
+    width: 100%;
+}
+
+.consulting-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.consulting-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .consulting-grid {
+        grid-template-columns: 4fr 6fr;
+        /* 40:60 ratio */
+        gap: 60px;
+        /* Reduced from 80px slightly to balance gap with new ratio, or keep 60-80 range */
+    }
+}
+
+/* Left Column: Image */
+.consulting-image-wrapper {
+    width: 100%;
+    /* Mobile: limit height */
+    max-height: 250px;
+    align-self: start;
+    /* Align top if text is long, or center if desired. Center matches 'align-items: center' on grid */
+    overflow: hidden;
+}
+
+@media (min-width: 900px) {
+    .consulting-image-wrapper {
+        /* Desktop: limit height, specific ratio */
+        aspect-ratio: 4 / 3;
+        max-height: 400px;
+    }
+}
+
+.consulting-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    /* Sharp corners as requested */
+    /* Desaturated, cool tone filter */
+    filter: grayscale(30%) sepia(10%) hue-rotate(180deg) contrast(95%);
+}
+
+/* Right Column: Content */
+.consulting-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.consulting-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.75rem;
+    /* ~28px */
+    font-weight: 700;
+    color: #1a1a40;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+    .consulting-title {
+        font-size: 2rem;
+        /* ~32px */
+    }
+}
+
+.consulting-description {
+    font-size: 1rem;
+    color: #333333;
+    line-height: 2.0;
+    /* Requested 1.8-2.0 */
+    margin-bottom: 40px;
+    /* Requested 40px margin to CTA */
+    text-align: justify;
+}
+
+/* CTA Button */
+.consulting-cta-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.consulting-cta-btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    border: 1px solid #C0A060;
+    /* Gold thin border */
+    color: #1a1a40;
+    background-color: transparent;
+    /* Transparent or very light */
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+}
+
+.consulting-cta-btn:hover {
+    background-color: rgba(192, 160, 96, 0.1);
+    /* Very subtle fill on hover */
+    color: #000;
+}
+
+/* Text Link */
+.consulting-link {
+    font-size: 0.875rem;
+    /* Smaller than CTA */
+    color: #1a1a40;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.consulting-link:hover {
+    border-bottom-color: #1a1a40;
+}

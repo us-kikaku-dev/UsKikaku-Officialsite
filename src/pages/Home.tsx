@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Hero } from '../components/Hero';
 import { LatestNews } from '../components/LatestNews';
 import { Message } from '../components/Message';
+import { ConsultingService } from '../components/ConsultingService';
+import { BlogSection } from '../components/BlogSection';
 import { PrivacyModal } from '../components/PrivacyModal';
 import { TermsModal } from '../components/TermsModal';
 
@@ -21,6 +23,8 @@ export const Home = () => {
       <Hero />
       <LatestNews />
       <Message />
+      <ConsultingService />
+      <BlogSection />
 
       {/* 
         Modals are currently managed here. 

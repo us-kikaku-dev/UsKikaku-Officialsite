@@ -3,52 +3,83 @@ import { motion } from 'motion/react';
 
 export const Message = () => {
   return (
-    <section id="message" className="py-24 bg-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-          {/* Image Side */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-            className="relative mb-12 lg:mb-0 flex justify-center lg:justify-end"
-          >
-            <div className="relative max-w-md w-full">
-              <div className="absolute -top-4 -left-4 w-24 h-24 border-t border-l border-[#998438]/30"></div>
-              <img
-                src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=2070&auto=format&fit=crop"
-                alt="Stock Market Data"
-                className="w-full h-auto object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
-              />
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b border-r border-[#998438]/30"></div>
-            </div>
-          </motion.div>
+    <section id="message" className="relative" style={{ backgroundColor: '#FDFBF7', padding: '200px 0' }}>
+      {/* 
+         BACKGROUND COLOR: #FDFBF7 (Explicitly set as requested) 
+         PADDING: 120px top/bottom (Increased from 60px/100px)
+      */}
 
-          {/* Text Side */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-            className="lg:pl-8"
-          >
-            <h2 className="serif-text text-3xl md:text-4xl lg:text-5xl font-medium text-[#050A14] leading-snug mb-8">
-              企業の「顔」を、<br />もっと伝わるカタチに。
-            </h2>
-            <div className="space-y-6 text-gray-600 leading-relaxed font-light text-justify">
-              <p>
-                <span className="drop-cap text-[#D4AF37]">決</span>
-                算説明資料は、投資家だけでなく、取引先や採用応募者など多くのステークホルダーが目にする、まさに企業の「顔」とも言える重要資料です。
-                私たちは、そのクオリティを高めることこそが、企業ブランドの信頼と価値の向上に直結すると確信しています。
-              </p>
-              <p>
-                一方で、限られたリソースでの資料作成は大きな負担となりがちです。<br />
-                実務を知り尽くした私たちが、貴社の「本質」を引き出し、市場が求める形へと昇華させます。
-              </p>
-            </div>
-          </motion.div>
-        </div>
+      <div className="max-w-4xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center"
+        >
+          {/* 
+             DECORATIVE TEXT (ASHIRAI)
+             Style: Matches LatestNews subtitle
+             - Color: #D4AF37 (Gold from News/Members)
+             - Size: text-sm
+             - Spacing: tracking-widest
+          */}
+          <span className="block text-sm font-medium tracking-widest text-[#D4AF37] mb-6">
+            MESSAGE
+          </span>
+
+          {/* 
+             MAIN HEADLINE
+             Style: Matches LatestNews "NEWS" title
+             - Size: text-4xl md:text-5xl
+             - Font: Serif (serif-text class)
+             - Weight: Bold
+             - Color: #1a1a40 (Dark Navy)
+             - Alignment: Center
+          */}
+          <h2 className="text-4xl md:text-5xl serif-text font-bold tracking-wider text-[#1a1a40] mb-16 text-center leading-tight">
+            企業の「顔」を、<br className="md:hidden" />もっと伝わるカタチに。
+          </h2>
+
+          {/* 
+             BODY TEXT WITH DROP CAP
+             Layout:
+             - Container: Centered (via flex-col items-center on parent)
+             - Text Alignment: Justify (to cleanly wrap around drop cap) or Left
+             - Width: max-w-2xl
+             
+             DROP CAP:
+             - Char: "決"
+             - Color: #C0A060 (As requested)
+             - Size: text-7xl md:text-8xl (~3-4 lines height)
+             - Font: Serif
+             - Float: Left
+          */}
+          <div className="w-full max-w-2xl text-[#1a1a40]">
+            <p className="font-medium leading-loose text-base md:text-lg text-justify">
+              <span
+                className="font-serif"
+                style={{
+                  float: 'left',
+                  fontSize: '4.5rem', // ~text-7xl
+                  lineHeight: '0.8',
+                  marginRight: '1rem',
+                  marginTop: '-6px',
+                  marginBottom: '-10px',
+                  color: '#C0A060'
+                }}
+                aria-hidden="true"
+              >
+                決
+              </span>
+              算説明資料は、投資家だけでなく、取引先や採用応募者など多くのステークホルダーが目にする、まさに企業の「顔」とも言える重要資料です。
+              私たちは、そのクオリティを高めることこそが、企業ブランドの信頼と価値の向上に直結すると確信しています。
+              <br /><br />
+              一方で、限られたリソースでの資料作成は大きな負担となりがちです。
+              実務を知り尽くした私たちが、貴社の「本質」を引き出し、市場が求める形へと昇華させます。
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

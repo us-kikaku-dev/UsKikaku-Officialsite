@@ -10,8 +10,8 @@
 
 @media (min-width: 768px) {
   .latest-news-section {
-    padding: 100px 0;
-    /* PC padding */
+    padding: 120px 0;
+    /* PC padding increased for spaciousness */
   }
 }
 
