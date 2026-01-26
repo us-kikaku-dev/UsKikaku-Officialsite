@@ -97,14 +97,11 @@ export const BlogSection = () => {
                     transition={{ duration: 0.8 }}
                 >
                     {/* Header */}
-                    <div className="text-center">
-                        {/* Ashirai */}
-                        <span className="blog-ashirai">
+                    <div className="text-center" style={{ marginBottom: '60px' }}>
+                        <span className="text-[#998438] tracking-widest text-sm uppercase block mb-5">
                             BLOG
                         </span>
-
-                        {/* Main Heading */}
-                        <h2 className="blog-heading">
+                        <h2 className="text-4xl md:text-5xl serif-text font-bold text-[#0F172A] tracking-wider">
                             最新の記事
                         </h2>
                     </div>

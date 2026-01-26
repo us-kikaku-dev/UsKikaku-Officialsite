@@ -3,6 +3,7 @@ import { Hero } from '../components/Hero';
 import { LatestNews } from '../components/LatestNews';
 import { Message } from '../components/Message';
 import { ConsultingService } from '../components/ConsultingService';
+import { OkkakeProduct } from '../components/OkkakeProduct';
 import { BlogSection } from '../components/BlogSection';
 import { PrivacyModal } from '../components/PrivacyModal';
 import { TermsModal } from '../components/TermsModal';
@@ -24,6 +25,7 @@ export const Home = () => {
       <LatestNews />
       <Message />
       <ConsultingService />
+      <OkkakeProduct />
       <BlogSection />
 
       {/* 

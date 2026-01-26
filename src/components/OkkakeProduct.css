@@ -1,18 +1,19 @@
-/* ConsultingService.css */
+/* OkkakeProduct.css */
 
-.consulting-section {
-    background-color: #ffffff;
+.okkake-section {
+    background-color: #FFF5F7;
+    /* Souffle Pink */
     padding: 120px 0;
     width: 100%;
 }
 
-.consulting-container {
+.okkake-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
 }
 
-.consulting-grid {
+.okkake-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 60px;
@@ -20,53 +21,57 @@
 }
 
 @media (min-width: 900px) {
-    .consulting-grid {
-        grid-template-columns: 4fr 6fr;
-        /* 40:60 ratio */
+    .okkake-grid {
+        grid-template-columns: 6fr 4fr;
+        /* Zigzag: Text (60%) | Image (40%) */
         gap: 60px;
-        /* Reduced from 80px slightly to balance gap with new ratio, or keep 60-80 range */
     }
 }
 
 /* Left Column: Image */
-.consulting-image-wrapper {
+.okkake-image-wrapper {
     width: 100%;
-    /* Mobile: limit height */
     max-height: 250px;
     align-self: start;
-    /* Align top if text is long, or center if desired. Center matches 'align-items: center' on grid */
     overflow: hidden;
 }
 
 @media (min-width: 900px) {
-    .consulting-image-wrapper {
-        /* Desktop: limit height, specific ratio */
+    .okkake-image-wrapper {
         aspect-ratio: 4 / 3;
         max-height: 400px;
+        /* Zigzag: Push Image to Right Column (2) */
+        grid-column: 2;
+        grid-row: 1;
     }
 }
 
-.consulting-image {
+.okkake-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 0;
-    /* Sharp corners as requested */
-    /* Desaturated, cool tone filter */
-    filter: grayscale(30%) sepia(10%) hue-rotate(180deg) contrast(95%);
+    /* Sharp corners */
 }
 
 /* Right Column: Content */
-.consulting-content {
+.okkake-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.consulting-title {
+@media (min-width: 900px) {
+    .okkake-content {
+        /* Zigzag: Pull Content to Left Column (1) */
+        grid-column: 1;
+        grid-row: 1;
+    }
+}
+
+.okkake-title {
     font-family: 'Zen Old Mincho', serif;
     font-size: 1.75rem;
-    /* ~28px */
     font-weight: 700;
     color: #1a1a40;
     line-height: 1.4;
@@ -75,55 +80,54 @@
 }
 
 @media (min-width: 768px) {
-    .consulting-title {
+    .okkake-title {
         font-size: 2rem;
-        /* ~32px */
     }
 }
 
-.consulting-description {
+.okkake-description {
     font-size: 1rem;
     color: #333333;
     line-height: 2.0;
-    /* Requested 1.8-2.0 */
     margin-bottom: 40px;
-    /* Requested 40px margin to CTA */
     text-align: justify;
 }
 
 /* CTA Button */
-.consulting-cta-wrapper {
+.okkake-cta-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
 }
 
-.consulting-cta-btn {
+.okkake-cta-btn {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    border: 1px solid #D4AF37;
-    color: #D4AF37;
+    padding: 1rem 3rem;
+    border: 1px solid #C89498;
+    /* Dusty Pink / Rose Gold */
+    color: #C89498;
     background-color: transparent;
-    font-size: 0.875rem;
-    /* text-sm */
+    font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
     transition: all 0.3s ease;
-    letter-spacing: 0.1em;
-    /* tracking-widest */
+    letter-spacing: 0.05em;
+    border-radius: 0;
+    /* Match layout */
 }
 
-.consulting-cta-btn:hover {
-    background-color: #D4AF37;
+.okkake-cta-btn:hover {
+    background-color: #C89498;
     color: #ffffff;
+    /* White text on hover */
 }
 
 /* Text Link */
-.consulting-link {
+.okkake-link {
     font-size: 0.875rem;
-    /* Smaller than CTA */
-    color: #1a1a40;
+    color: #A08084;
+    /* Grayish Rose */
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s ease;
@@ -131,11 +135,11 @@
     align-items: center;
 }
 
-.consulting-link:hover {
-    border-bottom-color: #1a1a40;
+.okkake-link:hover {
+    border-bottom-color: #A08084;
 }
 
-.consulting-link-wrapper {
+.okkake-link-wrapper {
     width: 100%;
     text-align: center;
     margin-top: 1rem;
@@ -143,7 +147,7 @@
 }
 
 @media (min-width: 900px) {
-    .consulting-link-wrapper {
+    .okkake-link-wrapper {
         text-align: right;
     }
 }

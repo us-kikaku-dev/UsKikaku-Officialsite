@@ -35,22 +35,32 @@ export const ConsultingService = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        <h3 className="consulting-title">
-                            資本市場と企業をつなぐ、<br className="hidden md:inline" />実践型IRコンサルティング
-                        </h3>
+                        {/* Header: Label + Title */}
+                        <div className="text-left mb-8">
+                            <span className="text-[#998438] tracking-widest text-sm uppercase block mb-3">
+                                IR CONSULTING
+                            </span>
+                            <h3 className="text-2xl md:text-3xl serif-text font-bold text-[#0F172A] tracking-wider leading-relaxed">
+                                資本市場と企業をつなぐ、<br />実践型IRコンサルティング
+                            </h3>
+                        </div>
 
-                        <p className="consulting-description">
+                        <p className="consulting-description mb-8">
                             当社は、上場企業および上場準備企業を対象に、IR戦略の設計から決算説明資料・統合報告書などの開示資料作成、投資家コミュニケーションの高度化までを一貫して支援するIRコンサルティングを提供しています。IR方針策定やKPI設計、各種IRコンテンツの作成支援を通じて、企業の成長戦略と整合した、再現性のあるIR体制の構築を支援します。
                         </p>
 
-                        <div className="consulting-cta-wrapper">
-                            <Link to="/contact" className="consulting-cta-btn">
-                                決算資料のレビューを受ける
-                            </Link>
+                        <div className="w-full">
+                            <div className="mb-8">
+                                <Link to="/contact" className="consulting-cta-btn">
+                                    決算資料のレビューを受ける
+                                </Link>
+                            </div>
 
-                            <Link to="/service" className="consulting-link">
-                                IRコンサルティングについて詳しく見る →
-                            </Link>
+                            <div className="consulting-link-wrapper">
+                                <Link to="/service" className="consulting-link">
+                                    IRコンサルティングについて詳しく見る →
+                                </Link>
+                            </div>
                         </div>
                     </motion.div>
 

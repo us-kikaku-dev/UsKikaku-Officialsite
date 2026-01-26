@@ -17,29 +17,15 @@ export const Message = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center"
         >
-          {/* 
-             DECORATIVE TEXT (ASHIRAI)
-             Style: Matches LatestNews subtitle
-             - Color: #D4AF37 (Gold from News/Members)
-             - Size: text-sm
-             - Spacing: tracking-widest
-          */}
-          <span className="block text-sm font-medium tracking-widest text-[#D4AF37] mb-6">
-            MESSAGE
-          </span>
-
-          {/* 
-             MAIN HEADLINE
-             Style: Matches LatestNews "NEWS" title
-             - Size: text-4xl md:text-5xl
-             - Font: Serif (serif-text class)
-             - Weight: Bold
-             - Color: #1a1a40 (Dark Navy)
-             - Alignment: Center
-          */}
-          <h2 className="text-4xl md:text-5xl serif-text font-bold tracking-wider text-[#1a1a40] mb-16 text-center leading-tight">
-            企業の「顔」を、<br className="md:hidden" />もっと伝わるカタチに。
-          </h2>
+          {/* Header */}
+          <div className="text-center" style={{ marginBottom: '60px' }}>
+            <span className="text-[#998438] tracking-widest text-sm uppercase block mb-5">
+              MESSAGE
+            </span>
+            <h2 className="text-4xl md:text-5xl serif-text font-bold text-[#0F172A] tracking-wider leading-tight">
+              企業の「顔」を、<br className="md:hidden" />もっと伝わる形に。
+            </h2>
+          </div>
 
           {/* 
              BODY TEXT WITH DROP CAP

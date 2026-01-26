@@ -72,14 +72,13 @@ export const LatestNews = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    {/* Header */}
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl serif-text font-bold latest-news-title mb-4 tracking-wider">
+                    <div className="text-center" style={{ marginBottom: '60px' }}>
+                        <span className="text-[#998438] tracking-widest text-sm uppercase block mb-5">
                             NEWS
-                        </h2>
-                        <p className="latest-news-subtitle font-medium tracking-widest text-sm">
+                        </span>
+                        <h2 className="text-4xl md:text-5xl serif-text font-bold text-[#0F172A] tracking-wider">
                             お知らせ
-                        </p>
+                        </h2>
                     </div>
 
                     {/* News List */}

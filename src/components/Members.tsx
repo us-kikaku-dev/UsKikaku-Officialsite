@@ -50,7 +50,7 @@ export const Members = () => {
             <div className="border-l-4 border-[#D4AF37] pl-8 md:pl-12 py-2 hover:bg-gray-50 transition-colors duration-500 rounded-r-lg">
               <div className="flex flex-col md:flex-row md:items-end gap-2 md:gap-6 mb-6">
                 <h3 className="serif-text text-3xl text-[#050A14]">田代 昌之</h3>
-                <span className="text-[#998438] tracking-widest text-sm uppercase pb-1">Advisory Partner</span>
+                <span className="text-[#998438] tracking-widest text-sm uppercase pb-1">Executive Officer / Head of Sales</span>
               </div>
               <div className="text-gray-600 font-light leading-relaxed text-justify max-w-3xl mb-4">
                 金融文筆家。北海道出身。1979年生まれ。中央大学文学部史学科日本史学科卒業。新光証券（現みずほ証券）やシティバンクなどを経て、金融情報会社に入社。アナリスト業務やコンプライアンス業務、グループの暗号資産交換業者や証券会社の経営に従事。IFTA国際検定テクニカルアナリスト3次資格（MFTA®）を保有。酒と古地図と歴史をこよなく愛する。ラジオNIKKEIのパーソナリティを務めるほか、楽天証券投資情報メディアトウシルやAllAboutに記事を掲載。
@@ -65,8 +65,8 @@ export const Members = () => {
                   <span className="border-b border-transparent group-hover/btn:border-[#998438] transition-all">
                     {isActivitiesOpen ? '活動実績を閉じる' : '活動実績を見る'}
                   </span>
-                  <ChevronDown 
-                    className={`w-4 h-4 transition-transform duration-300 ${isActivitiesOpen ? 'rotate-180' : ''}`} 
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${isActivitiesOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
 
@@ -83,22 +83,22 @@ export const Members = () => {
                         <div className="text-sm text-gray-600 leading-relaxed">
                           <p className="font-medium text-[#0B1C3D] mb-1">ラジオNIKKEI「マーケットプレス」</p>
                           <p className="mb-1">毎週火・水 12:30–14:30 に出演し、市場動向や企業分析を解説しています。</p>
-                          <a 
-                            href="https://www.radionikkei.jp/personality/personality/masayukitashiro.html" 
-                            target="_blank" 
+                          <a
+                            href="https://www.radionikkei.jp/personality/personality/masayukitashiro.html"
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-[#D4AF37] hover:text-[#B89530] hover:underline transition-colors inline-flex items-center text-xs mt-0.5"
                           >
                             → 番組ページを見る
                           </a>
                         </div>
-                        
+
                         <div className="text-sm text-gray-600 leading-relaxed">
                           <p className="font-medium text-[#0B1C3D] mb-1">楽天証券トウシル</p>
                           <p className="mb-1">「田代くん注目！気になる5銘柄」を連載し、決算ポイントやKPI分析を発信しています。</p>
-                          <a 
-                            href="https://media.rakuten-sec.net/list/authors/article?author_name=%E7%94%B0%E4%BB%A3+%E6%98%8C%E4%B9%8B" 
-                            target="_blank" 
+                          <a
+                            href="https://media.rakuten-sec.net/list/authors/article?author_name=%E7%94%B0%E4%BB%A3+%E6%98%8C%E4%B9%8B"
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-[#D4AF37] hover:text-[#B89530] hover:underline transition-colors inline-flex items-center text-xs mt-0.5"
                           >

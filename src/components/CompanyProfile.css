@@ -1,0 +1,92 @@
+/* CompanyProfile.css */
+
+.company-profile-section {
+    background-color: #ffffff;
+    /* Pure White */
+    padding: 100px 0;
+    width: 100%;
+}
+
+.company-profile-container {
+    max-width: 800px;
+    /* Limited width as requested */
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Header styles managed via inline/utility in component based on strict rules, 
+   but we can add helpers here if needed. 
+   Using inline styles for text colors as per previous fix to ensure Gold/Navy.
+*/
+
+.company-profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 60px;
+}
+
+.company-profile-row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* Ultra thin gray border */
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+}
+
+.company-profile-row:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+    .company-profile-row {
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 24px 0;
+    }
+}
+
+.company-profile-label {
+    width: 100%;
+    font-weight: 700;
+    color: #0F172A;
+    /* Navy */
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .company-profile-label {
+        width: 30%;
+        margin-bottom: 0;
+    }
+}
+
+.company-profile-value {
+    width: 100%;
+    color: #0F172A;
+    /* Navy */
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+@media (min-width: 768px) {
+    .company-profile-value {
+        width: 70%;
+    }
+}
+
+.company-profile-link {
+    color: #C0A060;
+    /* Gold */
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.company-profile-link:hover {
+    border-bottom-color: #C0A060;
+    opacity: 0.8;
+}
