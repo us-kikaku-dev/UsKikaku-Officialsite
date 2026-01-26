@@ -8,7 +8,7 @@ import { Home } from './pages/Home';
 import { NewsList } from './pages/NewsList';
 import { BlogList } from './pages/BlogList';
 import { Company } from './pages/Company';
-import { Service } from './pages/Service';
+import { ServicePage } from './pages/Service';
 import { Product } from './pages/Product';
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/company" element={<Company />} />
-            <Route path="/service" element={<Service />} />
+            <Route path="/service" element={<ServicePage />} />
             <Route path="/product" element={<Product />} />
             <Route path="/news" element={<NewsList />} />
             <Route path="/blog" element={<BlogList />} />
