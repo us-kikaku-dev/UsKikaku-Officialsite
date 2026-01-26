@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, Users, Bell } from 'lucide-react';
 import AboutOkkakeVisual from '../assets/about-okkake-visual.jpg';
+import { OkkakeCTA } from './OkkakeCTA';
 
 
 export const AboutOkkake = () => {
@@ -54,6 +55,10 @@ export const AboutOkkake = () => {
                                 </div>
                             </li>
                         </ul>
+
+                        <div className="mt-24">
+                            <OkkakeCTA />
+                        </div>
 
 
                     </div>

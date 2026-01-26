@@ -2496,3 +2496,33 @@ html {
   background-color: #C85A86;
   border-radius: 2px;
 }
+
+/* Hero Copy Styles - Added per user request */
+.hero-copy-line1 {
+  font-size: 40px;
+  font-weight: 400;
+  /* Regular */
+  letter-spacing: 0.02em;
+  color: #2F3A4A;
+  /* 少し落ち着いた濃紺 */
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  display: block;
+  line-height: 1.5;
+}
+
+.hero-copy-line2 {
+  font-size: 44px;
+  font-weight: 700;
+  /* Bold */
+  letter-spacing: 0.04em;
+  color: #2F3A4A;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  display: block;
+  line-height: 1.5;
+}
+
+/* Custom spacing utility manually added */
+.mt-24 {
+  margin-top: 6rem;
+  /* 96px */
+}
