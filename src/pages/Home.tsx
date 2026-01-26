@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Hero } from '../components/Hero';
+import { LatestNews } from '../components/LatestNews';
 import { Message } from '../components/Message';
 import { PrivacyModal } from '../components/PrivacyModal';
 import { TermsModal } from '../components/TermsModal';
@@ -18,6 +19,7 @@ export const Home = () => {
   return (
     <>
       <Hero />
+      <LatestNews />
       <Message />
 
       {/* 
