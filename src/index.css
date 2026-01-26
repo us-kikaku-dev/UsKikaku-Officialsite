@@ -2526,3 +2526,85 @@ html {
   margin-top: 6rem;
   /* 96px */
 }
+
+/* Missing util classes for News List */
+.pt-48 {
+  padding-top: 12rem;
+  /* 192px */
+}
+
+.pb-40 {
+  padding-bottom: 10rem;
+  /* 160px */
+}
+
+.max-w-\[1000px\] {
+  max-width: 1000px;
+}
+
+.mb-\[120px\] {
+  margin-bottom: 120px;
+}
+
+.mt-\[120px\] {
+  margin-top: 120px;
+}
+
+/* Pagination Styles */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120px;
+  gap: 1rem;
+}
+
+.pagination-list {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.pagination-item {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  border: 1px solid #E2E8F0;
+  background-color: #ffffff;
+  color: #0F172A;
+  cursor: pointer;
+}
+
+.pagination-item:hover {
+  background-color: #f8fafc;
+}
+
+.pagination-item.active {
+  background-color: #0F172A;
+  color: #ffffff !important;
+  border-color: #0F172A;
+  font-weight: 500;
+  cursor: default;
+}
+
+.pagination-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1px solid #E2E8F0;
+  background-color: #ffffff;
+  color: #0F172A;
+  cursor: pointer;
+}
+
+.pagination-arrow:hover {
+  background-color: #f8fafc;
+}
