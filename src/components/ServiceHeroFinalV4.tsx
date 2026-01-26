@@ -19,24 +19,17 @@ export const ServiceHeroFinalV4 = () => {
             <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex flex-col items-center justify-center h-full">
 
                 {/* Text Content Group */}
-                <div className="flex flex-col items-center text-center w-full max-w-5xl">
+                <div className="flex flex-col items-center text-center w-full max-w-5xl px-4">
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-                        className="serif-text text-3xl md:text-5xl lg:text-7xl font-medium leading-tight text-white tracking-wider whitespace-nowrap"
+                        className="serif-text text-2xl md:text-4xl lg:text-5xl font-medium leading-relaxed text-white tracking-wider"
                     >
-                        IRコンサルティング事業
+                        <span className="inline-block whitespace-nowrap">戦略設計から開示資料、</span><br />
+                        <span className="inline-block whitespace-nowrap">投資家コミュニケーションまで</span><br />
+                        <span className="inline-block whitespace-nowrap">一気通貫で支援するIRコンサルティング</span>
                     </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
-                        className="text-white text-xs md:text-lg tracking-wider mt-8 font-medium drop-shadow-md"
-                    >
-                        戦略設計から開示資料、投資家コミュニケーションまで一貫支援
-                    </motion.p>
                 </div>
 
                 {/* CTA Button - Styling via Motion/Inline to ensure application */}

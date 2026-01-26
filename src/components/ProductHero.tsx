@@ -71,9 +71,10 @@ export const ProductHero = () => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="w-full md:w-1/2 flex justify-center md:justify-end"
+                        className="w-full md:w-1/2 flex justify-center md:justify-end items-center"
+                        style={{ minHeight: '540px' }}
                     >
-                        <div className="relative" style={{ width: '100%', maxWidth: '444px' }}>
+                        <div className="relative" style={{ width: '100%', maxWidth: '400px' }}>
                             {/* Mockup Image */}
                             <img
                                 src={OkkakeMockup}

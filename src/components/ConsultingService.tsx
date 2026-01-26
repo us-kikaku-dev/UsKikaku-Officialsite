@@ -50,7 +50,7 @@ export const ConsultingService = () => {
                         </p>
 
                         <div className="w-full">
-                            <div className="mb-8">
+                            <div className="mb-8 consulting-cta-wrapper">
                                 <Link to="/contact" className="consulting-cta-btn">
                                     決算資料のレビューを受ける
                                 </Link>

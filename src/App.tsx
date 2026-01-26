@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { PrivacyModal } from './components/PrivacyModal';
 import { TermsModal } from './components/TermsModal';
+import { ScrollToTop } from './components/ScrollToTop';
 import { Home } from './pages/Home';
 import { NewsList } from './pages/NewsList';
 import { BlogList } from './pages/BlogList';
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="bg-white text-[#374151] font-sans antialiased flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">

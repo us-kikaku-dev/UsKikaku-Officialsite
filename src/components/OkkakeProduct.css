@@ -97,8 +97,14 @@
 .okkake-cta-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+    .okkake-cta-wrapper {
+        align-items: flex-start;
+    }
 }
 
 .okkake-cta-btn {
@@ -141,7 +147,7 @@
 
 .okkake-link-wrapper {
     width: 100%;
-    text-align: center;
+    text-align: right;
     margin-top: 1rem;
     /* mt-4 */
 }

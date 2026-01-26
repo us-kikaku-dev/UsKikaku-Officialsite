@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './OkkakeProduct.css';
+import OkkakeMockupNew from '../assets/okkake-mockup-new.png';
 
 export const OkkakeProduct = () => {
     return (
@@ -18,8 +19,7 @@ export const OkkakeProduct = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <img
-                            // Unsplash: Abstract pink/rose gold/digital
-                            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                            src={OkkakeMockupNew}
                             alt="OKKAKE Product Visual"
                             className="okkake-image"
                         />
@@ -48,7 +48,7 @@ export const OkkakeProduct = () => {
                         </p>
 
                         <div className="w-full">
-                            <div className="mb-8">
+                            <div className="mb-8 okkake-cta-wrapper">
                                 <a href="https://okkake.me" target="_blank" rel="noopener noreferrer" className="okkake-cta-btn">
                                     OKKAKE公式サイトを見る
                                 </a>

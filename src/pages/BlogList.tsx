@@ -1,116 +1,212 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { client, Blog } from '../lib/client';
 import { motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
+import '../components/BlogSection.css'; // Import shared styles for cards
 
-const MOCK_BLOGS: Blog[] = [
-    {
-        id: '1',
-        createdAt: '2024-01-20T10:00:00.000Z',
-        updatedAt: '2024-01-20T10:00:00.000Z',
-        publishedAt: '2024-01-20T10:00:00.000Z',
-        revisedAt: '2024-01-20T10:00:00.000Z',
-        title: '決算説明資料作成のポイント',
-        content: '<p>本文...</p>',
-        category: { id: 'tips', name: 'Tips' },
+// Helper to generate mock data
+const generateMockBlogs = (count: number): Blog[] => {
+    return Array.from({ length: count }, (_, i) => ({
+        id: `${i + 1}`,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        publishedAt: new Date(2024, 0, 25 - i).toISOString(),
+        revisedAt: new Date().toISOString(),
+        title: `ブログ記事タイトル ${i + 1} - 投資家との対話を深めるために`,
+        content: '<p>詳細内容...</p>',
+        category: { id: 'tips', name: i % 2 === 0 ? 'Tips' : 'トレンド' },
         eyecatch: {
-            url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
+            url: `https://images.unsplash.com/photo-${1550000000000 + i}?q=80&w=800&auto=format&fit=crop`,
             height: 600,
             width: 800
         }
-    },
-    {
-        id: '2',
-        createdAt: '2024-01-15T10:00:00.000Z',
-        updatedAt: '2024-01-15T10:00:00.000Z',
-        publishedAt: '2024-01-15T10:00:00.000Z',
-        revisedAt: '2024-01-15T10:00:00.000Z',
-        title: 'IRサイトのトレンド2024',
-        content: '<p>本文...</p>',
-        category: { id: 'trend', name: 'トレンド' },
-        eyecatch: {
-            url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop',
-            height: 600,
-            width: 800
-        }
-    }
-];
+    }));
+};
+
+const MOCK_BLOGS_ALL = generateMockBlogs(25);
+const PER_PAGE = 9;
 
 export const BlogList = () => {
     const [blogs, setBlogs] = useState<Blog[]>([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
 
     useEffect(() => {
         const fetchBlogs = async () => {
-            if (!import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN || import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN === 'YOUR_DOMAIN') {
-                setBlogs(MOCK_BLOGS);
+            setLoading(true);
+
+            // Check if API key is configured
+            const isCmsConfigured = import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN && import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN !== 'YOUR_DOMAIN';
+
+            if (!isCmsConfigured) {
+                // Mock Logic
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const offset = (currentPage - 1) * PER_PAGE;
+                const sliced = MOCK_BLOGS_ALL.slice(offset, offset + PER_PAGE);
+                setBlogs(sliced);
+                setTotalCount(MOCK_BLOGS_ALL.length);
                 setLoading(false);
                 return;
             }
 
+            // Real CMS Logic
             try {
-                const data = await client.get({ endpoint: 'blogs' }); // endpoint name 'blogs' is common, user can change
+                const data = await client.get({
+                    endpoint: 'blog', // endpoint might be 'blog' or 'blogs' depending on schema
+                    queries: {
+                        limit: PER_PAGE,
+                        offset: (currentPage - 1) * PER_PAGE,
+                    }
+                });
                 setBlogs(data.contents);
+                setTotalCount(data.totalCount);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
-                setBlogs(MOCK_BLOGS);
+                // Fallback to mock for blog endpoint safety
+                const offset = (currentPage - 1) * PER_PAGE;
+                const sliced = MOCK_BLOGS_ALL.slice(offset, offset + PER_PAGE);
+                setBlogs(sliced);
+                setTotalCount(MOCK_BLOGS_ALL.length);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchBlogs();
-    }, []);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage]);
+
+    const totalPages = Math.ceil(totalCount / PER_PAGE);
+
+    const handleNext = () => {
+        if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+    };
+
+    const handlePrev = () => {
+        if (currentPage > 1) setCurrentPage(prev => prev - 1);
+    };
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}/${month}/${day}`;
+    };
 
     return (
-        <div className="pt-32 pb-24 bg-white min-h-screen">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-48 pb-40 bg-white min-h-screen">
+            <div className="max-w-[1000px] mx-auto px-5 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h1 className="text-4xl md:text-5xl serif-text font-bold text-[#050A14] mb-4 text-center">
-                        BLOG
-                    </h1>
-                    <p className="text-[#D4AF37] text-center font-medium tracking-widest mb-16">
-                        ブログ
-                    </p>
+                    {/* Header */}
+                    <div className="text-center mb-[120px]">
+                        <span className="text-[#998438] tracking-widest text-sm uppercase block mb-5">
+                            BLOG
+                        </span>
+                        <h1 className="text-4xl md:text-5xl serif-text font-bold text-[#0F172A] tracking-wider">
+                            投稿記事
+                        </h1>
+                    </div>
 
-                    {loading ? (
-                        <p className="text-center text-gray-500">Loading...</p>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {blogs.map((post) => (
-                                <article key={post.id} className="group cursor-pointer">
-                                    <div className="relative overflow-hidden aspect-video bg-gray-100 mb-4">
-                                        {post.eyecatch ? (
-                                            <img
-                                                src={post.eyecatch.url}
-                                                alt={post.title}
-                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
+                    {/* Blog Grid */}
+                    <div>
+                        {loading ? (
+                            <div className="flex justify-center py-20">
+                                <span className="text-gray-400">Loading...</span>
+                            </div>
+                        ) : (
+                            <>
+                                <div className="blog-grid min-h-[600px]">
+                                    {blogs.map((post) => (
+                                        <Link to={`/blog/${post.id}`} key={post.id} className="blog-card group">
+                                            <div className="blog-card-image-wrapper">
+                                                {post.eyecatch ? (
+                                                    <img
+                                                        src={post.eyecatch.url}
+                                                        alt={post.title}
+                                                        className="blog-card-image"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
+                                                        No Image
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="blog-card-meta">
+                                                <time className="blog-card-date">
+                                                    {formatDate(post.publishedAt)}
+                                                </time>
+                                                <span className="blog-card-category">
+                                                    {post.category?.name || 'Blog'}
+                                                </span>
+                                            </div>
+                                            <h3 className="blog-card-title">
+                                                {post.title}
+                                            </h3>
+                                        </Link>
+                                    ))}
+                                </div>
+
+                                {/* Pagination */}
+                                {totalPages > 1 && (
+                                    <div className="pagination-container">
+                                        {/* Prev Arrow */}
+                                        {currentPage > 1 && (
+                                            <button
+                                                onClick={handlePrev}
+                                                className="pagination-arrow"
+                                                aria-label="Previous page"
+                                            >
+                                                <ChevronRight size={20} className="rotate-180" />
+                                            </button>
                                         )}
-                                        <div className="absolute top-4 left-4">
-                                            <span className="inline-block px-3 py-1 bg-[#050A14]/80 backdrop-blur-sm text-white text-xs tracking-wider">
-                                                {post.category?.name || 'Blog'}
-                                            </span>
-                                        </div>
-                                    </div>
 
-                                    <time className="text-sm text-gray-500 font-medium block mb-2">
-                                        {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
-                                    </time>
-                                    <h2 className="text-xl font-medium text-[#050A14] leading-snug group-hover:text-[#D4AF37] transition-colors">
-                                        {post.title}
-                                    </h2>
-                                </article>
-                            ))}
-                        </div>
-                    )}
+                                        {/* Numbers */}
+                                        <div className="pagination-list">
+                                            {Array.from({ length: totalPages }).map((_, i) => {
+                                                const pageNum = i + 1;
+                                                // Simplified Logic for pagination dots if needed (not here as 3 pages)
+                                                if (totalPages > 10 && pageNum > 3 && pageNum < totalPages && Math.abs(currentPage - pageNum) > 1) {
+                                                    if (pageNum === 4 && currentPage > 5) return <span key="dots-1" className="self-end px-1 pb-1 text-[#0F172A]">...</span>;
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <button
+                                                        key={pageNum}
+                                                        onClick={() => setCurrentPage(pageNum)}
+                                                        className={`pagination-item ${currentPage === pageNum ? 'active' : ''}`}
+                                                    >
+                                                        {pageNum}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+
+                                        {/* Next Arrow */}
+                                        {currentPage < totalPages && (
+                                            <button
+                                                onClick={handleNext}
+                                                className="pagination-arrow"
+                                                aria-label="Next page"
+                                            >
+                                                <ChevronRight size={20} />
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
                 </motion.div>
             </div>
         </div>
     );
 };
+
