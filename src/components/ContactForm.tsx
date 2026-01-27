@@ -175,12 +175,12 @@ export const ContactForm = () => {
     return (
         <div className="w-full max-w-2xl mx-auto" style={{ paddingTop: '0', paddingBottom: '160px' }}>
             {/* Step Indicator */}
-            <div className="flex items-center justify-center space-x-4" style={{ marginBottom: '60px' }}>
+            <div className="flex items-center justify-center space-x-4" style={{ marginBottom: '80px' }}>
                 <div className={`text-sm tracking-widest ${step >= 1 ? 'text-[#050A14] font-bold' : 'text-gray-300'}`}>01 Input</div>
                 <div className="w-8 h-[1px] bg-gray-300"></div>
                 <div className={`text-sm tracking-widest ${step >= 2 ? 'text-[#050A14] font-bold' : 'text-gray-300'}`}>02 Confirm</div>
                 <div className="w-8 h-[1px] bg-gray-300"></div>
-                <div className={`text-sm tracking-widest ${step >= 3 ? 'text-[#050A14] font-bold' : 'text-gray-300'}`}>03 Complete</div>
+                <div className={`text-sm tracking-widest ${step >= 3 ? 'text-[#C5A065] font-bold' : 'text-gray-300'}`}>03 Complete</div>
             </div>
 
             {/* Global Styles for Contact Form - Restored */}
@@ -260,6 +260,21 @@ export const ContactForm = () => {
                 .force-btn-secondary:hover {
                     border-color: #050A14 !important;
                     color: #050A14 !important;
+                }
+                .force-link-btn-style {
+                    display: inline-block !important;
+                    border: 1px solid #C5A065 !important;
+                    color: #C5A065 !important;
+                    padding: 18px 80px !important;
+                    background: transparent !important;
+                    font-weight: bold !important;
+                    text-decoration: none !important;
+                    transition: all 0.3s ease !important;
+                    font-size: 16px !important;
+                }
+                .force-link-btn-style:hover {
+                    background-color: #C5A065 !important;
+                    color: #fff !important;
                 }
             `}</style>
 
@@ -615,12 +630,12 @@ export const ContactForm = () => {
                     transition={{ duration: 0.8 }}
                     className="text-center py-20"
                 >
-                    <h3 className="serif-text text-2xl md:text-3xl text-[#050A14] mb-8">送信完了いたしました</h3>
-                    <p className="text-gray-500 leading-relaxed mb-16 tracking-wide">
+                    <h3 className="serif-text text-2xl md:text-3xl text-[#333] mb-6 font-bold" style={{ fontSize: '24px', marginBottom: '24px' }}>送信完了いたしました</h3>
+                    <p className="text-[#666] leading-relaxed mb-16 tracking-wide" style={{ fontSize: '15px', lineHeight: '1.8', marginBottom: '60px' }}>
                         お問い合わせありがとうございます。<br />
                         担当者より2〜3営業日以内にご連絡させていただきます。
                     </p>
-                    <a href="/" className="inline-block px-12 py-4 border border-[#050A14] text-[#050A14] font-medium tracking-widest hover:bg-[#050A14] hover:text-white transition-all duration-300">
+                    <a href="/" className="force-link-btn-style">
                         トップページへ戻る
                     </a>
                 </motion.div>
