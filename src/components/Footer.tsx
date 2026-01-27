@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 interface FooterProps {
@@ -24,15 +25,13 @@ export const Footer = ({ onPrivacyClick, onTermsClick }: FooterProps) => {
           </div>
           <div className="flex flex-col justify-center items-start md:items-end">
             <p className="text-[#F3E5AB] mb-4 text-lg">お問い合わせはこちら</p>
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSc9AehA1NqD4kngknlIt4_y6LmrvDs8f56_jRUe4o8kh-rGIg/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="btn-slide inline-flex items-center justify-center px-8 py-4 border border-[#D4AF37] text-[#D4AF37] w-full md:w-auto"
             >
               <span className="tracking-widest">CONTACT FORM</span>
               <ArrowRight className="ml-2 w-4 h-4" />
-            </a>
+            </Link>
           </div>
         </div>
 

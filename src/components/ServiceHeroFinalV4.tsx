@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ExternalLink } from 'lucide-react';
 
@@ -34,20 +35,8 @@ export const ServiceHeroFinalV4 = () => {
                 </div>
 
                 {/* CTA Button - Styling via Motion/Inline to ensure application */}
-                <motion.a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSc9AehA1NqD4kngknlIt4_y6LmrvDs8f56_jRUe4o8kh-rGIg/viewform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 30, scale: 1 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    whileHover={{
-                        scale: 1.02,
-                        backgroundColor: '#F3E5AB', // Hover: Fill with Champagne Gold
-                        color: '#050A14', // Hover: Dark Text
-                        boxShadow: "0 0 30px rgba(243, 229, 171, 0.3)", // Soft Gold Glow
-                        borderColor: '#F3E5AB'
-                    }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} // Ultra smooth bezier
+                <Link
+                    to="/contact" // Changed from external Google Form link
                     className="inline-block text-sm md:text-lg font-medium tracking-widest shadow-lg rounded-sm"
                     style={{
                         marginTop: '120px',
@@ -66,9 +55,23 @@ export const ServiceHeroFinalV4 = () => {
                         fontSize: 'clamp(12px, 4vw, 18px)' // Dynamic font size
                     }}
                 >
-                    決算資料のレビューを受ける
-                    <ExternalLink className="w-5 h-5 flex-shrink-0" />
-                </motion.a>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30, scale: 1 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        whileHover={{
+                            scale: 1.02,
+                            backgroundColor: '#F3E5AB',
+                            color: '#050A14',
+                            boxShadow: "0 0 30px rgba(243, 229, 171, 0.3)",
+                        }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="flex items-center gap-2 w-full h-full justify-center"
+                        style={{ width: '100%', height: '100%' }} // Ensure fill
+                    >
+                        決算資料のレビューを受ける
+                        <ExternalLink className="w-5 h-5 flex-shrink-0" />
+                    </motion.div>
+                </Link>
             </div>
         </header>
     );

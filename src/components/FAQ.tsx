@@ -9,6 +9,10 @@ import {
 
 const faqData = [
   {
+    question: '費用感を教えてください。',
+    answer: '支援内容や対象範囲、業務量によって費用は異なるため、まずはお打ち合わせのうえ、個別にお見積もりを提出しています。初回のご相談では、現状や課題感をお伺いしながら、想定される支援内容と費用の目安をご説明いたしますので、お気軽にご相談ください。'
+  },
+  {
     question: '契約前にサンプルを確認することはできますか？',
     answer: 'ご依頼前に、数スライドのサンプル案を作成し、品質をご確認いただけます。'
   },
@@ -72,8 +76,8 @@ export const FAQ = () => {
         >
           <Accordion type="single" collapsible className="w-full">
             {faqData.map((item, index) => (
-              <AccordionItem 
-                key={index} 
+              <AccordionItem
+                key={index}
                 value={`item-${index}`}
                 className="border-b border-gray-100 last:border-0 px-6 md:px-10"
               >
@@ -93,9 +97,9 @@ export const FAQ = () => {
                       A{index + 1}.
                     </span>
                     <div className="text-gray-600 leading-relaxed text-base -ml-14 md:-ml-16 w-full pl-14 md:pl-16">
-                       {/* A. Icon visual alignment hack: keeping the indentation consistent */}
-                       <span className="text-[#D4AF37] font-serif font-bold mr-3">A.</span>
-                       {item.answer}
+                      {/* A. Icon visual alignment hack: keeping the indentation consistent */}
+                      <span className="text-[#D4AF37] font-serif font-bold mr-3">A.</span>
+                      {item.answer}
                     </div>
                   </div>
                 </AccordionContent>

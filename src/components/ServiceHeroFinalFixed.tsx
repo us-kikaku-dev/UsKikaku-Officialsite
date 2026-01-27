@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 export const ServiceHeroFinalFixed = () => {
@@ -40,18 +41,20 @@ export const ServiceHeroFinalFixed = () => {
                 </div>
 
                 {/* CTA Button - Forced Spacing */}
-                <motion.a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSc9AehA1NqD4kngknlIt4_y6LmrvDs8f56_jRUe4o8kh-rGIg/viewform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
+                <Link
+                    to="/contact"
                     className="inline-block border border-[#D4AF37] px-10 py-4 text-[#D4AF37] text-sm md:text-base tracking-widest hover:bg-[#D4AF37] hover:text-[#050A14] transition-colors duration-300"
                     style={{ marginTop: '120px' }} // Explicit inline style to guarantee spacing
                 >
-                    決算資料のレビューを受ける
-                </motion.a>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
+                        className="w-full h-full flex items-center justify-center"
+                    >
+                        決算資料のレビューを受ける
+                    </motion.div>
+                </Link>
             </div>
         </header>
     );

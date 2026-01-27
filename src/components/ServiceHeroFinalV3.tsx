@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 export const ServiceHeroFinalV3 = () => {
@@ -40,19 +41,21 @@ export const ServiceHeroFinalV3 = () => {
                 </div>
 
                 {/* CTA Button - Forced Spacing */}
-                <motion.a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSc9AehA1NqD4kngknlIt4_y6LmrvDs8f56_jRUe4o8kh-rGIg/viewform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
+                <Link
+                    to="/contact"
                     className="inline-block bg-[#F3E5AB] px-10 py-4 text-white text-sm md:text-base tracking-widest shadow-lg hover:shadow-xl hover:bg-[#E6D59B] transition-all duration-300"
                     style={{ marginTop: '120px' }}
                 >
-                    決算資料のレビューを受ける
-                </motion.a>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-full h-full flex items-center justify-center"
+                    >
+                        決算資料のレビューを受ける
+                    </motion.div>
+                </Link>
             </div>
         </header>
     );

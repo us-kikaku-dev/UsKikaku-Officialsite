@@ -13,6 +13,7 @@ import { BlogDetail } from './pages/BlogDetail';
 import { Company } from './pages/Company';
 import { ServicePage } from './pages/Service';
 import { Product } from './pages/Product';
+import { Contact } from './pages/Contact';
 
 export default function App() {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
         <Footer

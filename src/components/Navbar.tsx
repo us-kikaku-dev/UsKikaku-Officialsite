@@ -42,7 +42,7 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled || location.pathname === '/contact'
         ? 'bg-[#050A14]/95 backdrop-blur-md shadow-lg'
         : 'bg-[#050A14]/95 backdrop-blur-md border-b border-[#162A52]'
         }`}
@@ -70,14 +70,12 @@ export const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSc9AehA1NqD4kngknlIt4_y6LmrvDs8f56_jRUe4o8kh-rGIg/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="btn-slide px-6 py-2 border border-[#D4AF37] text-[#D4AF37] text-sm tracking-widest block"
             >
               CONTACT
-            </a>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -106,15 +104,13 @@ export const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSc9AehA1NqD4kngknlIt4_y6LmrvDs8f56_jRUe4o8kh-rGIg/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="block px-3 py-2 text-base font-medium text-[#D4AF37]"
               onClick={() => setIsOpen(false)}
             >
               CONTACT
-            </a>
+            </Link>
           </div>
         </div>
       )}
