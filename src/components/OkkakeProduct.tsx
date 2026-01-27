@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import './OkkakeProduct.css';
@@ -50,17 +50,13 @@ export const OkkakeProduct = () => {
 
                         <div className="w-full">
                             <div className="mb-8 okkake-cta-wrapper">
-                                <a href="https://okkake.me" target="_blank" rel="noopener noreferrer" className="okkake-cta-btn inline-flex items-center justify-center gap-2">
+                                <a href="https://okkake.us-kikaku.com/" target="_blank" rel="noopener noreferrer" className="okkake-cta-btn inline-flex items-center justify-center gap-2">
                                     OKKAKE公式サイトを見る
                                     <ExternalLink className="w-5 h-5 flex-shrink-0" />
                                 </a>
                             </div>
 
-                            <div className="okkake-link-wrapper">
-                                <Link to="/products" className="okkake-link">
-                                    自社開発プロダクト一覧を見る →
-                                </Link>
-                            </div>
+
                         </div>
                     </motion.div>
 

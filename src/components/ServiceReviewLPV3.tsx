@@ -48,7 +48,7 @@ export const ServiceReviewLPV3 = () => {
                             現状の課題を可視化し、構成の違和感やデザインのブラッシュアップをプロの視点でアドバイスします。決算説明資料をより効果的なものに変えましょう。
                         </p>
 
-                        <p className="consulting-description font-medium mb-8" style={{ color: '#800020', textAlign: 'center' }}>
+                        <p className="consulting-description-small font-medium mb-3 text-sm" style={{ color: '#800020', textAlign: 'center' }}>
                             現在の決算説明資料を拝見し、<br />
                             構成や伝え方の観点からレビューします。
                         </p>

@@ -1,7 +1,19 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import HeroImage from '../assets/home-hero.jpg';
 
 export const Hero = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax effects
+  // Background moves slower than scroll (0% -> 50%)
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+
+
   const scrollToMessage = () => {
     const messageSection = document.getElementById('message');
     if (messageSection) {
@@ -11,15 +23,29 @@ export const Hero = () => {
 
   return (
     <header
-      className="relative h-screen flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat bg-scroll md:bg-fixed"
-      style={{
-        backgroundImage:
-          "linear-gradient(to bottom, rgba(5, 10, 20, 0.6), rgba(5, 10, 20, 0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop')",
-      }}
+      ref={ref}
+      className="relative h-screen flex items-center justify-center overflow-hidden bg-[#050A14]"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050A14]/40 via-transparent to-[#050A14]/10"></div>
+      {/* Parallax Background Layer */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{
+          y: backgroundY,
+          backgroundImage: `linear-gradient(to bottom, rgba(5, 10, 20, 0.4), rgba(5, 10, 20, 0.6)), url(${HeroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '120%', // Taller to ensure coverage during scroll
+          top: 0
+        }}
+      />
 
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center justify-center h-full pt-16">
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#050A14]/40 via-transparent to-[#050A14]/10 pointer-events-none"></div>
+
+      {/* Content with Parallax */}
+      <div
+        className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center justify-center h-full pt-16"
+      >
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,7 +54,7 @@ export const Hero = () => {
         >
           IR Consulting Firm
         </motion.p>
-        
+
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

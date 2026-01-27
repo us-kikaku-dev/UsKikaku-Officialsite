@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { client, News } from '../lib/client';
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
 import '../components/LatestNews.css'; // Import shared styles
 
 // Helper to generate mock data
@@ -77,7 +77,7 @@ export const NewsList = () => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${year}/${month}/${day}`;
+        return `${year}.${month}.${day}`;
     };
 
     // Pagination Calculation
@@ -176,6 +176,11 @@ export const NewsList = () => {
                                                     >
                                                         {item.title}
                                                     </h2>
+
+                                                    {/* Arrow Icon for Hover Effect */}
+                                                    <div className="latest-news-arrow">
+                                                        <ArrowRight className="w-5 h-5 text-[#D4AF37]" />
+                                                    </div>
                                                 </div>
                                             </Link>
                                         </li>

@@ -8,55 +8,59 @@
 }
 
 .company-profile-container {
-    max-width: 800px;
-    /* Limited width as requested */
+    max-width: 1000px;
+    /* Expanded to match Members section as requested */
+    width: 100%;
     margin: 0 auto;
     padding: 0 24px;
 }
 
-/* Header styles managed via inline/utility in component based on strict rules, 
-   but we can add helpers here if needed. 
-   Using inline styles for text colors as per previous fix to ensure Gold/Navy.
-*/
-
 .company-profile-table {
     width: 100%;
-    border-collapse: collapse;
     margin-top: 60px;
+    border-top: 1px solid #eee;
+    /* Top border */
 }
 
 .company-profile-row {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    /* Ultra thin gray border */
+    border-bottom: 1px solid #eee;
+    /* Subtle gray border */
     display: flex;
     flex-direction: column;
     padding: 24px 0;
-}
-
-.company-profile-row:first-child {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    align-items: flex-start;
 }
 
 @media (min-width: 768px) {
     .company-profile-row {
         flex-direction: row;
         align-items: flex-start;
-        padding: 24px 0;
+        /* Top align */
+        justify-content: flex-start;
+        /* Left align - CRITICAL FIX */
     }
 }
 
 .company-profile-label {
     width: 100%;
     font-weight: 700;
-    color: #0F172A;
-    /* Navy */
+    /* Bold */
+    letter-spacing: 0.1em;
+    /* Wide tracking */
+    color: #1a1a1a;
+    /* Dark Gray */
     margin-bottom: 8px;
-    font-size: 1rem;
+    font-size: 15px;
+    /* 15px */
+    line-height: 1.8;
 }
 
 @media (min-width: 768px) {
     .company-profile-label {
-        width: 30%;
+        width: 240px;
+        /* Fixed width 240px */
+        flex-shrink: 0;
+        /* Prevent shrinking */
         margin-bottom: 0;
     }
 }
@@ -72,7 +76,9 @@
 
 @media (min-width: 768px) {
     .company-profile-value {
-        width: 70%;
+        flex: 1;
+        /* Take remaining space */
+        width: auto;
     }
 }
 

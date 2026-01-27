@@ -35,7 +35,6 @@ export const Navbar = () => {
   const navLinks = [
     { name: 'COMPANY', href: '/company', type: 'route' },
     { name: 'SERVICE', href: '/service', type: 'route' },
-    { name: 'PRODUCT', href: '/product', type: 'route' },
     { name: 'NEWS', href: '/news', type: 'route' },
     { name: 'BLOG', href: '/blog', type: 'route' },
   ];

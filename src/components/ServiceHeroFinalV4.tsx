@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import { motion } from 'motion/react';
 import { ExternalLink } from 'lucide-react';
+import ServiceHeroImage from '../assets/service-hero.jpg';
 
 export const ServiceHeroFinalV4 = () => {
     return (
@@ -10,7 +11,7 @@ export const ServiceHeroFinalV4 = () => {
             <div
                 className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-scroll md:bg-fixed"
                 style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=2670&auto=format&fit=crop')",
+                    backgroundImage: `url(${ServiceHeroImage})`,
                 }}
             />
 
@@ -35,43 +36,42 @@ export const ServiceHeroFinalV4 = () => {
                 </div>
 
                 {/* CTA Button - Styling via Motion/Inline to ensure application */}
-                <Link
-                    to="/contact" // Changed from external Google Form link
+                <a
+                    href="https://ir.us-kikaku.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-block text-sm md:text-lg font-medium tracking-widest shadow-lg rounded-sm"
                     style={{
                         marginTop: '120px',
-                        backgroundColor: '#050A14', // Base: Dark Navy
-                        color: '#F3E5AB', // Text: Champagne Gold
-                        border: '1px solid #F3E5AB', // Border: Champagne Gold
-                        cursor: 'pointer',
                         textDecoration: 'none',
-                        textShadow: 'none',
-                        padding: '12px 24px', // Reduced padding
-                        whiteSpace: 'nowrap', // Force no wrap
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem',
-                        fontSize: 'clamp(12px, 4vw, 18px)' // Dynamic font size
+                        display: 'inline-block', // Reset to block/inline-block
                     }}
                 >
                     <motion.div
-                        initial={{ opacity: 0, y: 30, scale: 1 }}
+                        initial={{ opacity: 0, y: 30, scale: 1, backgroundColor: '#050A14', borderColor: '#F3E5AB', color: '#F3E5AB' }}
                         animate={{ opacity: 1, y: 0 }}
                         whileHover={{
                             scale: 1.02,
-                            backgroundColor: '#F3E5AB',
-                            color: '#050A14',
-                            boxShadow: "0 0 30px rgba(243, 229, 171, 0.3)",
+                            backgroundColor: '#C5A065',
+                            color: '#FFFFFF',
+                            borderColor: '#C5A065',
+                            fontWeight: 'bold',
+                            boxShadow: "0 0 30px rgba(197, 160, 101, 0.5)",
                         }}
                         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex items-center gap-2 w-full h-full justify-center"
-                        style={{ width: '100%', height: '100%' }} // Ensure fill
+                        className="flex items-center gap-2 justify-center"
+                        style={{
+                            border: '1px solid', // Width handled here, color via motion
+                            padding: '12px 24px',
+                            cursor: 'pointer',
+                            fontSize: 'clamp(12px, 4vw, 18px)',
+                            whiteSpace: 'nowrap'
+                        }}
                     >
                         決算資料のレビューを受ける
                         <ExternalLink className="w-5 h-5 flex-shrink-0" />
                     </motion.div>
-                </Link>
+                </a>
             </div>
         </header>
     );

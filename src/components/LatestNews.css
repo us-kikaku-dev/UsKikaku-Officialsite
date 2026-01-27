@@ -130,3 +130,17 @@
   color: #ffffff;
   /* White text on hover */
 }
+
+/* Arrow Animation */
+.latest-news-arrow {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.latest-news-link:hover .latest-news-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}

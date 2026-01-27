@@ -50,13 +50,15 @@
 .blog-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
-    /* gap-8 */
+    gap: 5rem;
+    /* gap-20 mobile increased */
 }
 
 @media (min-width: 768px) {
     .blog-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+        /* gap-16 desktop */
     }
 }
 

@@ -9,3 +9,6 @@ interface ImportMetaEnv {
     readonly VITE_RECAPTCHA_SITE_KEY: string
 }
 
+declare module '*.jpg';
+declare module '*.png';
+declare module '*.svg';

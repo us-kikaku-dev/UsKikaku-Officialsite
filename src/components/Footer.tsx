@@ -36,7 +36,7 @@ export const Footer = ({ onPrivacyClick, onTermsClick }: FooterProps) => {
         </div>
 
         <div className="border-t border-[#0B1C3D] pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 font-light">
-          <p>&copy; 2023 U's Planning Inc. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} U's Planning Inc. All Rights Reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <button
               onClick={onPrivacyClick}

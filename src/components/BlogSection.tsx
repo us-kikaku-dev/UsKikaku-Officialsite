@@ -123,6 +123,8 @@ export const BlogSection = () => {
                                                 src={post.thumbnail.url}
                                                 alt={post.title}
                                                 className="blog-card-image"
+                                                width={post.thumbnail.width || 800}
+                                                height={post.thumbnail.height || 600}
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">

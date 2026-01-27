@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import './ConsultingService.css';
+import ConsultingImage from '../assets/home-hero.jpg';
 
 export const ConsultingService = () => {
     return (
@@ -22,7 +23,7 @@ export const ConsultingService = () => {
                             // Unsplash image: Modern office / Architecture. 
                             // Keywords: office, architecture, glass, building, minimal
                             // specific ID or similar
-                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop"
+                            src={ConsultingImage}
                             alt="IR Consulting Office Environment"
                             className="consulting-image"
                         />
@@ -52,10 +53,15 @@ export const ConsultingService = () => {
 
                         <div className="w-full">
                             <div className="mb-8 consulting-cta-wrapper">
-                                <Link to="/contact" className="consulting-cta-btn inline-flex items-center justify-center gap-2">
+                                <a
+                                    href="https://ir.us-kikaku.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="consulting-cta-btn inline-flex items-center justify-center gap-2"
+                                >
                                     決算資料のレビューを受ける
                                     <ExternalLink className="w-5 h-5 flex-shrink-0" />
-                                </Link>
+                                </a>
                             </div>
 
                             <div className="consulting-link-wrapper">
