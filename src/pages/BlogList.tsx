@@ -119,8 +119,20 @@ export const BlogList = () => {
                     {/* Blog Grid */}
                     <div>
                         {loading ? (
-                            <div className="flex justify-center py-20">
-                                <span className="text-gray-400">Loading...</span>
+                            <div className="blog-grid min-h-[600px]">
+                                {Array.from({ length: 6 }).map((_, i) => (
+                                    <div key={i} className="blog-card animate-pulse">
+                                        <div className="blog-card-image-wrapper bg-gray-200"></div>
+                                        <div className="blog-card-meta mt-4">
+                                            <div className="h-3 w-20 bg-gray-200 rounded"></div>
+                                            <div className="h-3 w-16 bg-gray-200 rounded ml-auto"></div>
+                                        </div>
+                                        <div className="space-y-2 mt-3">
+                                            <div className="h-5 bg-gray-200 rounded w-full"></div>
+                                            <div className="h-5 bg-gray-200 rounded w-2/3"></div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         ) : (
                             <>

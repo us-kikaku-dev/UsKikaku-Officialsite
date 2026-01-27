@@ -137,9 +137,24 @@ export const NewsList = () => {
 
                     <div>
                         {loading ? (
-                            <div className="flex justify-center py-20">
-                                <span className="text-gray-400">Loading...</span>
-                            </div>
+                            <ul className="space-y-0 min-h-[500px]">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <li key={i} className="latest-news-item animate-pulse">
+                                        <div className="latest-news-link" style={{ pointerEvents: 'none' }}>
+                                            <div className="latest-news-content-wrapper">
+                                                <div className="flex items-center gap-4" style={{ width: '280px', flexShrink: 0 }}>
+                                                    <div className="h-4 w-20 bg-gray-200 rounded"></div>
+                                                    <div className="h-6 w-24 bg-gray-200 rounded"></div>
+                                                </div>
+                                                <div className="flex-1 space-y-2">
+                                                    <div className="h-5 bg-gray-200 rounded w-3/4"></div>
+                                                    <div className="h-5 bg-gray-200 rounded w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
                         ) : (
                             <>
                                 <ul className="space-y-0 min-h-[500px]">
