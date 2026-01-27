@@ -8,9 +8,24 @@ export const AboutOkkake = () => {
     return (
         <section className="relative py-48 md:py-80 overflow-hidden bg-fun-yellow" id="about-okkake">
             <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    {/* Left Column: Text */}
-                    <div>
+                <div className="flex flex-col gap-12 lg:grid lg:grid-cols-2 lg:gap-20 items-center">
+
+                    {/* Visual (Mobile: 1st, Desktop: 2nd) */}
+                    <div className="relative w-full lg:order-2">
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                            <img
+                                src={AboutOkkakeVisual}
+                                alt="OKKAKE App Experience"
+                                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                            />
+                        </div>
+                        {/* Decorative elements */}
+                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+                    </div>
+
+                    {/* Text (Mobile: 2nd, Desktop: 1st) */}
+                    <div className="w-full lg:order-1">
                         <div className="mb-16">
                             <span className="about-label font-outfit uppercase mb-4">
                                 ABOUT OKKAKE
@@ -56,26 +71,11 @@ export const AboutOkkake = () => {
                             </li>
                         </ul>
 
-                        <div className="mt-24 text-center md:text-left">
+                        <div className="mt-24 flex justify-center md:justify-start">
                             <OkkakeCTA />
                         </div>
-
-
                     </div>
 
-                    {/* Right Column: Visual */}
-                    <div className="relative">
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                            <img
-                                src={AboutOkkakeVisual}
-                                alt="OKKAKE App Experience"
-                                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
-                            />
-                        </div>
-                        {/* Decorative elements */}
-                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-                    </div>
                 </div>
             </div>
         </section>

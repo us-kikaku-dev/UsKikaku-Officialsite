@@ -108,7 +108,10 @@
 }
 
 .okkake-cta-btn {
-    display: inline-block;
+    display: inline-flex;
+    /* Changed for icon alignment */
+    align-items: center;
+    justify-content: center;
     padding: 1rem 3rem;
     border: 1px solid #C89498;
     /* Dusty Pink / Rose Gold */
@@ -121,12 +124,25 @@
     letter-spacing: 0.05em;
     border-radius: 0;
     /* Match layout */
+    white-space: nowrap;
+    /* Prevent wrapping */
 }
 
 .okkake-cta-btn:hover {
     background-color: #C89498;
     color: #ffffff;
     /* White text on hover */
+}
+
+@media (max-width: 480px) {
+    .okkake-cta-btn {
+        padding: 0.8rem 1rem;
+        /* Significantly reduced padding for mobile */
+        font-size: clamp(0.7rem, 3.5vw, 1rem);
+        /* Auto-scale font */
+        width: auto;
+        max-width: 100%;
+    }
 }
 
 /* Text Link */

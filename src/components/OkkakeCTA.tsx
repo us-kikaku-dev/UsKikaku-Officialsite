@@ -35,12 +35,26 @@ export const OkkakeCTA = () => {
                     transform: translateY(6px) scale(0.95);
                     color: #FFFFFF !important;
                 }
+                
+                /* Mobile Override */
+                @media (max-width: 480px) {
+                    .okkake-cta-btn {
+                        width: auto !important;
+                        max-width: 90% !important;
+                        white-space: nowrap !important;
+                        padding: 12px 10px !important;
+                        font-size: clamp(11px, 3.8vw, 15px) !important;
+                        box-sizing: border-box !important;
+                        height: auto !important;
+                        line-height: 1.5 !important;
+                    }
+                }
             `}</style>
             <a
                 href="https://okkake.us-kikaku.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="okkake-cta-btn inline-flex flex-nowrap items-center justify-center gap-2 text-white px-6 py-4 text-lg font-extrabold whitespace-nowrap"
+                className="okkake-cta-btn inline-flex flex-nowrap items-center justify-center gap-2 text-white px-5 py-3 md:px-6 md:py-4 text-base md:text-lg font-extrabold whitespace-nowrap"
             >
                 OKKAKEのサービスサイトを見る
                 <ExternalLink className="w-5 h-5 flex-shrink-0" />

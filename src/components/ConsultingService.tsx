@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ExternalLink } from 'lucide-react';
 import './ConsultingService.css';
 
 export const ConsultingService = () => {
@@ -51,8 +52,9 @@ export const ConsultingService = () => {
 
                         <div className="w-full">
                             <div className="mb-8 consulting-cta-wrapper">
-                                <Link to="/contact" className="consulting-cta-btn">
+                                <Link to="/contact" className="consulting-cta-btn inline-flex items-center justify-center gap-2">
                                     決算資料のレビューを受ける
+                                    <ExternalLink className="w-5 h-5 flex-shrink-0" />
                                 </Link>
                             </div>
 

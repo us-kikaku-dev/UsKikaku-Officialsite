@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { ExternalLink } from 'lucide-react';
 import ServiceReviewImage from '../assets/service-review-meeting.jpg';
 import './ConsultingService.css';
 
@@ -58,9 +59,10 @@ export const ServiceReviewLPV3 = () => {
                                     href="https://ir.us-kikaku.com/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="consulting-cta-btn"
+                                    className="consulting-cta-btn inline-flex items-center justify-center gap-2"
                                 >
                                     決算資料のレビューを受ける
+                                    <ExternalLink className="w-5 h-5 flex-shrink-0" />
                                 </a>
                             </div>
                         </div>

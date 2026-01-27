@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { ExternalLink } from 'lucide-react';
 
 export const ServiceHeroFinalV4 = () => {
     return (
@@ -56,12 +57,17 @@ export const ServiceHeroFinalV4 = () => {
                         cursor: 'pointer',
                         textDecoration: 'none',
                         textShadow: 'none',
-                        padding: '16px 32px', // Default mobile-friendly padding
+                        padding: '12px 24px', // Reduced padding
                         whiteSpace: 'nowrap', // Force no wrap
-                        display: 'inline-block'
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        fontSize: 'clamp(12px, 4vw, 18px)' // Dynamic font size
                     }}
                 >
                     決算資料のレビューを受ける
+                    <ExternalLink className="w-5 h-5 flex-shrink-0" />
                 </motion.a>
             </div>
         </header>
