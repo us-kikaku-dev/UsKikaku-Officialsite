@@ -16,15 +16,15 @@ export type Blog = {
     revisedAt: string;
     title: string;
     content: string;
-    eyecatch?: {
+    date?: string; // 公開日
+    business_type?: string[]; // セレクトフィールド (複数選択の可能性も考慮して配列)
+    tag?: string[]; // タグ (複数選択の可能性も考慮して配列)
+    thumbnail?: {
         url: string;
         height: number;
         width: number;
     };
-    category?: {
-        id: string;
-        name: string;
-    };
+    description?: string;
 };
 
 export type News = {
@@ -34,9 +34,13 @@ export type News = {
     publishedAt: string;
     revisedAt: string;
     title: string;
-    content: string; // HTML content or could be just text depending on schema
-    category?: {
-        id: string;
-        name: string;
+    date: string; // 投稿日
+    business_type: string[]; // 事業種別：セレクトフィールド（IRコンサルティング、プロダクト、コーポレート、その他）
+    category: string[]; // カテゴリ：セレクトフィールド（お知らせ、プレスリリース、イベント・セミナー、メディア掲載、実績・事例公開、IR更新、採用情報）
+    image?: {
+        url: string;
+        height: number;
+        width: number;
     };
+    content: string; // 本文：リッチエディター
 };

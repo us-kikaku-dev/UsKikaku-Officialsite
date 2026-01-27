@@ -7,7 +7,9 @@ import { TermsModal } from './components/TermsModal';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Home } from './pages/Home';
 import { NewsList } from './pages/NewsList';
+import { NewsDetail } from './pages/NewsDetail';
 import { BlogList } from './pages/BlogList';
+import { BlogDetail } from './pages/BlogDetail';
 import { Company } from './pages/Company';
 import { ServicePage } from './pages/Service';
 import { Product } from './pages/Product';
@@ -28,7 +30,9 @@ export default function App() {
             <Route path="/service" element={<ServicePage />} />
             <Route path="/product" element={<Product />} />
             <Route path="/news" element={<NewsList />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
           </Routes>
         </main>
         <Footer

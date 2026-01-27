@@ -14,7 +14,9 @@ const MOCK_NEWS: News[] = [
         revisedAt: '2024-01-01T10:00:00.000Z',
         title: 'Webサイトをリニューアルいたしました',
         content: '<p>公式サイトをリニューアルいたしました。今後ともよろしくお願いいたします。</p>',
-        category: { id: 'info', name: 'お知らせ' }
+        date: '2024-01-01T10:00:00.000Z',
+        business_type: ['コーポレート'],
+        category: ['お知らせ']
     },
     {
         id: '2',
@@ -24,7 +26,9 @@ const MOCK_NEWS: News[] = [
         revisedAt: '2023-12-15T10:00:00.000Z',
         title: '年末年始休業のお知らせ',
         content: '<p>誠に勝手ながら、12月29日から1月4日まで休業とさせていただきます。</p>',
-        category: { id: 'info', name: 'お知らせ' }
+        date: '2023-12-15T10:00:00.000Z',
+        business_type: ['コーポレート'],
+        category: ['お知らせ']
     }
 ];
 
@@ -90,22 +94,40 @@ export const LatestNews = () => {
                                 {news.map((item) => (
                                     <li key={item.id} className="latest-news-item">
                                         <Link
-                                            to="/news"
+                                            to={`/news/${item.id}`}
                                             className="group block latest-news-link"
                                         >
                                             <div className="latest-news-content-wrapper">
                                                 {/* Meta Info: Date & Category */}
-                                                <div className="flex items-center gap-4 min-w-[220px]">
+                                                <div className="flex items-center gap-4" style={{ width: '280px', flexShrink: 0 }}>
                                                     <time className="text-sm font-medium whitespace-nowrap latest-news-date">
-                                                        {formatDate(item.publishedAt)}
+                                                        {formatDate(item.date || item.publishedAt)}
                                                     </time>
-                                                    <span className="inline-block px-4 py-1 text-xs tracking-wider whitespace-nowrap latest-news-category">
-                                                        {item.category?.name || 'お知らせ'}
-                                                    </span>
+                                                    <div className="flex gap-2">
+                                                        {item.category && item.category.length > 0 ? (
+                                                            item.category.map((cat, index) => (
+                                                                <span key={index} className="inline-block px-4 py-1 text-xs tracking-wider whitespace-nowrap latest-news-category">
+                                                                    {cat}
+                                                                </span>
+                                                            ))
+                                                        ) : (
+                                                            <span className="inline-block px-4 py-1 text-xs tracking-wider whitespace-nowrap latest-news-category">
+                                                                お知らせ
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                 </div>
 
                                                 {/* Title */}
-                                                <h3 className="text-lg font-medium latest-news-item-title flex-1 line-clamp-1 md:line-clamp-none">
+                                                <h3
+                                                    className="text-lg font-medium latest-news-item-title flex-1"
+                                                    style={{
+                                                        display: '-webkit-box',
+                                                        WebkitLineClamp: 2,
+                                                        WebkitBoxOrient: 'vertical',
+                                                        overflow: 'hidden'
+                                                    }}
+                                                >
                                                     {item.title}
                                                 </h3>
                                             </div>

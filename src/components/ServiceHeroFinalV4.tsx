@@ -47,7 +47,7 @@ export const ServiceHeroFinalV4 = () => {
                         borderColor: '#F3E5AB'
                     }}
                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} // Ultra smooth bezier
-                    className="inline-block text-sm md:text-lg font-medium tracking-widest shadow-lg rounded-sm whitespace-nowrap"
+                    className="inline-block text-sm md:text-lg font-medium tracking-widest shadow-lg rounded-sm"
                     style={{
                         marginTop: '120px',
                         backgroundColor: '#050A14', // Base: Dark Navy
@@ -56,7 +56,9 @@ export const ServiceHeroFinalV4 = () => {
                         cursor: 'pointer',
                         textDecoration: 'none',
                         textShadow: 'none',
-                        padding: '20px 100px' // Forced padding
+                        padding: '16px 32px', // Default mobile-friendly padding
+                        whiteSpace: 'nowrap', // Force no wrap
+                        display: 'inline-block'
                     }}
                 >
                     決算資料のレビューを受ける

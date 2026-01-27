@@ -14,8 +14,9 @@ const MOCK_BLOGS: Blog[] = [
         revisedAt: '2024-01-20T10:00:00.000Z',
         title: '決算説明資料作成のポイント',
         content: '<p>本文...</p>',
-        category: { id: 'tips', name: 'Tips' },
-        eyecatch: {
+        date: '2024-01-20T10:00:00.000Z',
+        business_type: ['Tips'],
+        thumbnail: {
             url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
             height: 600,
             width: 800
@@ -29,8 +30,9 @@ const MOCK_BLOGS: Blog[] = [
         revisedAt: '2024-01-15T10:00:00.000Z',
         title: 'IRサイトのトレンド2024',
         content: '<p>本文...</p>',
-        category: { id: 'trend', name: 'トレンド' },
-        eyecatch: {
+        date: '2024-01-15T10:00:00.000Z',
+        business_type: ['トレンド'],
+        thumbnail: {
             url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop',
             height: 600,
             width: 800
@@ -44,8 +46,9 @@ const MOCK_BLOGS: Blog[] = [
         revisedAt: '2024-01-10T10:00:00.000Z',
         title: '投資家との対話を深めるために',
         content: '<p>本文...</p>',
-        category: { id: 'communication', name: 'コミュニケーション' },
-        eyecatch: {
+        date: '2024-01-10T10:00:00.000Z',
+        business_type: ['コミュニケーション'],
+        thumbnail: {
             url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2664&auto=format&fit=crop',
             height: 600,
             width: 800
@@ -67,7 +70,7 @@ export const BlogSection = () => {
             }
 
             try {
-                const data = await client.get({ endpoint: 'blogs', queries: { limit: 3 } });
+                const data = await client.get({ endpoint: 'blog', queries: { limit: 3 } });
                 setBlogs(data.contents);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
@@ -115,9 +118,9 @@ export const BlogSection = () => {
                             blogs.map((post) => (
                                 <Link to={`/blog/${post.id}`} key={post.id} className="blog-card group">
                                     <div className="blog-card-image-wrapper">
-                                        {post.eyecatch ? (
+                                        {post.thumbnail ? (
                                             <img
-                                                src={post.eyecatch.url}
+                                                src={post.thumbnail.url}
                                                 alt={post.title}
                                                 className="blog-card-image"
                                             />
@@ -129,10 +132,11 @@ export const BlogSection = () => {
                                     </div>
                                     <div className="blog-card-meta">
                                         <time className="blog-card-date">
-                                            {formatDate(post.publishedAt)}
+                                            {post.date ? formatDate(post.date) : formatDate(post.publishedAt)}
                                         </time>
                                         <span className="blog-card-category">
-                                            {post.category?.name || 'Blog'}
+                                            {/* Display tag or business_type */}
+                                            {post.business_type && post.business_type.length > 0 ? post.business_type[0] : (post.tag && post.tag.length > 0 ? post.tag[0] : 'Blog')}
                                         </span>
                                     </div>
                                     <h3 className="blog-card-title">

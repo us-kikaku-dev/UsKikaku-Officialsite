@@ -15,8 +15,10 @@ const generateMockBlogs = (count: number): Blog[] => {
         revisedAt: new Date().toISOString(),
         title: `ブログ記事タイトル ${i + 1} - 投資家との対話を深めるために`,
         content: '<p>詳細内容...</p>',
-        category: { id: 'tips', name: i % 2 === 0 ? 'Tips' : 'トレンド' },
-        eyecatch: {
+        date: new Date(2024, 0, 25 - i).toISOString(),
+        business_type: i % 2 === 0 ? ['Tips'] : ['トレンド'], // string[]
+        tag: ['戦略', 'デザイン'], // string[]
+        thumbnail: {
             url: `https://images.unsplash.com/photo-${1550000000000 + i}?q=80&w=800&auto=format&fit=crop`,
             height: 600,
             width: 800
@@ -126,9 +128,9 @@ export const BlogList = () => {
                                     {blogs.map((post) => (
                                         <Link to={`/blog/${post.id}`} key={post.id} className="blog-card group">
                                             <div className="blog-card-image-wrapper">
-                                                {post.eyecatch ? (
+                                                {post.thumbnail ? (
                                                     <img
-                                                        src={post.eyecatch.url}
+                                                        src={post.thumbnail.url}
                                                         alt={post.title}
                                                         className="blog-card-image"
                                                     />
@@ -140,10 +142,11 @@ export const BlogList = () => {
                                             </div>
                                             <div className="blog-card-meta">
                                                 <time className="blog-card-date">
-                                                    {formatDate(post.publishedAt)}
+                                                    {post.date ? formatDate(post.date) : formatDate(post.publishedAt)}
                                                 </time>
                                                 <span className="blog-card-category">
-                                                    {post.category?.name || 'Blog'}
+                                                    {/* Display tag or business_type as category */}
+                                                    {post.business_type && post.business_type.length > 0 ? post.business_type[0] : (post.tag && post.tag.length > 0 ? post.tag[0] : 'Blog')}
                                                 </span>
                                             </div>
                                             <h3 className="blog-card-title">

@@ -53,7 +53,7 @@
     border-radius: 0;
     /* Sharp corners as requested */
     /* Desaturated, cool tone filter */
-    filter: grayscale(30%) sepia(10%) hue-rotate(180deg) contrast(95%);
+    /* filter: grayscale(30%) sepia(10%) hue-rotate(180deg) contrast(95%); */
 }
 
 /* Right Column: Content */
@@ -101,7 +101,7 @@
 
 @media (min-width: 900px) {
     .consulting-cta-wrapper {
-        align-items: flex-start;
+        align-items: center;
     }
 }
 

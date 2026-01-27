@@ -103,7 +103,7 @@
 
 @media (min-width: 900px) {
     .okkake-cta-wrapper {
-        align-items: flex-start;
+        align-items: center;
     }
 }
 

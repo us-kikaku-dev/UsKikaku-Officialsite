@@ -20,18 +20,7 @@ export const Footer = ({ onPrivacyClick, onTermsClick }: FooterProps) => {
               IR Consulting Firm
             </p>
 
-            <div>
-              <p className="text-[#F3E5AB] text-sm tracking-widest uppercase mb-3 font-medium">Our Product</p>
-              <a 
-                href="https://okkake.us-kikaku.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-[#D4AF37] transition-colors inline-flex items-center gap-2 group"
-              >
-                okkake
-                <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-              </a>
-            </div>
+
           </div>
           <div className="flex flex-col justify-center items-start md:items-end">
             <p className="text-[#F3E5AB] mb-4 text-lg">お問い合わせはこちら</p>

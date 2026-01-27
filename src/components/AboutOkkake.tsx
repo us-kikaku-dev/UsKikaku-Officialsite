@@ -56,7 +56,7 @@ export const AboutOkkake = () => {
                             </li>
                         </ul>
 
-                        <div className="mt-24">
+                        <div className="mt-24 text-center md:text-left">
                             <OkkakeCTA />
                         </div>
 

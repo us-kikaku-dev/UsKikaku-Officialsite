@@ -15,7 +15,9 @@ const generateMockNews = (count: number): News[] => {
         revisedAt: new Date().toISOString(),
         title: `ニュース記事タイトル ${i + 1} - 公式サイトを更新しました`,
         content: '<p>詳細内容...</p>',
-        category: { id: 'info', name: i % 3 === 0 ? 'プレスリリース' : 'お知らせ' }
+        date: new Date(2024, 0, 25 - i).toISOString(),
+        business_type: ['お知らせ'],
+        category: i % 3 === 0 ? ['プレスリリース'] : ['お知らせ']
     }));
 };
 
@@ -82,18 +84,8 @@ export const NewsList = () => {
     const totalPages = Math.ceil(totalCount / PER_PAGE);
 
     // Generate page numbers to display
-    // Rule: Show all if small? Or truncate? Request implies truncation "①②③・・・⑧"
     const getPageNumbers = () => {
         if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
-
-        // Simple hydration for large pages: 1, 2, 3 ... Last
-        // If current is near start: 1, 2, 3, 4 ... Last
-        // If current is near end: 1 ... 7, 8, 9
-        // A simple version based on request "①②③・・・⑧" (Example showing start ... end)
-        // Let's implement: Always 1, 2, 3 ... LastPage
-        // Or if current > 3?
-        // Let's stick to a standard responsive pagination or the specific request pattern.
-        // User pattern: 1 2 3 ... 8.
 
         const pages: (number | string)[] = [];
 
@@ -110,14 +102,6 @@ export const NewsList = () => {
             pages.push('...');
             pages.push(totalPages);
         }
-
-        // This is static logic matching "①②③・・・⑧". 
-        // Real logic should probably adapt to current page, but for now let's match the visual hint.
-
-        // BETTER LOGIC:
-        // 1, 2, 3, ..., Last
-        // If current is 5: 1 ... 4 5 6 ... Last
-        // Let's assume standard behavior is best.
 
         return pages;
     };
@@ -161,21 +145,39 @@ export const NewsList = () => {
                                 <ul className="space-y-0 min-h-[500px]">
                                     {news.map((item) => (
                                         <li key={item.id} className="latest-news-item">
-                                            <div className="latest-news-link cursor-default group">
+                                            <Link to={`/news/${item.id}`} className="latest-news-link cursor-pointer group">
                                                 <div className="latest-news-content-wrapper">
-                                                    <div className="flex items-center gap-4 min-w-[220px]">
+                                                    <div className="flex items-center gap-4" style={{ width: '280px', flexShrink: 0 }}>
                                                         <time className="text-sm font-medium whitespace-nowrap latest-news-date">
-                                                            {formatDate(item.publishedAt)}
+                                                            {formatDate(item.date || item.publishedAt)}
                                                         </time>
-                                                        <span className="inline-block px-4 py-1 text-xs tracking-wider whitespace-nowrap latest-news-category">
-                                                            {item.category?.name || 'お知らせ'}
-                                                        </span>
+                                                        <div className="flex gap-2">
+                                                            {item.category && item.category.length > 0 ? (
+                                                                item.category.map((cat, index) => (
+                                                                    <span key={index} className="inline-block px-4 py-1 text-xs tracking-wider whitespace-nowrap latest-news-category">
+                                                                        {cat}
+                                                                    </span>
+                                                                ))
+                                                            ) : (
+                                                                <span className="inline-block px-4 py-1 text-xs tracking-wider whitespace-nowrap latest-news-category">
+                                                                    お知らせ
+                                                                </span>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    <h2 className="text-lg font-medium latest-news-item-title flex-1 line-clamp-1 md:line-clamp-none">
+                                                    <h2
+                                                        className="text-lg font-medium latest-news-item-title flex-1"
+                                                        style={{
+                                                            display: '-webkit-box',
+                                                            WebkitLineClamp: 2,
+                                                            WebkitBoxOrient: 'vertical',
+                                                            overflow: 'hidden'
+                                                        }}
+                                                    >
                                                         {item.title}
                                                     </h2>
                                                 </div>
-                                            </div>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
