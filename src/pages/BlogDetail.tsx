@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { client, Blog } from '../lib/client';
 import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
+import '../RichText.css';
 
 export const BlogDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -201,7 +202,7 @@ export const BlogDetail = () => {
 
                     {/* Content */}
                     <div
-                        className="prose prose-lg max-w-none text-gray-700 leading-8 space-y-8 [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:mt-12 [&>h2]:mb-6 [&>h2]:pb-2 [&>h2]:border-b [&>h3]:text-xl [&>h3]:font-bold [&>h3]:mt-10 [&>h3]:mb-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ol]:list-decimal [&>ol]:pl-6 [&>a]:text-[#998438] [&>a]:underline hover:[&>a]:no-underline [&>blockquote]:border-l-4 [&>blockquote]:border-gray-200 [&>blockquote]:pl-6 [&>blockquote]:italic [&>img]:rounded-xl"
+                        className="rich-text-content prose prose-lg max-w-none text-gray-700 leading-8"
                         dangerouslySetInnerHTML={{ __html: blog.content }}
                     />
 

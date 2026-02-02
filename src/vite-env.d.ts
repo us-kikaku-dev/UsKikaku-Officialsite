@@ -8,7 +8,9 @@ interface ImportMetaEnv {
     readonly VITE_EMAILJS_PUBLIC_KEY: string
     readonly VITE_RECAPTCHA_SITE_KEY: string
 }
-
+interface ImportMeta {
+    readonly env: ImportMetaEnv
+}
 declare module '*.jpg';
 declare module '*.png';
 declare module '*.svg';
