@@ -145,7 +145,7 @@ export const BlogDetail = () => {
                 {blog.thumbnail && <meta name="twitter:image" content={blog.thumbnail.url} />}
             </Helmet>
 
-            <article className="max-w-3xl mx-auto px-5 lg:px-8">
+            <article className="max-w-3xl mx-auto px-6 md:px-8 lg:px-12">
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
