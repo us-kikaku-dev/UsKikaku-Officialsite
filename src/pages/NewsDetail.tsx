@@ -166,7 +166,7 @@ export const NewsDetail = () => {
 
                     {/* Thumbnail/Image */}
                     {news.image && (
-                        <div className="mb-12 w-full overflow-hidden rounded-xl shadow-sm">
+                        <div className="mb-12 w-full overflow-hidden rounded-xl">
                             <img
                                 src={news.image.url}
                                 alt={news.title}

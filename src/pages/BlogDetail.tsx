@@ -174,7 +174,7 @@ export const BlogDetail = () => {
 
                     {/* Thumbnail */}
                     {blog.thumbnail && (
-                        <div className="mb-8 w-full overflow-hidden rounded-xl shadow-sm">
+                        <div className="mb-8 w-full overflow-hidden rounded-xl">
                             <img
                                 src={blog.thumbnail.url}
                                 alt={blog.title}
