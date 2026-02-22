@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown } from 'lucide-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 
 export const Members = () => {
-  const [isActivitiesOpen, setIsActivitiesOpen] = useState(false);
-
   return (
     <section id="member" className="py-24 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,59 +54,13 @@ export const Members = () => {
                 金融文筆家。北海道出身。1979年生まれ。中央大学文学部史学科日本史学科卒業。新光証券（現みずほ証券）やシティバンクなどを経て、金融情報会社に入社。アナリスト業務やコンプライアンス業務、グループの暗号資産交換業者や証券会社の経営に従事。IFTA国際検定テクニカルアナリスト3次資格（MFTA®）を保有。酒と古地図と歴史をこよなく愛する。ラジオNIKKEIのパーソナリティを務めるほか、楽天証券投資情報メディアトウシルやAllAboutに記事を掲載。
               </div>
 
-              {/* Activities Toggle */}
-              <div className="max-w-3xl">
-                <button
-                  onClick={() => setIsActivitiesOpen(!isActivitiesOpen)}
-                  className="flex items-center gap-2 text-[#0B1C3D] hover:text-[#998438] transition-colors text-sm font-medium group/btn outline-none"
+              <div className="max-w-3xl mt-4">
+                <Link
+                  to="/tashiro"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-[#0B1C3D] hover:text-[#998438] transition-colors border-b border-transparent hover:border-[#998438]"
                 >
-                  <span className="border-b border-transparent group-hover/btn:border-[#998438] transition-all">
-                    {isActivitiesOpen ? '活動実績を閉じる' : '活動実績を見る'}
-                  </span>
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-300 ${isActivitiesOpen ? 'rotate-180' : ''}`}
-                  />
-                </button>
-
-                <AnimatePresence>
-                  {isActivitiesOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-6 space-y-5">
-                        <div className="text-sm text-gray-600 leading-relaxed">
-                          <p className="font-medium text-[#0B1C3D] mb-1">ラジオNIKKEI「マーケットプレス」</p>
-                          <p className="mb-1">毎週火・水 12:30–14:30 に出演し、市場動向や企業分析を解説しています。</p>
-                          <a
-                            href="https://www.radionikkei.jp/personality/personality/masayukitashiro.html"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#D4AF37] hover:text-[#B89530] hover:underline transition-colors inline-flex items-center text-xs mt-0.5"
-                          >
-                            → 番組ページを見る
-                          </a>
-                        </div>
-
-                        <div className="text-sm text-gray-600 leading-relaxed">
-                          <p className="font-medium text-[#0B1C3D] mb-1">楽天証券トウシル</p>
-                          <p className="mb-1">「田代くん注目！気になる5銘柄」を連載し、決算ポイントやKPI分析を発信しています。</p>
-                          <a
-                            href="https://media.rakuten-sec.net/list/authors/article?author_name=%E7%94%B0%E4%BB%A3+%E6%98%8C%E4%B9%8B"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#D4AF37] hover:text-[#B89530] hover:underline transition-colors inline-flex items-center text-xs mt-0.5"
-                          >
-                            → 連載を見る
-                          </a>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  プロフィールを見る →
+                </Link>
               </div>
             </div>
           </motion.div>

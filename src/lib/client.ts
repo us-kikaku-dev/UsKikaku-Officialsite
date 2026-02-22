@@ -27,6 +27,24 @@ export type Blog = {
     description?: string;
 };
 
+export type TashiroArticle = {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    revisedAt: string;
+    title: string;
+    media: string;
+    date: string;
+    image?: {
+        url: string;
+        height: number;
+        width: number;
+    };
+    url: string;
+    category?: string[];
+};
+
 export type News = {
     id: string;
     createdAt: string;

@@ -16,6 +16,8 @@ const Company = lazy(() => import('./pages/Company').then(module => ({ default: 
 const ServicePage = lazy(() => import('./pages/Service').then(module => ({ default: module.ServicePage })));
 const Product = lazy(() => import('./pages/Product').then(module => ({ default: module.Product })));
 const Contact = lazy(() => import('./pages/Contact').then(module => ({ default: module.Contact })));
+const Tashiro = lazy(() => import('./pages/Tashiro').then(module => ({ default: module.Tashiro })));
+const TashiroArticles = lazy(() => import('./pages/TashiroArticles').then(module => ({ default: module.TashiroArticles })));
 const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
 
 // Loading Component
@@ -46,6 +48,8 @@ export default function App() {
               <Route path="/blog" element={<BlogList />} />
               <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/tashiro" element={<Tashiro />} />
+              <Route path="/tashiro/articles" element={<TashiroArticles />} />
               {/* 404 Route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
