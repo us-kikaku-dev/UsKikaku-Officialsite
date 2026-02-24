@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ExternalLink } from 'lucide-react';
 import { client, TashiroArticle } from '../lib/client';
-import tashiroProfile from '../assets/tashiro-profile.png';
+import tashiroProfile from '../assets/tashiro-profile.webp';
 
 const MEDIA_PROGRAM_URL = 'https://www.radionikkei.jp/personality/personality/masayukitashiro.html';
 const X_PROFILE_URL = 'https://x.com/crypto_fin256?s=21';
