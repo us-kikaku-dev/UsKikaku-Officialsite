@@ -113,7 +113,7 @@ export const Tashiro = () => {
         <title>田代 昌之 | U's企画</title>
         <meta
           name="description"
-          content="金融文筆家 田代昌之の公式プロフィール。ラジオNIKKEI「マーケットプレス」パーソナリティ。上場企業のIR支援と市場解説を専門とする。"
+          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケットプレス」パーソナリティ。年間5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
         />
       </Helmet>
 
@@ -129,7 +129,7 @@ export const Tashiro = () => {
                     className="font-medium tracking-wide text-sm mb-2"
                     style={{ color: '#64748b' }}
                   >
-                    ラジオNIKKEI パーソナリティ / U's企画 執行役員
+                    U's企画 執行役員 / ラジオNIKKEI パーソナリティ
                   </span>
                   <h1
                     className="font-bold tracking-tight lg:text-7xl"
@@ -149,9 +149,9 @@ export const Tashiro = () => {
                       className="font-bold leading-snug text-2xl"
                       style={{ color: '#0f172a' }}
                     >
-                      金融文筆家。<br />
-                      上場企業のIR支援と市場解説を専門とする。<br />
-                      ラジオNIKKEI「マーケットプレス」レギュラーパーソナリティ。
+                      年間5,000社の決算短信を読み、<br />
+                      500社のIR担当者と話す<br />
+                      ラジオNIKKEIパーソナリティ。
                     </p>
                   </div>
 
@@ -160,14 +160,35 @@ export const Tashiro = () => {
                     style={{ color: '#475569', maxWidth: '42rem' }}
                   >
                     <p className="text-base mb-4">
-                      金融文筆家。北海道出身。2011年より株式投資を開始し、個人投資家としての経験を経て、現在は投資家向け広報（IR）支援およびマーケット解説の第一線で活動中。
+                      北海道出身。新光証券（現みずほ証券）やシティバンク、投資助言会社などでアナリスト業務やコンプライアンス業務を経験したのち、暗号資産交換業者や証券会社の取締役に従事。
                     </p>
                     <p className="text-base mb-4">
-                      ラジオNIKKEI「マーケットプレス」などの経済番組でレギュラーパーソナリティを務める傍ら、上場企業の決算説明会資料の作成支援や、投資家とのコミュニケーション戦略の立案に従事。複雑な市場動向や企業財務を、個人投資家にも分かりやすく噛み砕いて伝える解説スタイルに定評がある。
+                      2026年よりU's企画に参画。IFTA国際検定テクニカルアナリスト3次資格（MFTA®）を保有。「金融文筆家」としても活動中。
+                    </p>
+                    <p className="text-base mb-4">
+                      ラジオNIKKEI「マーケットプレス」などの株式番組でレギュラーパーソナリティを務める傍ら、上場企業の決算説明会資料の作成支援や、投資家とのコミュニケーション戦略の立案に従事。複雑な市場動向や企業財務を、個人投資家にも分かりやすく噛み砕いて伝える解説スタイルに定評がある。
                     </p>
                     <p className="text-base">
-                      公平かつ中立的な視点に基づいた分析は、多くの個人投資家から信頼を集めており、各種メディアへの寄稿や講演活動も精力的に行っている。
+                      また、金融文筆家として、江戸時代の経済を背景とした論文を複数本執筆。現在、暗号資産をモチーフとした小説を作成中。
                     </p>
+                  </div>
+
+                  {/* 資格・所属 */}
+                  <div className="mb-10">
+                    <h3
+                      className="text-sm font-bold tracking-wide mb-4 inline-flex flex-col gap-2"
+                      style={{ color: '#0f172a' }}
+                    >
+                      資格・所属
+                      <span className="block" style={{ width: '1.5rem', height: '2px', backgroundColor: '#0f172a' }} />
+                    </h3>
+                    <ul className="space-y-2 text-base" style={{ color: '#475569' }}>
+                      <li>ラジオNIKKEI マーケットプレス パーソナリティ</li>
+                      <li>国際テクニカルアナリスト連盟 検定テクニカルアナリスト（MFTA®）</li>
+                      <li>NPO法人 日本テクニカルアナリスト協会 評議員</li>
+                      <li>All About 資産運用・ビットコイン ガイド</li>
+                      <li>楽天トウシルにも記事掲載中</li>
+                    </ul>
                   </div>
 
                   {/* X CTA - 囲い背景なし */}
