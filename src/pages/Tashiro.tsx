@@ -113,7 +113,7 @@ export const Tashiro = () => {
         <title>田代 昌之 | U's企画</title>
         <meta
           name="description"
-          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケットプレス」パーソナリティ。年間5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
+          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケットプレス」パーソナリティ。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
         />
       </Helmet>
 
@@ -149,7 +149,7 @@ export const Tashiro = () => {
                       className="font-bold leading-snug text-2xl"
                       style={{ color: '#0f172a' }}
                     >
-                      年間5,000社の決算短信を読み、<br />
+                      年間延べ5,000社の決算短信を読み、<br />
                       500社のIR担当者と話す<br />
                       ラジオNIKKEIパーソナリティ。
                     </p>
