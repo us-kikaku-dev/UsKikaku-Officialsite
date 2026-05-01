@@ -51,7 +51,7 @@ export const Members = () => {
                 <span className="text-[#998438] tracking-widest text-sm uppercase pb-1">Executive Officer / Head of Sales</span>
               </div>
               <div className="text-gray-600 font-light leading-relaxed text-justify max-w-3xl mb-4">
-                金融文筆家。北海道出身。1979年生まれ。中央大学文学部史学科日本史学科卒業。新光証券（現みずほ証券）やシティバンクなどを経て、金融情報会社に入社。アナリスト業務やコンプライアンス業務、グループの暗号資産交換業者や証券会社の経営に従事。IFTA国際検定テクニカルアナリスト3次資格（MFTA®）を保有。酒と古地図と歴史をこよなく愛する。ラジオNIKKEIのパーソナリティを務めるほか、楽天証券投資情報メディアトウシルやAllAboutに記事を掲載。
+                金融文筆家。北海道出身。1979年生まれ。中央大学文学部史学科日本史学科卒業。新光証券（現みずほ証券）やシティバンクなどを経て、金融情報会社に入社。アナリスト業務やコンプライアンス業務、グループの暗号資産交換業者や証券会社の経営に従事。IFTA国際検定テクニカルアナリスト3次資格（MFTA®）を保有。酒と古地図と歴史をこよなく愛する。ラジオNIKKEI マーケット・テラス コメンテーターを務めるほか、楽天証券投資情報メディアトウシルやAllAboutに記事を掲載。
               </div>
 
               <div className="max-w-3xl mt-4">
