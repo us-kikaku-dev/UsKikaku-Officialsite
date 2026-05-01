@@ -63,6 +63,42 @@ export const CompanyProfile = () => {
                         </div>
                     </div>
 
+                    {/* Partners */}
+                    <div className="text-center" style={{ marginTop: '10rem' }}>
+                        <span className="text-[#998438] tracking-widest text-sm uppercase block mb-2">
+                            PARTNERS
+                        </span>
+                        <h2 className="serif-text text-3xl md:text-4xl text-[#050A14] mb-12">
+                            提携企業一覧
+                        </h2>
+                        <div className="flex flex-wrap items-center justify-center" style={{ gap: '12rem' }}>
+                            <a
+                                href="https://events.co.jp/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <img
+                                    src="/events-logo.png"
+                                    alt="イベントス"
+                                    style={{ height: '60px' }}
+                                    className="object-contain opacity-80 hover:opacity-100 transition-opacity"
+                                />
+                            </a>
+                            <a
+                                href="https://shonan-invest.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <img
+                                    src="/shonan-investment-logo.png"
+                                    alt="湘南投資勉強会"
+                                    style={{ height: '60px' }}
+                                    className="object-contain opacity-80 hover:opacity-100 transition-opacity"
+                                />
+                            </a>
+                        </div>
+                    </div>
+
                 </motion.div>
             </div>
         </section>

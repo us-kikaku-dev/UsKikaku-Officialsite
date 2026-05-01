@@ -5,7 +5,6 @@ import { ExternalLink } from 'lucide-react';
 import { client, TashiroArticle } from '../lib/client';
 import tashiroProfile from '../assets/tashiro-profile.webp';
 
-const MEDIA_PROGRAM_URL = 'https://www.radionikkei.jp/personality/personality/masayukitashiro.html';
 const X_PROFILE_URL = 'https://x.com/crypto_fin256?s=21';
 
 function formatDate(dateStr: string): string {
@@ -113,7 +112,7 @@ export const Tashiro = () => {
         <title>田代 昌之 | U's企画</title>
         <meta
           name="description"
-          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケットプレス」パーソナリティ。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
+          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケット・テラス」コメンテーター。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
         />
       </Helmet>
 
@@ -129,7 +128,7 @@ export const Tashiro = () => {
                     className="font-medium tracking-wide text-sm mb-2"
                     style={{ color: '#64748b' }}
                   >
-                    U's企画 執行役員 / ラジオNIKKEI パーソナリティ
+                    U's企画 執行役員 / ラジオNIKKEI番組コメンテーター
                   </span>
                   <h1
                     className="font-bold tracking-tight lg:text-7xl"
@@ -151,7 +150,7 @@ export const Tashiro = () => {
                     >
                       年間延べ5,000社の決算短信を読み、<br />
                       500社のIR担当者と話す<br />
-                      ラジオNIKKEIパーソナリティ。
+                      ラジオNIKKEIコメンテーター。
                     </p>
                   </div>
 
@@ -166,7 +165,7 @@ export const Tashiro = () => {
                       2026年よりU's企画に参画。IFTA国際検定テクニカルアナリスト3次資格（MFTA®）を保有。「金融文筆家」としても活動中。
                     </p>
                     <p className="text-base mb-4">
-                      ラジオNIKKEI「マーケットプレス」などの株式番組でレギュラーパーソナリティを務める傍ら、上場企業の決算説明会資料の作成支援や、投資家とのコミュニケーション戦略の立案に従事。複雑な市場動向や企業財務を、個人投資家にも分かりやすく噛み砕いて伝える解説スタイルに定評がある。
+                      ラジオNIKKEI「マーケット・テラス」などの株式番組でコメンテーターを務める傍ら、上場企業の決算説明会資料の作成支援や、投資家とのコミュニケーション戦略の立案に従事。複雑な市場動向や企業財務を、個人投資家にも分かりやすく噛み砕いて伝える解説スタイルに定評がある。
                     </p>
                     <p className="text-base">
                       また、金融文筆家として、江戸時代の経済を背景とした論文を複数本執筆。現在、暗号資産をモチーフとした小説を作成中。
@@ -183,7 +182,7 @@ export const Tashiro = () => {
                       <span className="block" style={{ width: '1.5rem', height: '2px', backgroundColor: '#0f172a' }} />
                     </h3>
                     <ul className="space-y-2 text-base" style={{ color: '#475569' }}>
-                      <li>ラジオNIKKEI マーケットプレス パーソナリティ</li>
+                      <li>ラジオNIKKEI マーケット・テラス コメンテーター</li>
                       <li>国際テクニカルアナリスト連盟 検定テクニカルアナリスト（MFTA®）</li>
                       <li>NPO法人 日本テクニカルアナリスト協会 評議員</li>
                       <li>All About 資産運用・ビットコイン ガイド</li>
@@ -232,80 +231,6 @@ export const Tashiro = () => {
                     className="h-full w-full object-cover object-top"
                     src={tashiroProfile}
                   />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== メディア出演 ===== */}
-        <section
-          className="py-24"
-          id="media"
-          style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}
-        >
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="flex flex-col" style={{ gap: '2.5rem' }}>
-              <div>
-                <h2
-                  className="text-xl font-bold tracking-tight inline-flex flex-col gap-3"
-                  style={{ color: '#0f172a' }}
-                >
-                  メディア出演
-                  <span className="block" style={{ width: '1.5rem', height: '2px', backgroundColor: '#0f172a', marginTop: '0.25rem' }} />
-                </h2>
-              </div>
-
-              <div className="w-full">
-                <div
-                  className="bg-white p-8 lg:p-10 rounded-sm shadow-sm flex flex-col md:flex-row items-center justify-between gap-8 mx-auto max-w-4xl"
-                  style={{ border: '1px solid #e2e8f0' }}
-                >
-                  <div className="flex-grow text-center md:text-left">
-                    <div
-                      className="inline-flex items-center justify-center md:justify-start w-full md:w-auto"
-                      style={{ marginBottom: '1.25rem' }}
-                    >
-                      <div
-                        className="h-8 px-4 rounded-sm flex items-center justify-center font-bold uppercase"
-                        style={{
-                          backgroundColor: '#f1f5f9',
-                          border: '1px solid #e2e8f0',
-                          fontSize: '10px',
-                          color: '#64748b',
-                          letterSpacing: '0.1em',
-                        }}
-                      >
-                        Radio NIKKEI
-                      </div>
-                    </div>
-                    <h3
-                      className="text-xl font-bold leading-tight mb-3"
-                      style={{ color: '#0f172a' }}
-                    >
-                      ラジオNIKKEI「マーケットプレス」<br />パーソナリティ
-                    </h3>
-                    <p className="text-base leading-relaxed" style={{ color: '#64748b' }}>
-                      レギュラーパーソナリティ（後場）を担当。<br className="md:hidden" />
-                      市場の動きをリアルタイムで解説。
-                    </p>
-                  </div>
-                  <a
-                    className="shrink-0 inline-flex items-center justify-center gap-2 rounded-sm px-8 text-sm font-bold text-white shadow-sm transition-all w-full md:w-auto"
-                    style={{ backgroundColor: '#0f172a', minWidth: '200px', paddingTop: '0.875rem', paddingBottom: '0.875rem' }}
-                    href={MEDIA_PROGRAM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor = '#1e293b';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor = '#0f172a';
-                    }}
-                  >
-                    <span>番組ページを見る</span>
-                    <ExternalLink className="w-4 h-4 shrink-0" />
-                  </a>
                 </div>
               </div>
             </div>
