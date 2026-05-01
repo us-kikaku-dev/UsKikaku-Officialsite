@@ -112,7 +112,7 @@ export const Tashiro = () => {
         <title>田代 昌之 | U's企画</title>
         <meta
           name="description"
-          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケットプレス」パーソナリティ。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
+          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケット・テラス」コメンテーター。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
         />
       </Helmet>
 
@@ -128,7 +128,7 @@ export const Tashiro = () => {
                     className="font-medium tracking-wide text-sm mb-2"
                     style={{ color: '#64748b' }}
                   >
-                    U's企画 執行役員 / ラジオNIKKEI番組パーソナリティ
+                    U's企画 執行役員 / ラジオNIKKEI番組コメンテーター
                   </span>
                   <h1
                     className="font-bold tracking-tight lg:text-7xl"
@@ -150,7 +150,7 @@ export const Tashiro = () => {
                     >
                       年間延べ5,000社の決算短信を読み、<br />
                       500社のIR担当者と話す<br />
-                      ラジオNIKKEIパーソナリティ。
+                      ラジオNIKKEIコメンテーター。
                     </p>
                   </div>
 
@@ -165,7 +165,7 @@ export const Tashiro = () => {
                       2026年よりU's企画に参画。IFTA国際検定テクニカルアナリスト3次資格（MFTA®）を保有。「金融文筆家」としても活動中。
                     </p>
                     <p className="text-base mb-4">
-                      ラジオNIKKEI「マーケットプレス」などの株式番組でレギュラーパーソナリティを務める傍ら、上場企業の決算説明会資料の作成支援や、投資家とのコミュニケーション戦略の立案に従事。複雑な市場動向や企業財務を、個人投資家にも分かりやすく噛み砕いて伝える解説スタイルに定評がある。
+                      ラジオNIKKEI「マーケット・テラス」などの株式番組でコメンテーターを務める傍ら、上場企業の決算説明会資料の作成支援や、投資家とのコミュニケーション戦略の立案に従事。複雑な市場動向や企業財務を、個人投資家にも分かりやすく噛み砕いて伝える解説スタイルに定評がある。
                     </p>
                     <p className="text-base">
                       また、金融文筆家として、江戸時代の経済を背景とした論文を複数本執筆。現在、暗号資産をモチーフとした小説を作成中。
@@ -182,7 +182,7 @@ export const Tashiro = () => {
                       <span className="block" style={{ width: '1.5rem', height: '2px', backgroundColor: '#0f172a' }} />
                     </h3>
                     <ul className="space-y-2 text-base" style={{ color: '#475569' }}>
-                      <li>ラジオNIKKEI マーケットプレス パーソナリティ</li>
+                      <li>ラジオNIKKEI マーケット・テラス コメンテーター</li>
                       <li>国際テクニカルアナリスト連盟 検定テクニカルアナリスト（MFTA®）</li>
                       <li>NPO法人 日本テクニカルアナリスト協会 評議員</li>
                       <li>All About 資産運用・ビットコイン ガイド</li>
