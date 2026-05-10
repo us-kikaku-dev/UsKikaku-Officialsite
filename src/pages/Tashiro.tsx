@@ -42,6 +42,7 @@ export const Tashiro = () => {
           name="description"
           content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケット・テラス」コメンテーター。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
         />
+        <link rel="canonical" href="https://www.us-kikaku.com/tashiro" />
       </Helmet>
 
       <div className="pt-20 bg-white antialiased" style={{ color: '#1e293b' }}>

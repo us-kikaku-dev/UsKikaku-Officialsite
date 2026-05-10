@@ -125,6 +125,7 @@ export const TashiroArticles = () => {
           name="description"
           content="自社メディア『Capital Voice Japan』および各種媒体への田代昌之の執筆記事を掲載しています。"
         />
+        <link rel="canonical" href="https://www.us-kikaku.com/tashiro/articles" />
       </Helmet>
 
       <div className="pt-20 bg-white antialiased" style={{ color: '#1e293b' }}>
