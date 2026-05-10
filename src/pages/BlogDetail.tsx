@@ -28,7 +28,7 @@ export const BlogDetail = () => {
                         updatedAt: new Date().toISOString(),
                         publishedAt: new Date().toISOString(),
                         revisedAt: new Date().toISOString(),
-                        title: '（モック）ブログ記事タイトル: データ連携未設定',
+                        title: '（モック）コラム記事タイトル: データ連携未設定',
                         content: '<p>APIキーが設定されていないため、モックデータを表示しています。</p><h2>セクション1</h2><p>本文テキスト...</p>',
                         date: new Date().toISOString(),
                         business_type: ['Tips'],
@@ -116,7 +116,7 @@ export const BlogDetail = () => {
                 <div className="text-center">
                     <p className="text-gray-500 mb-4">記事が見つかりませんでした。</p>
                     <Link to="/blog" className="text-[#998438] hover:underline">
-                        ブログ一覧に戻る
+                        コラム一覧に戻る
                     </Link>
                 </div>
             </div>
@@ -128,13 +128,13 @@ export const BlogDetail = () => {
             <Helmet>
                 <title>{blog.title} | 株式会社U's企画</title>
                 <meta property="og:title" content={blog.title} />
-                <meta property="og:description" content={blog.description || '株式会社U\'s企画のブログ記事です。'} />
+                <meta property="og:description" content={blog.description || '株式会社U\'s企画のコラム記事です。'} />
                 <meta property="og:type" content="article" />
                 <meta property="og:url" content={window.location.href} />
                 {blog.thumbnail && <meta property="og:image" content={blog.thumbnail.url} />}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={blog.title} />
-                <meta name="twitter:description" content={blog.description || '株式会社U\'s企画のブログ記事です。'} />
+                <meta name="twitter:description" content={blog.description || '株式会社U\'s企画のコラム記事です。'} />
                 {blog.thumbnail && <meta name="twitter:image" content={blog.thumbnail.url} />}
             </Helmet>
 
@@ -206,7 +206,7 @@ export const BlogDetail = () => {
                             className="inline-flex items-center text-gray-500 hover:text-[#998438] transition-colors"
                         >
                             <ChevronLeft size={20} className="mr-1" />
-                            ブログ一覧に戻る
+                            コラム一覧に戻る
                         </Link>
                     </div>
                 </motion.div>

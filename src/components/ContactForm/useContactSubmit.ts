@@ -90,18 +90,10 @@ export const useContactSubmit = ({ getValues, trigger }: UseContactSubmitParams)
 
             setStep(3);
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        } catch (error: any) {
+        } catch (error) {
+            // 内部エラー詳細（設定値・外部サービスのレスポンス）はユーザーに露出させず、ログにのみ残す
             console.error('EmailJS Error:', error);
-            if (error?.text) {
-                // EmailJS specific error object often has a 'text' property
-                setSendError(`送信エラー: ${error.text}`);
-            } else if (error instanceof Error) {
-                setSendError(`送信エラー: ${error.message}`);
-            } else if (typeof error === 'object') {
-                setSendError(`送信エラー: ${JSON.stringify(error)}`);
-            } else {
-                setSendError('送信に失敗しました。時間をおいて再度お試しいただくか、直接メールでお問い合わせください。');
-            }
+            setSendError('送信に失敗しました。時間をおいて再度お試しいただくか、直接メールでお問い合わせください。');
         } finally {
             setIsSending(false);
             // 失敗時はトークンを無効化（reCAPTCHA は1回限りのため）

@@ -1,9 +1,18 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'motion/react';
 
 export const NotFound = () => {
     return (
         <div className="min-h-screen bg-white flex flex-col items-center justify-center text-[#050A14] px-4 pt-48 pb-40">
+            <Helmet>
+                <title>ページが見つかりません | 株式会社U's企画</title>
+                <meta
+                    name="description"
+                    content="お探しのページは見つかりませんでした。URLが変更されたか、削除された可能性があります。"
+                />
+                <meta name="robots" content="noindex" />
+            </Helmet>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

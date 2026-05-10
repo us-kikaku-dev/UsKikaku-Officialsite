@@ -110,7 +110,7 @@ export const BlogSection = () => {
                             BLOG
                         </span>
                         <h2 className="text-4xl md:text-5xl serif-text font-bold text-[#0F172A] tracking-wider">
-                            最新の記事
+                            最新コラム
                         </h2>
                     </div>
 

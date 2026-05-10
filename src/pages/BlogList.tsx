@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { client, Blog } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
 import { motion } from 'motion/react';
@@ -14,7 +15,7 @@ const generateMockBlogs = (count: number): Blog[] => {
         updatedAt: new Date().toISOString(),
         publishedAt: new Date(2024, 0, 25 - i).toISOString(),
         revisedAt: new Date().toISOString(),
-        title: `ブログ記事タイトル ${i + 1} - 投資家との対話を深めるために`,
+        title: `コラム記事タイトル ${i + 1} - 投資家との対話を深めるために`,
         content: '<p>詳細内容...</p>',
         date: new Date(2024, 0, 25 - i).toISOString(),
         business_type: i % 2 === 0 ? ['Tips'] : ['トレンド'], // string[]
@@ -93,6 +94,14 @@ export const BlogList = () => {
 
     return (
         <div className="pt-48 pb-40 bg-white min-h-screen">
+            <Helmet>
+                <title>コラム記事 | 株式会社U's企画</title>
+                <meta
+                    name="description"
+                    content="IR・資本市場・企業価値向上に関する株式会社U's企画スタッフによる考察記事を掲載しています。"
+                />
+                <link rel="canonical" href="https://www.us-kikaku.com/blog" />
+            </Helmet>
             <div className="max-w-5xl mx-auto px-5 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -105,7 +114,7 @@ export const BlogList = () => {
                             BLOG
                         </span>
                         <h1 className="text-4xl md:text-5xl serif-text font-bold text-[#0F172A] tracking-wider">
-                            投稿記事
+                            コラム記事
                         </h1>
                     </div>
 

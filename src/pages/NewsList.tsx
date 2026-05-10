@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { client, News } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
 import { motion } from 'motion/react';
@@ -117,6 +118,14 @@ export const NewsList = () => {
 
     return (
         <div className="pt-48 pb-40 bg-white min-h-screen">
+            <Helmet>
+                <title>ニュース | 株式会社U's企画</title>
+                <meta
+                    name="description"
+                    content="株式会社U's企画の最新ニュース・お知らせ・プレスリリースをご覧いただけます。"
+                />
+                <link rel="canonical" href="https://www.us-kikaku.com/news" />
+            </Helmet>
             <div className="max-w-5xl mx-auto px-5 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

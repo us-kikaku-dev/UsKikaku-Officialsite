@@ -79,6 +79,9 @@ export const Navbar = () => {
             <button
               onClick={toggleMenu}
               className="text-gray-300 hover:text-white focus:outline-none"
+              aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
             </button>
@@ -88,7 +91,7 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-[#050A14] border-t border-[#162A52] absolute w-full">
+        <div id="mobile-menu" className="md:hidden bg-[#050A14] border-t border-[#162A52] absolute w-full">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
               <Link
