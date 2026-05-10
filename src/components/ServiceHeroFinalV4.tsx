@@ -1,77 +1,85 @@
-import React from 'react';
-
-import { motion } from 'motion/react';
-import { ExternalLink } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import ServiceHeroImage from '../assets/service-hero.jpg';
 
 export const ServiceHeroFinalV4 = () => {
+    const ref = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['start start', 'end start'],
+    });
+
+    // パララックス：背景がスクロールより遅く動く
+    const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+
+    const scrollToNext = () => {
+        if (ref.current) {
+            const next = (ref.current as HTMLElement).nextElementSibling;
+            if (next) {
+                next.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     return (
-        <header className="relative h-screen flex items-center justify-center overflow-hidden bg-[#050A14]">
-            {/* Background Image Layer */}
-            <div
-                className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-scroll md:bg-fixed"
+        <header
+            ref={ref}
+            className="relative h-screen flex items-center justify-center overflow-hidden bg-[#050A14]"
+        >
+            {/* Parallax Background Layer */}
+            <motion.div
+                className="absolute inset-0 z-0"
                 style={{
-                    backgroundImage: `url(${ServiceHeroImage})`,
+                    y: backgroundY,
+                    backgroundImage: `linear-gradient(to bottom, rgba(5, 10, 20, 0.4), rgba(5, 10, 20, 0.6)), url(${ServiceHeroImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    height: '120%',
+                    top: 0,
                 }}
             />
 
-            {/* Dark Overlay Layer */}
-            <div className="absolute inset-0 z-[1] bg-black/80 backdrop-blur-md"></div>
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#050A14]/40 via-transparent to-[#050A14]/10 pointer-events-none"></div>
 
-            {/* Content Layer */}
-            <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex flex-col items-center justify-center h-full">
-
-                {/* Text Content Group */}
-                <div className="flex flex-col items-center text-center w-full max-w-5xl px-4">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-                        className="serif-text text-2xl md:text-4xl lg:text-5xl font-medium leading-relaxed text-white tracking-wider"
-                    >
-                        <span className="inline-block whitespace-nowrap">戦略設計から開示資料、</span><br />
-                        <span className="inline-block whitespace-nowrap">投資家コミュニケーションまで</span><br />
-                        <span className="inline-block whitespace-nowrap">一気通貫で支援するIRコンサルティング</span>
-                    </motion.h1>
-                </div>
-
-                {/* CTA Button - Styling via Motion/Inline to ensure application */}
-                <a
-                    href="https://ir.us-kikaku.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block text-sm md:text-lg font-medium tracking-widest shadow-lg rounded-sm"
-                    style={{
-                        marginTop: '120px',
-                        textDecoration: 'none',
-                        display: 'inline-block', // Reset to block/inline-block
-                    }}
+            {/* Content with Parallax */}
+            <div
+                className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center justify-center h-full pt-16"
+            >
+                <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: 'easeOut' }}
+                    className="text-[#F3E5AB] tracking-[0.3em] text-sm md:text-base mb-6 uppercase"
                 >
-                    <motion.div
-                        initial={{ opacity: 0, y: 30, scale: 1, backgroundColor: '#050A14', borderColor: '#F3E5AB', color: '#F3E5AB' }}
-                        animate={{ opacity: 1, y: 0 }}
-                        whileHover={{
-                            scale: 1.02,
-                            backgroundColor: '#C5A065',
-                            color: '#FFFFFF',
-                            borderColor: '#C5A065',
-                            fontWeight: 'bold',
-                            boxShadow: "0 0 30px rgba(197, 160, 101, 0.5)",
-                        }}
-                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex items-center gap-2 justify-center"
-                        style={{
-                            border: '1px solid', // Width handled here, color via motion
-                            padding: '12px 24px',
-                            cursor: 'pointer',
-                            fontSize: 'clamp(12px, 4vw, 18px)',
-                            whiteSpace: 'nowrap'
-                        }}
-                    >
-                        決算資料のレビューを受ける
-                        <ExternalLink className="w-5 h-5 flex-shrink-0" />
-                    </motion.div>
-                </a>
+                    Service
+                </motion.p>
+
+                <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+                    className="serif-text text-4xl md:text-6xl lg:text-7xl font-medium leading-tight md:leading-snug text-white tracking-wider"
+                >
+                    IRに、<br />
+                    <span className="gold-gradient-text">本質的な対話</span>を。
+                </motion.h1>
+
+                {/* Centered Scroll Indicator */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
+                    className="mt-16 flex flex-col items-center cursor-pointer group"
+                    onClick={scrollToNext}
+                >
+                    <span className="text-[#D4AF37]/80 text-[10px] tracking-[0.2em] mb-4 uppercase font-light transition-colors group-hover:text-[#F3E5AB]">
+                        Scroll
+                    </span>
+                    <div className="w-[1px] h-24 bg-white/10 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#D4AF37] to-transparent animate-scroll-line"></div>
+                    </div>
+                </motion.div>
             </div>
         </header>
     );

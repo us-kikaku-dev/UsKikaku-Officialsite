@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { motion } from 'motion/react';
 import './ConsultingService.css';
 import ConsultingImage from '../assets/home-hero.jpg';
 
@@ -52,21 +51,9 @@ export const ConsultingService = () => {
                         </p>
 
                         <div className="w-full">
-                            <div className="mb-8 consulting-cta-wrapper">
-                                <a
-                                    href="https://ir.us-kikaku.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="consulting-cta-btn inline-flex items-center justify-center gap-2"
-                                >
-                                    決算資料のレビューを受ける
-                                    <ExternalLink className="w-5 h-5 flex-shrink-0" />
-                                </a>
-                            </div>
-
                             <div className="consulting-link-wrapper">
                                 <Link to="/service" className="consulting-link">
-                                    IRコンサルティングについて詳しく見る →
+                                    IRコンサルティングについて詳しく見る
                                 </Link>
                             </div>
                         </div>

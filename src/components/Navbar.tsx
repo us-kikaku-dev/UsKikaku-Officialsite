@@ -49,10 +49,7 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/')}>
-            <div className="w-10 h-10 flex items-center justify-center border border-[#D4AF37] bg-[#0B1C3D] text-[#D4AF37] font-serif text-xl font-bold rounded-sm transition-all duration-300 group-hover:bg-[#D4AF37] group-hover:text-[#0B1C3D]">
-              U
-            </div>
+          <div className="flex-shrink-0 flex items-center group cursor-pointer" onClick={() => navigate('/')}>
             <span className="text-2xl serif-text font-bold tracking-widest text-white">
               U's<span className="text-[#D4AF37]">企画</span>
             </span>

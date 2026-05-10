@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { client, Blog } from '../lib/client';
-import { motion } from 'framer-motion';
+import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
+import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
 import '../components/BlogSection.css'; // Import shared styles for cards
 
@@ -39,38 +40,38 @@ export const BlogList = () => {
         const fetchBlogs = async () => {
             setLoading(true);
 
-            // Check if API key is configured
-            const isCmsConfigured = import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN && import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN !== 'YOUR_DOMAIN';
-
-            if (!isCmsConfigured) {
-                // Mock Logic
-                await new Promise(resolve => setTimeout(resolve, 500));
+            const setMockPage = () => {
                 const offset = (currentPage - 1) * PER_PAGE;
-                const sliced = MOCK_BLOGS_ALL.slice(offset, offset + PER_PAGE);
-                setBlogs(sliced);
+                setBlogs(MOCK_BLOGS_ALL.slice(offset, offset + PER_PAGE));
                 setTotalCount(MOCK_BLOGS_ALL.length);
+            };
+
+            // 未設定時：開発はモック、本番は空のまま
+            if (!isCmsConfigured()) {
+                if (allowMockFallback()) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    setMockPage();
+                }
                 setLoading(false);
                 return;
             }
 
-            // Real CMS Logic
             try {
                 const data = await client.get({
-                    endpoint: 'blog', // endpoint might be 'blog' or 'blogs' depending on schema
+                    endpoint: 'blog',
                     queries: {
                         limit: PER_PAGE,
                         offset: (currentPage - 1) * PER_PAGE,
+                        orders: '-publishedAt',
                     }
                 });
                 setBlogs(data.contents);
                 setTotalCount(data.totalCount);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
-                // Fallback to mock for blog endpoint safety
-                const offset = (currentPage - 1) * PER_PAGE;
-                const sliced = MOCK_BLOGS_ALL.slice(offset, offset + PER_PAGE);
-                setBlogs(sliced);
-                setTotalCount(MOCK_BLOGS_ALL.length);
+                // 失敗時はモックを出さず空状態に
+                setBlogs([]);
+                setTotalCount(0);
             } finally {
                 setLoading(false);
             }
@@ -90,17 +91,9 @@ export const BlogList = () => {
         if (currentPage > 1) setCurrentPage(prev => prev - 1);
     };
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}/${month}/${day}`;
-    };
-
     return (
         <div className="pt-48 pb-40 bg-white min-h-screen">
-            <div className="max-w-[1000px] mx-auto px-5 lg:px-8">
+            <div className="max-w-5xl mx-auto px-5 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -134,6 +127,8 @@ export const BlogList = () => {
                                     </div>
                                 ))}
                             </div>
+                        ) : blogs.length === 0 ? (
+                            <p className="text-center text-gray-400 py-16">現在表示できる記事はありません。</p>
                         ) : (
                             <>
                                 <div className="blog-grid min-h-[600px]">
@@ -154,7 +149,7 @@ export const BlogList = () => {
                                             </div>
                                             <div className="blog-card-meta">
                                                 <time className="blog-card-date">
-                                                    {post.date ? formatDate(post.date) : formatDate(post.publishedAt)}
+                                                    {post.date ? formatDateSlash(post.date) : formatDateSlash(post.publishedAt)}
                                                 </time>
                                                 <span className="blog-card-category">
                                                     {/* Display tag or business_type as category */}

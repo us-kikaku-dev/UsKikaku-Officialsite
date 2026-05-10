@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { client, News } from '../lib/client';
-import { motion } from 'framer-motion';
+import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
+import { motion } from 'motion/react';
 import { ChevronLeft } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import DOMPurify from 'dompurify';
 import '../RichText.css';
 
 export const NewsDetail = () => {
@@ -16,29 +18,28 @@ export const NewsDetail = () => {
             if (!id) return;
             setLoading(true);
 
-            // Check if API key is configured
-            const isCmsConfigured = import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN && import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN !== 'YOUR_DOMAIN';
-
-            if (!isCmsConfigured) {
-                // Mock Logic for Detail
-                await new Promise(resolve => setTimeout(resolve, 500));
-                setNews({
-                    id: id,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                    publishedAt: new Date().toISOString(),
-                    revisedAt: new Date().toISOString(),
-                    title: '（モック）ニュース記事タイトル: データ連携未設定',
-                    content: '<p>APIキーが設定されていないため、モックデータを表示しています。</p>',
-                    date: new Date().toISOString(),
-                    business_type: ['コーポレート'],
-                    category: ['お知らせ'],
-                    image: { // アイキャッチ画像（任意）
-                        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2301',
-                        height: 600,
-                        width: 800
-                    }
-                });
+            // 未設定時：開発のみモック、本番は null のまま（404相当）
+            if (!isCmsConfigured()) {
+                if (allowMockFallback()) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    setNews({
+                        id: id,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        publishedAt: new Date().toISOString(),
+                        revisedAt: new Date().toISOString(),
+                        title: '（モック）ニュース記事タイトル: データ連携未設定',
+                        content: '<p>APIキーが設定されていないため、モックデータを表示しています。</p>',
+                        date: new Date().toISOString(),
+                        business_type: ['コーポレート'],
+                        category: ['お知らせ'],
+                        image: {
+                            url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2301',
+                            height: 600,
+                            width: 800
+                        }
+                    });
+                }
                 setLoading(false);
                 return;
             }
@@ -57,16 +58,9 @@ export const NewsDetail = () => {
         };
 
         fetchNews();
-        // window.scrollTo(0, 0); // Removed to avoid duplication with ScrollToTop
     }, [id]);
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}/${month}/${day}`;
-    };
+    const formatDate = formatDateSlash;
 
     if (loading) {
         return (
@@ -178,7 +172,7 @@ export const NewsDetail = () => {
                     {/* Content */}
                     <div
                         className="rich-text-content prose prose-lg max-w-none text-gray-700 leading-8"
-                        dangerouslySetInnerHTML={{ __html: news.content }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(news.content) }}
                     />
 
                     {/* Footer / Back Link */}

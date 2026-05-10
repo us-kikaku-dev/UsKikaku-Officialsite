@@ -17,7 +17,7 @@ export const ProductHero = () => {
                 paddingBottom: '100px',
             }}
         >
-            <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 w-full relative z-10">
+            <div className="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 w-full relative z-10">
                 <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
 
                     {/* Left Column: Text (50%) */}

@@ -7,6 +7,12 @@ export const client = createClient({
     apiKey: import.meta.env.VITE_MICROCMS_API_KEY || 'YOUR_API_KEY',
 });
 
+// Capital Voice Japan（irmedia）用クライアント
+export const capitalVoiceClient = createClient({
+    serviceDomain: import.meta.env.VITE_CAPITAL_VOICE_SERVICE_DOMAIN || 'YOUR_DOMAIN',
+    apiKey: import.meta.env.VITE_CAPITAL_VOICE_API_KEY || 'YOUR_API_KEY',
+});
+
 // Type definitions for Blog and News
 export type Blog = {
     id: string;
@@ -43,6 +49,30 @@ export type TashiroArticle = {
     };
     url: string;
     category?: string[];
+};
+
+// Capital Voice Japan の記事型
+export type CapitalVoiceArticle = {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    revisedAt: string;
+    title: string;
+    publishdate: string; // 取材日
+    category?: string[];
+    tags?: string[];
+    eyecatch?: {
+        url: string;
+        height: number;
+        width: number;
+    };
+    description?: string;
+    company?: {
+        id: string;
+        companyName?: string;
+        stockCode?: string;
+    };
 };
 
 export type News = {

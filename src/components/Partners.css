@@ -1,0 +1,95 @@
+/* Partners.css */
+
+.partners-section {
+    background-color: #ffffff;
+    padding: 100px 0;
+    width: 100%;
+}
+
+.partners-container {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ============ Partners Grid ============ */
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .partners-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+}
+
+.partner-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    padding: 48px 32px;
+    text-decoration: none;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partner-card:hover {
+    border-color: #D4AF37;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.partner-card-logo-wrapper {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+}
+
+.partner-card-logo {
+    max-height: 70px;
+    max-width: 220px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.partner-card:hover .partner-card-logo {
+    opacity: 1;
+}
+
+.partner-card-divider {
+    width: 2.5rem;
+    height: 1px;
+    background-color: #D4AF37;
+    margin-bottom: 20px;
+}
+
+.partner-card-name {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #050A14;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.partner-card-description {
+    font-size: 0.875rem;
+    color: #4B5563;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    max-width: 280px;
+}

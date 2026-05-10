@@ -7,7 +7,7 @@ import { OkkakeCTA } from './OkkakeCTA';
 export const AboutOkkake = () => {
     return (
         <section className="relative py-48 md:py-80 overflow-hidden bg-fun-yellow" id="about-okkake">
-            <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 relative z-10">
+            <div className="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 relative z-10">
                 <div className="flex flex-col gap-12 lg:grid lg:grid-cols-2 lg:gap-20 items-center">
 
                     {/* Visual (Mobile: 1st, Desktop: 2nd) */}

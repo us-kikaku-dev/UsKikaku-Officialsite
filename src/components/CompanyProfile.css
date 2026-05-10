@@ -8,8 +8,7 @@
 }
 
 .company-profile-container {
-    max-width: 1000px;
-    /* Expanded to match Members section as requested */
+    max-width: 1024px;
     width: 100%;
     margin: 0 auto;
     padding: 0 24px;

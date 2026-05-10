@@ -1,0 +1,282 @@
+/* MediaSection.css — Capital Voice Japan セクション */
+
+.media-section {
+    background-color: #F7F8FA;
+    /* オフホワイト：他セクションとの差別化 */
+    padding: 120px 0;
+    width: 100%;
+}
+
+.media-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ============ Intro Block: 2カラム ============ */
+
+.media-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+@media (min-width: 900px) {
+    .media-intro {
+        grid-template-columns: 4fr 6fr;
+        /* IR CONSULTINGと同じ 40:60 比率 */
+        gap: 60px;
+    }
+}
+
+/* Left Column: Image */
+.media-intro-image-wrapper {
+    width: 100%;
+    max-height: 280px;
+    align-self: start;
+    overflow: hidden;
+}
+
+@media (min-width: 900px) {
+    .media-intro-image-wrapper {
+        aspect-ratio: 4 / 3;
+        max-height: 400px;
+    }
+}
+
+.media-intro-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+/* Right Column: Content */
+.media-intro-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.media-label {
+    display: block;
+    font-size: 0.875rem;
+    /* text-sm */
+    letter-spacing: 0.1em;
+    /* tracking-widest（IR CONSULTINGと統一） */
+    color: #998438;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    /* mb-3 */
+}
+
+.media-description {
+    text-align: justify;
+}
+
+.media-description p {
+    font-size: 0.9375rem;
+    line-height: 2.0;
+    color: #374151;
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .media-description p {
+        font-size: 1rem;
+    }
+}
+
+/* ============ Articles Header ============ */
+
+.media-articles-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #E5E7EB;
+}
+
+.media-articles-label {
+    display: block;
+    font-size: 0.875rem;
+    /* text-sm（IR CONSULTINGと統一） */
+    letter-spacing: 0.1em;
+    /* tracking-widest */
+    color: #998438;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    /* mb-3 */
+    margin-top: 40px;
+}
+
+.media-articles-heading {
+    font-family: 'Zen Old Mincho', serif;
+    /* サイト全体の見出し書体に統一 */
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0F172A;
+    letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+    .media-articles-heading {
+        font-size: 2rem;
+    }
+}
+
+/* ============ Article Grid ============ */
+
+.media-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+@media (min-width: 768px) {
+    .media-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+}
+
+.media-loading {
+    text-align: center;
+    color: #9CA3AF;
+    grid-column: 1 / -1;
+}
+
+/* ============ Article Card ============ */
+
+.media-card {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* モバイル時：2枚目以降のカードを非表示にする */
+@media (max-width: 767px) {
+    .media-card-mobile-hidden {
+        display: none !important;
+    }
+}
+
+.media-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: #E5E7EB;
+    margin-bottom: 1.25rem;
+}
+
+.media-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.media-card:hover .media-card-image {
+    transform: scale(1.04);
+}
+
+.media-card-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9CA3AF;
+    font-size: 0.875rem;
+    background-color: #F3F4F6;
+}
+
+.media-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* カテゴリ（左）と日付（右）を両端に配置 */
+    gap: 0.875rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.media-card-date {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #6B7280;
+    letter-spacing: 0.05em;
+}
+
+.media-card-category {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    /* tracking-widest（サイト全体のラベルと統一） */
+    color: #998438;
+    /* サイト共通のゴールド */
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.media-card-title {
+    /* サイト本文のサンセリフ書体（BlogSectionと統一） */
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #1a1a40;
+    transition: color 0.3s ease;
+    letter-spacing: 0.02em;
+    /* 3行クランプ：タイトルが長くてもレイアウト崩れを防ぐ */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.media-card:hover .media-card-title {
+    color: #0D1B2A;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+/* ============ CTA ============ */
+
+.media-cta-wrapper {
+    margin-top: 64px;
+    text-align: center;
+}
+
+.media-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 3rem;
+    border: 1px solid #0D1B2A;
+    color: #0D1B2A;
+    background-color: transparent;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    letter-spacing: 0.08em;
+    border-radius: 0;
+    white-space: nowrap;
+}
+
+.media-cta-btn:hover {
+    background-color: #0D1B2A;
+    color: #ffffff;
+}
+
+@media (max-width: 480px) {
+    .media-cta-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.875rem;
+    }
+}

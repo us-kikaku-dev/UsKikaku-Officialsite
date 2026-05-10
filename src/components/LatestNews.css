@@ -16,7 +16,7 @@
 }
 
 .latest-news-container {
-  max-width: 1000px;
+  max-width: 1024px;
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
@@ -82,6 +82,22 @@
   }
 }
 
+/* メタ列：モバイルでは溢れないよう自動幅+折り返し、PCのみ固定280px */
+.latest-news-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .latest-news-meta {
+    width: 280px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+  }
+}
+
 .latest-news-date {
   color: #666666;
   /* Muted gray for date */
@@ -92,6 +108,15 @@
   color: #D4AF37;
   background-color: transparent;
   transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* PC では最長カテゴリ「イベント・セミナー」(9文字) が収まる幅で統一。
+   モバイルでは画面幅に依存して自動調整させる */
+@media (min-width: 768px) {
+  .latest-news-category {
+    min-width: 140px;
+  }
 }
 
 /* On row hover, category doesn't necessarily need to change, but user asked for "row whole". 
@@ -131,16 +156,3 @@
   /* White text on hover */
 }
 
-/* Arrow Animation */
-.latest-news-arrow {
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-}
-
-.latest-news-link:hover .latest-news-arrow {
-  opacity: 1;
-  transform: translateX(0);
-}

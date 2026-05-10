@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 export const ServiceApproach = () => {
     return (
-        <section className="py-24 md:py-32 bg-white text-[#050A14] overflow-hidden relative" id="service-apporach">
+        <section className="py-24 md:py-32 bg-white text-[#050A14] overflow-hidden relative" id="service-approach">
             {/* Background Decor */}
             <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-b from-[#D4AF37]/20 to-transparent blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
@@ -29,7 +29,8 @@ export const ServiceApproach = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="space-y-8 text-base leading-relaxed tracking-wide text-gray-600"
+                    className="space-y-10 font-medium text-base md:text-lg text-[#1a1a40]"
+                    style={{ lineHeight: 2.15, letterSpacing: '0.05em' }}
                 >
                     <p>
                         当社は、IR活動を単なる情報開示や資料作成とは捉えていません。<br />

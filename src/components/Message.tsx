@@ -23,46 +23,27 @@ export const Message = () => {
               MESSAGE
             </span>
             <h2 className="text-4xl md:text-5xl serif-text font-bold text-[#0F172A] tracking-wider leading-tight">
-              企業の「顔」を、<br className="md:hidden" />もっと伝わる形に。
+              資本市場の対話を、<br className="md:hidden" />もっとひらかれたものへ。
             </h2>
           </div>
 
-          {/* 
-             BODY TEXT WITH DROP CAP
-             Layout:
-             - Container: Centered (via flex-col items-center on parent)
-             - Text Alignment: Justify (to cleanly wrap around drop cap) or Left
-             - Width: max-w-2xl
-             
-             DROP CAP:
-             - Char: "決"
-             - Color: #C0A060 (As requested)
-             - Size: text-7xl md:text-8xl (~3-4 lines height)
-             - Font: Serif
-             - Float: Left
-          */}
           <div className="w-full max-w-2xl text-[#1a1a40]">
-            <p className="font-medium leading-loose text-base md:text-lg text-justify">
-              <span
-                className="font-serif"
-                style={{
-                  float: 'left',
-                  fontSize: '4.5rem', // ~text-7xl
-                  lineHeight: '0.8',
-                  marginRight: '1rem',
-                  marginTop: '-6px',
-                  marginBottom: '-10px',
-                  color: '#C0A060'
-                }}
-                aria-hidden="true"
-              >
-                決
+            <p
+              className="font-medium text-base md:text-lg text-left"
+              style={{ lineHeight: 2.15, letterSpacing: '0.05em' }}
+            >
+              <span className="md:font-serif md:float-left md:text-7xl md:leading-[0.8] md:mr-3 md:-mt-1.5 md:-mb-2.5 md:text-[#C0A060]">
+                資
               </span>
-              算説明資料は、投資家だけでなく、取引先や採用応募者など多くのステークホルダーが目にする、まさに企業の「顔」とも言える重要資料です。
-              私たちは、そのクオリティを高めることこそが、企業ブランドの信頼と価値の向上に直結すると確信しています。
-              <br /><br />
-              一方で、限られたリソースでの資料作成は大きな負担となりがちです。
-              実務を知り尽くした私たちが、貴社の「本質」を引き出し、市場が求める形へと昇華させます。
+              本市場は、企業と投資家、その背景にいるすべての人々が織りなす対話の場です。
+              私たちは、IRコンサルティング、メディア、プロダクトという3つの事業を通じて、その対話をより透明で、より深く、より双方向なものへと進化させていきます。
+            </p>
+            <p
+              className="font-medium text-base md:text-lg text-left mt-8 md:mt-10"
+              style={{ lineHeight: 2.15, letterSpacing: '0.05em' }}
+            >
+              決算説明資料の制作支援にとどまらず、メディア『Capital Voice Japan』の運営、そして新たなIRプロダクトの開発。
+              私たちは、これらすべての事業を通じて、資本市場の対話を、もっとひらかれたものへと進化させていきます。
             </p>
           </div>
         </motion.div>

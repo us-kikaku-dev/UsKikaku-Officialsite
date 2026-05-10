@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ExternalLink } from 'lucide-react';
 import './OkkakeProduct.css';
 import OkkakeMockupNew from '../assets/okkake-mockup-new.png';

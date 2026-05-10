@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { client, News } from '../lib/client';
-import { motion } from 'framer-motion';
-import { ChevronRight, ArrowRight } from 'lucide-react';
+import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
+import { motion } from 'motion/react';
+import { ChevronRight } from 'lucide-react';
 import '../components/LatestNews.css'; // Import shared styles
 
 // Helper to generate mock data
@@ -35,34 +36,38 @@ export const NewsList = () => {
         const fetchNews = async () => {
             setLoading(true);
 
-            // Check if API key is configured
-            const isCmsConfigured = import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN && import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN !== 'YOUR_DOMAIN';
-
-            if (!isCmsConfigured) {
-                // Mock Logic
-                await new Promise(resolve => setTimeout(resolve, 500)); // Simulate delay
+            const setMockPage = () => {
                 const offset = (currentPage - 1) * PER_PAGE;
-                const sliced = MOCK_NEWS_ALL.slice(offset, offset + PER_PAGE);
-                setNews(sliced);
+                setNews(MOCK_NEWS_ALL.slice(offset, offset + PER_PAGE));
                 setTotalCount(MOCK_NEWS_ALL.length);
+            };
+
+            // 未設定時：開発はモック、本番は空のまま
+            if (!isCmsConfigured()) {
+                if (allowMockFallback()) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    setMockPage();
+                }
                 setLoading(false);
                 return;
             }
 
-            // Real CMS Logic
             try {
                 const data = await client.get({
                     endpoint: 'news',
                     queries: {
                         limit: PER_PAGE,
                         offset: (currentPage - 1) * PER_PAGE,
+                        orders: '-publishedAt',
                     }
                 });
                 setNews(data.contents);
                 setTotalCount(data.totalCount);
             } catch (error) {
                 console.error('Failed to fetch news:', error);
+                // 失敗時はモックを出さず空状態に
                 setNews([]);
+                setTotalCount(0);
             } finally {
                 setLoading(false);
             }
@@ -71,14 +76,6 @@ export const NewsList = () => {
         fetchNews();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [currentPage]);
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}.${month}.${day}`;
-    };
 
     // Pagination Calculation
     const totalPages = Math.ceil(totalCount / PER_PAGE);
@@ -120,7 +117,7 @@ export const NewsList = () => {
 
     return (
         <div className="pt-48 pb-40 bg-white min-h-screen">
-            <div className="max-w-[1000px] mx-auto px-5 lg:px-8">
+            <div className="max-w-5xl mx-auto px-5 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -142,7 +139,7 @@ export const NewsList = () => {
                                     <li key={i} className="latest-news-item animate-pulse">
                                         <div className="latest-news-link" style={{ pointerEvents: 'none' }}>
                                             <div className="latest-news-content-wrapper">
-                                                <div className="flex items-center gap-4" style={{ width: '280px', flexShrink: 0 }}>
+                                                <div className="latest-news-meta">
                                                     <div className="h-4 w-20 bg-gray-200 rounded"></div>
                                                     <div className="h-6 w-24 bg-gray-200 rounded"></div>
                                                 </div>
@@ -155,6 +152,8 @@ export const NewsList = () => {
                                     </li>
                                 ))}
                             </ul>
+                        ) : news.length === 0 ? (
+                            <p className="text-center text-gray-400 py-16">現在表示できるお知らせはありません。</p>
                         ) : (
                             <>
                                 <ul className="space-y-0 min-h-[500px]">
@@ -162,7 +161,7 @@ export const NewsList = () => {
                                         <li key={item.id} className="latest-news-item">
                                             <Link to={`/news/${item.id}`} className="latest-news-link cursor-pointer group">
                                                 <div className="latest-news-content-wrapper">
-                                                    <div className="flex items-center gap-4" style={{ width: '280px', flexShrink: 0 }}>
+                                                    <div className="latest-news-meta">
                                                         <time className="text-sm font-medium whitespace-nowrap latest-news-date">
                                                             {formatDate(item.date || item.publishedAt)}
                                                         </time>
@@ -191,11 +190,6 @@ export const NewsList = () => {
                                                     >
                                                         {item.title}
                                                     </h2>
-
-                                                    {/* Arrow Icon for Hover Effect */}
-                                                    <div className="latest-news-arrow">
-                                                        <ArrowRight className="w-5 h-5 text-[#D4AF37]" />
-                                                    </div>
                                                 </div>
                                             </Link>
                                         </li>

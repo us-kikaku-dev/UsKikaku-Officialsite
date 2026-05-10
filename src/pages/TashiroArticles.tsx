@@ -135,7 +135,7 @@ export const TashiroArticles = () => {
       <div className="pt-20 bg-white antialiased" style={{ color: '#1e293b' }}>
         {/* ページヘッダー */}
         <section style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl px-6 lg:px-8">
             <div style={{ marginBottom: '2rem' }}>
               <Link
                 to="/tashiro"
@@ -165,7 +165,7 @@ export const TashiroArticles = () => {
 
         {/* 記事グリッド */}
         <section style={{ paddingBottom: '6rem' }}>
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl px-6 lg:px-8">
             {loading && articles.length === 0 ? (
               <div className="flex justify-center py-24">
                 <div className="h-8 w-8 rounded-sm" style={{ border: '2px solid #e2e8f0', borderTopColor: '#0f172a', animation: 'spin 1s linear infinite' }} />

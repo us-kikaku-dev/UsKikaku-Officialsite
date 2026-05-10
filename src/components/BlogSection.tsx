@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { client, Blog } from '../lib/client';
+import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
 import './BlogSection.css';
 
 // Reuse mock data format matching Blog types
@@ -61,35 +62,38 @@ export const BlogSection = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let cancelled = false;
         const fetchBlogs = async () => {
-            // Mock fetch logic same as LatestNews
-            if (!import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN || import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN === 'YOUR_DOMAIN') {
-                setBlogs(MOCK_BLOGS.slice(0, 3));
-                setLoading(false);
+            // 未設定時のみ開発でモック表示（初期セットアップ用途）
+            if (!isCmsConfigured()) {
+                if (!cancelled && allowMockFallback()) setBlogs(MOCK_BLOGS.slice(0, 3));
+                if (!cancelled) setLoading(false);
                 return;
             }
 
             try {
-                const data = await client.get({ endpoint: 'blog', queries: { limit: 3 } });
-                setBlogs(data.contents);
+                const data = await client.get({
+                    endpoint: 'blog',
+                    queries: {
+                        limit: 3,
+                        orders: '-publishedAt',
+                    },
+                });
+                if (!cancelled) setBlogs(data.contents);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
-                setBlogs(MOCK_BLOGS.slice(0, 3));
+                // 失敗時はモックを出さず空状態に（偽情報を表示しない）
+                if (!cancelled) setBlogs([]);
             } finally {
-                setLoading(false);
+                if (!cancelled) setLoading(false);
             }
         };
 
         fetchBlogs();
+        return () => {
+            cancelled = true;
+        };
     }, []);
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}/${month}/${day}`;
-    };
 
     return (
         <section className="blog-section">
@@ -114,6 +118,8 @@ export const BlogSection = () => {
                     <div className="blog-grid">
                         {loading ? (
                             <p className="text-center text-gray-400 col-span-full">Loading...</p>
+                        ) : blogs.length === 0 ? (
+                            <p className="text-center text-gray-400 col-span-full py-12">現在表示できる記事はありません。</p>
                         ) : (
                             blogs.map((post) => (
                                 <Link to={`/blog/${post.id}`} key={post.id} className="blog-card group">
@@ -134,7 +140,7 @@ export const BlogSection = () => {
                                     </div>
                                     <div className="blog-card-meta">
                                         <time className="blog-card-date">
-                                            {post.date ? formatDate(post.date) : formatDate(post.publishedAt)}
+                                            {post.date ? formatDateSlash(post.date) : formatDateSlash(post.publishedAt)}
                                         </time>
                                         <span className="blog-card-category">
                                             {/* Display tag or business_type */}

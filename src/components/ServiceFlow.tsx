@@ -31,7 +31,7 @@ const steps = [
 export const ServiceFlow = () => {
   return (
     <section id="service-deck-flow" className="py-24 bg-[#F9FAFB] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -49,8 +49,8 @@ export const ServiceFlow = () => {
             </p>
         </motion.div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Steps Grid: モバイル1 / PC2カラム×2行 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {steps.map((item, index) => (
                 <div key={index} className="relative group">
                     {/* Connector Arrow for Desktop - REMOVED */}

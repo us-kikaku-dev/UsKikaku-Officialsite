@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { client, Blog } from '../lib/client';
-import { motion } from 'framer-motion';
+import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
+import { motion } from 'motion/react';
 import { ChevronLeft } from 'lucide-react';
+import DOMPurify from 'dompurify';
 import '../RichText.css';
 
 export const BlogDetail = () => {
@@ -16,31 +18,29 @@ export const BlogDetail = () => {
             if (!id) return;
             setLoading(true);
 
-            // Check if API key is configured
-            const isCmsConfigured = import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN && import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN !== 'YOUR_DOMAIN';
-
-            if (!isCmsConfigured) {
-                // Mock Logic for Detail
-                await new Promise(resolve => setTimeout(resolve, 500));
-                // Return a mock blog object
-                setBlog({
-                    id: id,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                    publishedAt: new Date().toISOString(),
-                    revisedAt: new Date().toISOString(),
-                    title: '（モック）ブログ記事タイトル: データ連携未設定',
-                    content: '<p>APIキーが設定されていないため、モックデータを表示しています。</p><h2>セクション1</h2><p>本文テキスト...</p>',
-                    date: new Date().toISOString(),
-                    business_type: ['Tips'],
-                    tag: ['モック'],
-                    description: 'この記事はAPIキーが設定されていない場合に表示されるモックデータです。実際の記事概要がここに表示されます。',
-                    thumbnail: {
-                        url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop',
-                        height: 600,
-                        width: 800
-                    }
-                });
+            // 未設定時：開発のみモック、本番は null のまま（404相当）
+            if (!isCmsConfigured()) {
+                if (allowMockFallback()) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    setBlog({
+                        id: id,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        publishedAt: new Date().toISOString(),
+                        revisedAt: new Date().toISOString(),
+                        title: '（モック）ブログ記事タイトル: データ連携未設定',
+                        content: '<p>APIキーが設定されていないため、モックデータを表示しています。</p><h2>セクション1</h2><p>本文テキスト...</p>',
+                        date: new Date().toISOString(),
+                        business_type: ['Tips'],
+                        tag: ['モック'],
+                        description: 'この記事はAPIキーが設定されていない場合に表示されるモックデータです。実際の記事概要がここに表示されます。',
+                        thumbnail: {
+                            url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop',
+                            height: 600,
+                            width: 800
+                        }
+                    });
+                }
                 setLoading(false);
                 return;
             }
@@ -59,16 +59,9 @@ export const BlogDetail = () => {
         };
 
         fetchBlog();
-        // window.scrollTo(0, 0); // Removed to avoid duplication with ScrollToTop
     }, [id]);
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}/${month}/${day}`;
-    };
+    const formatDate = formatDateSlash;
 
     if (loading) {
         return (
@@ -203,7 +196,7 @@ export const BlogDetail = () => {
                     {/* Content */}
                     <div
                         className="rich-text-content prose prose-lg max-w-none text-gray-700 leading-8"
-                        dangerouslySetInnerHTML={{ __html: blog.content }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
                     />
 
                     {/* Footer / Back Link */}

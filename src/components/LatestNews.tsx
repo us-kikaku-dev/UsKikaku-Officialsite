@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { client, News } from '../lib/client';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
+import { motion } from 'motion/react';
 import './LatestNews.css';
 
 // Mock data
@@ -38,35 +38,38 @@ export const LatestNews = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let cancelled = false;
         const fetchNews = async () => {
-            // Check if API key is configured, if not use mock
-            if (!import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN || import.meta.env.VITE_MICROCMS_SERVICE_DOMAIN === 'YOUR_DOMAIN') {
-                setNews(MOCK_NEWS.slice(0, 3));
-                setLoading(false);
+            // 未設定時のみ開発でモック表示（初期セットアップ用途）
+            if (!isCmsConfigured()) {
+                if (!cancelled && allowMockFallback()) setNews(MOCK_NEWS.slice(0, 3));
+                if (!cancelled) setLoading(false);
                 return;
             }
 
             try {
-                const data = await client.get({ endpoint: 'news', queries: { limit: 3 } });
-                setNews(data.contents);
+                const data = await client.get({
+                    endpoint: 'news',
+                    queries: {
+                        limit: 3,
+                        orders: '-publishedAt',
+                    },
+                });
+                if (!cancelled) setNews(data.contents);
             } catch (error) {
                 console.error('Failed to fetch news:', error);
-                setNews(MOCK_NEWS.slice(0, 3));
+                // 失敗時はモックを出さず空状態に（偽情報を表示しない）
+                if (!cancelled) setNews([]);
             } finally {
-                setLoading(false);
+                if (!cancelled) setLoading(false);
             }
         };
 
         fetchNews();
+        return () => {
+            cancelled = true;
+        };
     }, []);
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}.${month}.${day}`;
-    };
 
     return (
         <section className="latest-news-section">
@@ -90,6 +93,8 @@ export const LatestNews = () => {
                     <div>
                         {loading ? (
                             <p className="text-center text-gray-400">Loading...</p>
+                        ) : news.length === 0 ? (
+                            <p className="text-center text-gray-400 py-12">現在表示できるお知らせはありません。</p>
                         ) : (
                             <ul className="space-y-0">
                                 {news.map((item) => (
@@ -100,7 +105,7 @@ export const LatestNews = () => {
                                         >
                                             <div className="latest-news-content-wrapper">
                                                 {/* Meta Info: Date & Category */}
-                                                <div className="flex items-center gap-4" style={{ width: '280px', flexShrink: 0 }}>
+                                                <div className="latest-news-meta">
                                                     <time className="text-sm font-medium whitespace-nowrap latest-news-date">
                                                         {formatDate(item.date || item.publishedAt)}
                                                     </time>
@@ -131,11 +136,6 @@ export const LatestNews = () => {
                                                 >
                                                     {item.title}
                                                 </h3>
-
-                                                {/* Arrow Icon for Hover Effect */}
-                                                <div className="latest-news-arrow">
-                                                    <ArrowRight className="w-5 h-5 text-[#D4AF37]" />
-                                                </div>
                                             </div>
                                         </Link>
                                     </li>
