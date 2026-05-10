@@ -2,136 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ExternalLink } from 'lucide-react';
-import { client, TashiroArticle } from '../lib/client';
+import {
+  fetchUnifiedTashiroArticles,
+  UnifiedTashiroArticle,
+} from '../lib/tashiro';
+import { TashiroArticleCard } from '../components/TashiroArticleCard';
 import tashiroProfile from '../assets/tashiro-profile.webp';
 
 const X_PROFILE_URL = 'https://x.com/crypto_fin256?s=21';
 
-function formatDate(dateStr: string): string {
-  const d = new Date(dateStr);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}.${m}.${day}`;
-}
-
-function ArticleCard({ article }: { article: TashiroArticle }) {
-  return (
-    <a
-      className="bg-white border transition-all group flex flex-col h-full overflow-hidden cursor-pointer"
-      style={{ borderColor: '#e5e1d6' }}
-      href={article.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = '#050A14';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = '#e5e1d6';
-      }}
-    >
-      <div
-        className="w-full flex items-center justify-center relative overflow-hidden"
-        style={{ aspectRatio: '16/9', backgroundColor: '#fafaf7' }}
-      >
-        {article.image ? (
-          <img
-            src={article.image.url}
-            alt={article.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        ) : (
-          <span
-            className="material-symbols-outlined"
-            style={{ fontSize: '2.25rem', color: '#cbd5e1' }}
-          >
-            image
-          </span>
-        )}
-      </div>
-      <div
-        className="flex-grow flex flex-col"
-        style={{ padding: '1.75rem 1.75rem 1.875rem' }}
-      >
-        <div
-          className="flex items-center justify-between"
-          style={{ marginBottom: '1.5rem' }}
-        >
-          <span
-            className="font-medium uppercase"
-            style={{
-              fontSize: '10px',
-              letterSpacing: '0.18em',
-              color: '#64748b',
-            }}
-          >
-            {article.media}
-          </span>
-          <time
-            className="font-light"
-            style={{
-              fontSize: '11px',
-              color: '#94a3b8',
-              fontFamily: '"Cormorant Garamond", serif',
-              letterSpacing: '0.1em',
-            }}
-          >
-            {formatDate(article.date)}
-          </time>
-        </div>
-        <h3
-          className="text-base line-clamp-2"
-          style={{
-            color: '#050A14',
-            fontWeight: 600,
-            lineHeight: 1.65,
-            letterSpacing: '0.02em',
-            marginBottom: '1.5rem',
-          }}
-        >
-          {article.title}
-        </h3>
-        <div
-          className="flex items-center"
-          style={{
-            marginTop: 'auto',
-            paddingTop: '0.5rem',
-            borderTop: '1px solid #f1ede0',
-            color: '#94a3b8',
-            fontSize: '11px',
-            letterSpacing: '0.18em',
-            fontWeight: 500,
-            justifyContent: 'space-between',
-          }}
-        >
-          <span className="uppercase">Read More</span>
-          <ExternalLink className="shrink-0" style={{ color: '#94a3b8', width: '14px', height: '14px' }} />
-        </div>
-      </div>
-    </a>
-  );
-}
-
 export const Tashiro = () => {
-  const [articles, setArticles] = useState<TashiroArticle[]>([]);
+  const [articles, setArticles] = useState<UnifiedTashiroArticle[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchArticles = async () => {
+    let cancelled = false;
+    const load = async () => {
       try {
-        const data = await client.get({
-          endpoint: 'article',
-          queries: { limit: 3, orders: '-date' },
-        });
-        setArticles(data.contents);
+        const all = await fetchUnifiedTashiroArticles();
+        if (!cancelled) setArticles(all.slice(0, 3));
       } catch (error) {
         console.error('Failed to fetch tashiro articles:', error);
+        if (!cancelled) setArticles([]);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
-    fetchArticles();
+    load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -360,16 +260,16 @@ export const Tashiro = () => {
                     fontSize: '0.875rem',
                   }}
                 >
-                  ARTICLES
+                  WRITINGS
                 </p>
                 <h2
                   className="serif-text tracking-tight"
                   style={{ color: '#050A14', fontSize: '1.75rem', fontWeight: 500 }}
                 >
-                  記事寄稿
+                  執筆記事
                 </h2>
                 <p className="text-sm leading-relaxed mt-4" style={{ color: '#64748b' }}>
-                  各種メディアにて市場分析・資本市場論考を寄稿しています。
+                  自社メディア『Capital Voice Japan』および各種媒体への執筆記事を掲載しています。
                 </p>
               </div>
 
@@ -381,17 +281,24 @@ export const Tashiro = () => {
                 ) : articles.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {articles.map((article) => (
-                      <ArticleCard key={article.id} article={article} />
+                      <TashiroArticleCard key={article.id} article={article} />
                     ))}
                   </div>
                 ) : (
                   <p className="text-center py-12" style={{ color: '#94a3b8' }}>記事はまだありません。</p>
                 )}
 
-                <div className="text-center" style={{ marginTop: '5rem' }}>
+                <div className="mt-8 text-center">
                   <Link
                     to="/tashiro/articles"
-                    className="inline-block tracking-widest text-sm font-medium latest-news-btn"
+                    className="inline-flex items-center justify-center rounded-sm px-10 py-4 text-sm font-bold text-white transition-all"
+                    style={{ backgroundColor: '#0f172a', minWidth: '240px', boxShadow: '0 4px 6px -1px rgba(0,0,0,.1)' }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = '#1e293b';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = '#0f172a';
+                    }}
                   >
                     すべての記事を見る
                   </Link>

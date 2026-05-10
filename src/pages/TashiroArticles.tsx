@@ -1,134 +1,129 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ExternalLink } from 'lucide-react';
-import { client, TashiroArticle } from '../lib/client';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  fetchUnifiedTashiroArticles,
+  UnifiedTashiroArticle,
+} from '../lib/tashiro';
+import { TashiroArticleCard } from '../components/TashiroArticleCard';
 
 const PER_PAGE = 9;
 
-function formatDate(dateStr: string): string {
-  const d = new Date(dateStr);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}.${m}.${day}`;
-}
-
-function ArticleCard({ article }: { article: TashiroArticle }) {
+function PaginationButton({
+  children,
+  onClick,
+  active,
+  disabled,
+  ariaLabel,
+  ariaCurrent,
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+  active?: boolean;
+  disabled?: boolean;
+  ariaLabel: string;
+  ariaCurrent?: 'page';
+}) {
+  const baseBg = active ? '#050A14' : '#ffffff';
+  const baseColor = active ? '#ffffff' : '#050A14';
+  const baseBorder = active ? '#050A14' : '#e5e1d6';
   return (
-    <a
-      className="bg-white rounded-sm transition-all group flex flex-col h-full overflow-hidden cursor-pointer"
-      style={{ border: '1px solid #e2e8f0' }}
-      href={article.url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      aria-current={ariaCurrent}
+      className="inline-flex items-center justify-center transition-all"
+      style={{
+        width: '40px',
+        height: '40px',
+        backgroundColor: baseBg,
+        color: baseColor,
+        border: `1px solid ${baseBorder}`,
+        fontFamily: '"Cormorant Garamond", serif',
+        fontSize: '1rem',
+        letterSpacing: '0.05em',
+        fontWeight: active ? 600 : 400,
+        cursor: disabled ? 'not-allowed' : active ? 'default' : 'pointer',
+        opacity: disabled ? 0.4 : 1,
+      }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = '#94a3b8';
+        if (disabled || active) return;
+        (e.currentTarget as HTMLElement).style.borderColor = '#050A14';
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = '#e2e8f0';
+        if (disabled || active) return;
+        (e.currentTarget as HTMLElement).style.borderColor = '#e5e1d6';
       }}
     >
-      <div
-        className="w-full flex items-center justify-center relative overflow-hidden"
-        style={{ aspectRatio: '16/9', backgroundColor: '#f8fafc' }}
-      >
-        {article.image ? (
-          <img
-            src={article.image.url}
-            alt={article.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        ) : (
-          <span
-            className="material-symbols-outlined"
-            style={{ fontSize: '2.25rem', color: '#cbd5e1' }}
-          >
-            image
-          </span>
-        )}
-      </div>
-      <div className="p-5 flex-grow flex flex-col">
-        <div className="flex items-center justify-between mb-3">
-          <span
-            className="font-bold uppercase rounded-sm"
-            style={{
-              fontSize: '10px',
-              letterSpacing: '0.05em',
-              color: '#475569',
-              backgroundColor: '#f1f5f9',
-              padding: '0.25rem 0.5rem',
-            }}
-          >
-            {article.media}
-          </span>
-          <time
-            className="font-medium"
-            style={{ fontSize: '10px', color: '#94a3b8' }}
-          >
-            {formatDate(article.date)}
-          </time>
-        </div>
-        <div className="flex items-start justify-between gap-2">
-          <h3
-            className="text-base font-bold leading-snug line-clamp-2"
-            style={{ color: '#0f172a' }}
-          >
-            {article.title}
-          </h3>
-          <ExternalLink className="w-4 h-4 shrink-0" style={{ color: '#94a3b8', marginTop: '0.125rem' }} />
-        </div>
-      </div>
-    </a>
+      {children}
+    </button>
   );
 }
 
 export const TashiroArticles = () => {
-  const [articles, setArticles] = useState<TashiroArticle[]>([]);
+  const [allArticles, setAllArticles] = useState<UnifiedTashiroArticle[]>([]);
   const [loading, setLoading] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
-  const [offset, setOffset] = useState(0);
-
-  const fetchArticles = async (currentOffset: number) => {
-    try {
-      setLoading(true);
-      const data = await client.get({
-        endpoint: 'article',
-        queries: { limit: PER_PAGE, offset: currentOffset, orders: '-date' },
-      });
-      if (currentOffset === 0) {
-        setArticles(data.contents);
-      } else {
-        setArticles((prev) => [...prev, ...data.contents]);
-      }
-      setTotalCount(data.totalCount);
-    } catch (error) {
-      console.error('Failed to fetch tashiro articles:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchArticles(0);
+    let cancelled = false;
+    const load = async () => {
+      try {
+        setLoading(true);
+        const all = await fetchUnifiedTashiroArticles();
+        if (!cancelled) setAllArticles(all);
+      } catch (error) {
+        console.error('Failed to fetch tashiro articles:', error);
+        if (!cancelled) setAllArticles([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+    load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const hasMore = articles.length < totalCount;
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
-  const handleLoadMore = () => {
-    const newOffset = offset + PER_PAGE;
-    setOffset(newOffset);
-    fetchArticles(newOffset);
+  const totalPages = Math.ceil(allArticles.length / PER_PAGE);
+  const articles = allArticles.slice(
+    (currentPage - 1) * PER_PAGE,
+    currentPage * PER_PAGE,
+  );
+
+  const goToPage = (page: number) => {
+    if (page < 1 || page > totalPages || page === currentPage) return;
+    setCurrentPage(page);
+  };
+
+  const buildPageList = (): (number | 'ellipsis-left' | 'ellipsis-right')[] => {
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    const pages: (number | 'ellipsis-left' | 'ellipsis-right')[] = [1];
+    if (currentPage > 4) pages.push('ellipsis-left');
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+    for (let p = start; p <= end; p++) pages.push(p);
+    if (currentPage < totalPages - 3) pages.push('ellipsis-right');
+    pages.push(totalPages);
+    return pages;
   };
 
   return (
     <>
       <Helmet>
-        <title>記事寄稿一覧 | 田代 昌之 | U's企画</title>
+        <title>執筆記事一覧 | 田代 昌之 | U's企画</title>
         <meta
           name="description"
-          content="市場分析、資本政策、マクロ経済に関する田代昌之の寄稿記事を掲載しています。"
+          content="自社メディア『Capital Voice Japan』および各種媒体への田代昌之の執筆記事を掲載しています。"
         />
       </Helmet>
 
@@ -155,10 +150,10 @@ export const TashiroArticles = () => {
               className="text-3xl font-bold tracking-tight"
               style={{ color: '#0f172a', marginBottom: '0.75rem' }}
             >
-              記事寄稿一覧
+              執筆記事一覧
             </h1>
             <p className="text-base leading-relaxed" style={{ color: '#64748b' }}>
-              市場分析、資本政策、マクロ経済に関する寄稿記事を掲載しています。
+              自社メディア『Capital Voice Japan』および各種媒体への執筆記事を掲載しています。
             </p>
           </div>
         </section>
@@ -175,33 +170,67 @@ export const TashiroArticles = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {articles.map((article) => (
-                  <ArticleCard key={article.id} article={article} />
+                  <TashiroArticleCard key={article.id} article={article} />
                 ))}
               </div>
             )}
 
-            {/* さらに読み込むボタン */}
-            {hasMore && (
-              <div className="text-center" style={{ marginTop: '3rem' }}>
-                <button
-                  onClick={handleLoadMore}
-                  className="inline-flex items-center justify-center rounded-sm px-10 py-4 text-sm font-bold text-white transition-all cursor-pointer"
-                  style={{
-                    backgroundColor: '#0f172a',
-                    minWidth: '240px',
-                    border: 'none',
-                    boxShadow: '0 4px 6px -1px rgba(0,0,0,.1)',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor = '#1e293b';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor = '#0f172a';
-                  }}
+            {/* ページネーション */}
+            {totalPages > 1 && (
+              <nav
+                aria-label="記事一覧ページネーション"
+                className="flex justify-center items-center"
+                style={{ marginTop: '4rem', gap: '0.5rem' }}
+              >
+                <PaginationButton
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  ariaLabel="前のページ"
                 >
-                  さらに読み込む
-                </button>
-              </div>
+                  <ChevronLeft style={{ width: '16px', height: '16px' }} />
+                </PaginationButton>
+
+                {buildPageList().map((item, idx) => {
+                  if (item === 'ellipsis-left' || item === 'ellipsis-right') {
+                    return (
+                      <span
+                        key={`${item}-${idx}`}
+                        aria-hidden="true"
+                        className="inline-flex items-center justify-center"
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          color: '#94a3b8',
+                          fontFamily: '"Cormorant Garamond", serif',
+                          fontSize: '1rem',
+                          letterSpacing: '0.1em',
+                        }}
+                      >
+                        …
+                      </span>
+                    );
+                  }
+                  return (
+                    <PaginationButton
+                      key={item}
+                      onClick={() => goToPage(item)}
+                      active={item === currentPage}
+                      ariaLabel={`${item}ページ目`}
+                      ariaCurrent={item === currentPage ? 'page' : undefined}
+                    >
+                      {item}
+                    </PaginationButton>
+                  );
+                })}
+
+                <PaginationButton
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  ariaLabel="次のページ"
+                >
+                  <ChevronRight style={{ width: '16px', height: '16px' }} />
+                </PaginationButton>
+              </nav>
             )}
           </div>
         </section>
