@@ -1,0 +1,35 @@
+/* ComingSoonBadge.css — 「近日公開」の状態表示
+ *
+ * 公式LP（デザインの正典）の COMING SOON ピルをそのまま踏襲する。
+ * アプリはApp Store未公開のため、この表示を出している間は
+ * ダウンロード導線を一切置かないこと。 */
+
+.irv-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4375rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* 明るい面（クリーム・白）に置く場合: ネイビーのピル */
+.irv-badge--on-light {
+    background: #1e3a5f;
+    color: #ffffff;
+}
+
+/* 暗い面（ネイビー）に置く場合: イエローのピル */
+.irv-badge--on-dark {
+    background: #ffd83d;
+    color: #1e3a5f;
+}
+
+/* ヒーロー用 */
+.irv-badge--lg {
+    padding: 0.5625rem 1.5rem;
+    font-size: 0.875rem;
+}

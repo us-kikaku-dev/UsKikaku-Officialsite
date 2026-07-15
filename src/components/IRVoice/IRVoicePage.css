@@ -1,0 +1,436 @@
+/* IRVoicePage.css — IR Voice 紹介ページ(/product)の各セクション
+ *
+ * デザインの正典は公式LP（IR-SaaS apps/web-biz の lp.css）。
+ * そのトークンをそのまま持ち込む:
+ *   ネイビー #1e3a5f / ディープ #0f2440 / ティール #14b8a6 / イエロー #ffd83d
+ *   クリーム #faf9f4 / インク #17272e / Noto Sans JP 太字 / 角丸ピル
+ * HPの他ページ（明朝×ゴールド）とは意図的に切り離す。
+ * このHPはプロダクトをプロダクト自身のブランドで載せる流儀（旧OKKAKEセクションも同様）。
+ *
+ * 面のリズム: ヒーロー(クリーム) → 課題(白) → 機能(クリーム) → 企業向け(濃紺) → FAQ(白) → 運営者(クリーム) */
+
+/* ══ 共通 ══ */
+.irv-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.irv-eyebrow {
+    color: #0d9488;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: block;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.irv-heading {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.55;
+    color: #17272e;
+}
+
+/* 黄色いマーカー。LPの見出し強調をそのまま踏襲。多用せず、各セクション1語まで */
+.irv-marker {
+    background: #ffd83d;
+    color: #1e3a5f;
+    padding: 0.04em 0.14em;
+    margin: 0 0.04em;
+    border-radius: 0.2rem;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+/* 狭い画面でだけ改行する。長い見出しが文節の途中で割れるのを防ぐ */
+.irv-br-narrow {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .irv-br-narrow {
+        display: inline;
+    }
+}
+
+.irv-section-head {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.irv-section-head .irv-eyebrow {
+    margin-bottom: 0.875rem;
+}
+
+.irv-section-title {
+    font-size: clamp(1.375rem, 5vw, 2rem);
+}
+
+/* ══ ボタン（LPのピル）══ */
+.irv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2.25rem;
+    border-radius: 9999px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    white-space: nowrap;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.irv-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* 主導線: イエロー */
+.irv-btn--primary {
+    background: #ffd83d;
+    color: #1e3a5f;
+}
+
+.irv-btn--primary:hover {
+    background: #ffe66b;
+}
+
+/* 副導線: ネイビーの枠線（明るい面用） */
+.irv-btn--outline {
+    border-color: #1e3a5f;
+    color: #1e3a5f;
+    background: transparent;
+}
+
+.irv-btn--outline:hover {
+    background: #1e3a5f;
+    color: #ffffff;
+}
+
+/* 副導線: 白の枠線（濃紺面用） */
+.irv-btn--outline-dark {
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #ffffff;
+    background: transparent;
+}
+
+.irv-btn--outline-dark:hover {
+    background: #ffffff;
+    color: #1e3a5f;
+}
+
+.irv-btn:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+/* 公式LPが未公開の間の代替表示。押せないことが見て分かる形にする */
+.irv-note {
+    font-size: 0.8125rem;
+    color: #5b6b72;
+    letter-spacing: 0.04em;
+    padding: 0.5rem 0;
+}
+
+.irv-note--on-dark {
+    color: #8ba0b8;
+}
+
+@media (max-width: 480px) {
+    .irv-btn {
+        padding: 0.875rem 1.5rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* ══ ヒーロー ══ */
+.irv-hero {
+    background-color: #faf9f4;
+    padding: 170px 0 100px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.irv-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .irv-hero-grid {
+        grid-template-columns: minmax(0, 1fr) 340px;
+        column-gap: 72px;
+    }
+}
+
+.irv-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+/* 製品ロゴ＋製品名のロックアップ */
+.irv-brand-lockup {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.625rem;
+}
+
+.irv-brand-wordmark {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #1e3a5f;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.irv-brand-desc {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.875rem;
+    color: #5b6b72;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.75rem;
+}
+
+/* LPと同じ位置（「企業の」の後）で改行して1行を短くし、その分サイズを上げる */
+.irv-hero-title {
+    font-size: clamp(1.75rem, 4.2vw, 3.5rem);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 899px) {
+    .irv-hero-title {
+        font-size: clamp(1.75rem, 8vw, 2.75rem);
+    }
+}
+
+.irv-hero-sub {
+    font-size: 1rem;
+    color: #3d4d54;
+    line-height: 2.0;
+    max-width: 34rem;
+    margin-bottom: 2.25rem;
+}
+
+/* 見出し・本文は左揃えのまま、公開告知ブロックだけカラム中央に置く */
+.irv-hero-launch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    text-align: center;
+    gap: 0.875rem;
+}
+
+.irv-hero-caption {
+    font-size: 0.8125rem;
+    color: #5b6b72;
+    letter-spacing: 0.04em;
+}
+
+.irv-hero-phone {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 900px) {
+    .irv-hero-phone {
+        justify-content: flex-end;
+    }
+}
+
+/* ══ 機能 ══
+   ヒーロー(クリーム)と直結するため白にして面を切り替える */
+.irv-features {
+    background-color: #ffffff;
+    padding: 120px 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.irv-feature-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.irv-feature-row+.irv-feature-row {
+    margin-top: 110px;
+}
+
+@media (min-width: 900px) {
+    .irv-feature-row {
+        grid-template-columns: minmax(0, 1fr) 320px;
+        column-gap: 88px;
+    }
+
+    /* 交互に左右を入れ替える */
+    .irv-feature-row--reverse {
+        grid-template-columns: 320px minmax(0, 1fr);
+    }
+
+    .irv-feature-row--reverse .irv-feature-visual {
+        order: -1;
+    }
+}
+
+.irv-feature-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+/* LPの大きなティール数字 */
+.irv-feature-num {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.75rem, 5vw, 4rem);
+    line-height: 1;
+    color: rgba(20, 184, 166, 0.32);
+    margin-bottom: 1rem;
+    user-select: none;
+}
+
+.irv-feature-title {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    margin-bottom: 1rem;
+}
+
+.irv-feature-desc {
+    font-size: 0.9375rem;
+    color: #3d4d54;
+    line-height: 2.0;
+    max-width: 26rem;
+}
+
+.irv-feature-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.irv-feature-visual .irv-phone {
+    max-width: 280px;
+}
+
+/* ══ 企業向け ══ */
+.irv-business {
+    background-color: #0f2440;
+    padding: 120px 0;
+    width: 100%;
+}
+
+.irv-business .irv-eyebrow {
+    color: #2dd4bf;
+}
+
+.irv-business .irv-section-title {
+    color: #ffffff;
+}
+
+.irv-business-lead {
+    font-size: 1rem;
+    color: #b7cbe4;
+    line-height: 2.0;
+    max-width: 38rem;
+    margin: 1.25rem auto 0;
+}
+
+.irv-business-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+}
+
+@media (min-width: 768px) {
+    .irv-business-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 64px 48px;
+    }
+}
+
+.irv-business-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.irv-business-num {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 0.12em;
+    color: #2dd4bf;
+    margin-bottom: 0.875rem;
+}
+
+/* ダッシュボード画面。LPに合わせて角丸カードで置く */
+.irv-shot {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    margin-bottom: 1.375rem;
+    background: #ffffff;
+}
+
+.irv-business-item-title {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.irv-business-item-desc {
+    font-size: 0.9375rem;
+    color: #b7cbe4;
+    line-height: 1.9;
+    max-width: 26rem;
+}
+
+/* 注記の下にボタン。常に縦積み・中央寄せ */
+.irv-business-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+    margin-top: 4.5rem;
+}
+
+/* ══ FAQ ══ */
+.irv-faq {
+    background-color: #ffffff;
+    padding: 120px 0;
+    width: 100%;
+}
+
+.irv-faq-inner {
+    max-width: 46rem;
+    margin: 0 auto;
+}
+
+/* ══ モーション設定を尊重する ══ */
+@media (prefers-reduced-motion: reduce) {
+    .irv-btn {
+        transition: none;
+    }
+}

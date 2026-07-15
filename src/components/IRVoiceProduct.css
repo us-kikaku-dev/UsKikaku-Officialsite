@@ -1,0 +1,195 @@
+/* IRVoiceProduct.css — トップページのプロダクト紹介セクション
+ *
+ * トップページの共通言語（Zen Old Mincho見出し・角丸ゼロ・細枠ボタン・120px余白）に従う。
+ * プロダクト固有なのは差し色（IR Voiceのティール #0d9488）と淡い地色だけ。
+ * 旧OKKAKEセクション（ピンク地×ローズの差し色）と同じ流儀。
+ * LPスタイル（太ゴシック・マーカー・ピル）は紹介ページ(/product)専用とし、ここには持ち込まない */
+
+.irvoice-section {
+    /* ごく淡いティールの地。OKKAKEの #FFF5F7 に相当するプロダクトの気配 */
+    background-color: #F2F8F7;
+    padding: 120px 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.irvoice-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.irvoice-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .irvoice-grid {
+        /* ConsultingService(画像左) の次なので、ジグザグを保って テキスト左 | 画像右 */
+        grid-template-columns: 6fr 4fr;
+        gap: 60px;
+    }
+}
+
+/* ── 左カラム: テキスト ── */
+.irvoice-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (min-width: 900px) {
+    .irvoice-content {
+        grid-column: 1;
+        grid-row: 1;
+    }
+}
+
+.irvoice-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin-bottom: 0.875rem;
+}
+
+.irvoice-eyebrow-label {
+    color: #0d9488;
+    font-size: 0.875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* 「近日公開」。ボタンに見えない静かな状態表示に留める（押せる導線ではないため） */
+.irvoice-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.875rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: #6B7280;
+    white-space: nowrap;
+}
+
+.irvoice-status::before {
+    content: '';
+    width: 1px;
+    height: 0.9em;
+    background: #C9D6D3;
+    flex-shrink: 0;
+}
+
+/* 狭い画面では文字を詰めて、意図した改行位置(<br>)を保つ */
+.irvoice-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(1.375rem, 6.5vw, 2rem);
+    font-weight: 700;
+    color: #1a1a40;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+}
+
+.irvoice-description {
+    font-size: 1rem;
+    color: #333333;
+    line-height: 2.0;
+    margin-bottom: 1.25rem;
+}
+
+/* プロダクトのロゴ＋名前の行。細いルールを引いて本文と切り分ける */
+.irvoice-caption {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #DCE9E6;
+    margin-bottom: 40px;
+}
+
+.irvoice-caption-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.irvoice-caption-name {
+    color: #1a1a40;
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.irvoice-caption-desc {
+    font-size: 0.875rem;
+    color: #5b6b72;
+    letter-spacing: 0.05em;
+}
+
+/* ── CTA ──
+   本文は左揃え、ボタンはカラム中央。ConsultingService と同じ扱い。
+   細枠・角丸ゼロの共通ボタン様式に、差し色だけティール */
+.irvoice-cta-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.irvoice-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 3rem;
+    border: 1px solid #0d9488;
+    color: #0d9488;
+    background-color: transparent;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    border-radius: 0;
+}
+
+.irvoice-cta-btn:hover {
+    background-color: #0d9488;
+    color: #ffffff;
+}
+
+.irvoice-cta-btn:focus-visible {
+    outline: 2px solid #0d9488;
+    outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+    .irvoice-cta-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: clamp(0.75rem, 3.5vw, 0.9375rem);
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* ── 右カラム: スマホ実機フレーム ── */
+.irvoice-phone-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .irvoice-phone-wrapper {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .irvoice-cta-btn {
+        transition: none;
+    }
+}

@@ -1,0 +1,40 @@
+/* PhoneFrame.css — アプリのスクリーンショットを収めるスマホ実機フレーム
+ *
+ * サイト全体は角丸ゼロで統一しているが、この枠だけは実機の形に従って角丸にする。
+ * 角のない周囲との対比で、画面が「実物」として立ち上がる。 */
+
+.irv-phone {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    /* ベゼル */
+    padding: 8px;
+    background: #0F172A;
+    border-radius: 34px;
+    border: 1px solid #2A3F55;
+    box-shadow:
+        0 24px 60px -12px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+
+/* 明るい面に置く場合の枠 */
+.irv-phone--on-light {
+    box-shadow:
+        0 24px 60px -18px rgba(15, 23, 42, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+
+.irv-phone-screen {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 26px;
+    /* 画像自体が白背景なので、枠との境目を締める */
+    background: #ffffff;
+}
+
+@media (min-width: 900px) {
+    .irv-phone {
+        max-width: 300px;
+    }
+}

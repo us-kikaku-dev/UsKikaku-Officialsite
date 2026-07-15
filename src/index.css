@@ -2390,19 +2390,6 @@ html {
   }
 }
 
-/* Manual additions for AboutOkkake padding */
-.py-48 {
-  padding-top: 12rem;
-  padding-bottom: 12rem;
-}
-
-@media (min-width: 768px) {
-  .md\:py-80 {
-    padding-top: 20rem;
-    padding-bottom: 20rem;
-  }
-}
-
 /* Manual additions for Round Gothic font */
 .font-rounded {
   font-family: 'M PLUS Rounded 1c', sans-serif;
