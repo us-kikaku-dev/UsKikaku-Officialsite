@@ -15,7 +15,7 @@ export const ServicePage = () => {
                     name="description"
                     content="IR戦略の設計から決算説明資料・統合報告書の作成支援、投資家コミュニケーションの高度化まで、上場・上場準備企業のIR活動を一貫してサポートします。"
                 />
-                <link rel="canonical" href="https://www.us-kikaku.com/service" />
+                <link rel="canonical" href="https://us-kikaku.com/service" />
             </Helmet>
             <ServiceHeroFinalV4 />
             <ServiceApproach />

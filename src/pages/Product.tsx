@@ -14,7 +14,7 @@ export const Product = () => {
                     name="description"
                     content="株式会社U's企画が提供する自社プロダクト「OKKAKE」のご紹介。プロダクトの思想と特徴、提供価値をご覧いただけます。"
                 />
-                <link rel="canonical" href="https://www.us-kikaku.com/product" />
+                <link rel="canonical" href="https://us-kikaku.com/product" />
             </Helmet>
             <ProductHero />
             <ProductPhilosophy />

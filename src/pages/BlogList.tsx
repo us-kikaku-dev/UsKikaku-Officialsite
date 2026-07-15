@@ -100,7 +100,7 @@ export const BlogList = () => {
                     name="description"
                     content="IR・資本市場・企業価値向上に関する株式会社U's企画スタッフによる考察記事を掲載しています。"
                 />
-                <link rel="canonical" href="https://www.us-kikaku.com/blog" />
+                <link rel="canonical" href="https://us-kikaku.com/blog" />
             </Helmet>
             <div className="max-w-5xl mx-auto px-5 lg:px-8">
                 <motion.div

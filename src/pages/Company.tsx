@@ -13,7 +13,7 @@ export const Company = () => {
                     name="description"
                     content="株式会社U's企画の会社概要・代表メッセージ・メンバー・提携先・所在地のご案内。IRコンサルティングを軸に、企業価値の向上に貢献します。"
                 />
-                <link rel="canonical" href="https://www.us-kikaku.com/company" />
+                <link rel="canonical" href="https://us-kikaku.com/company" />
             </Helmet>
             <CompanyProfile />
             <Members />

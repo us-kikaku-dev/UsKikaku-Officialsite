@@ -12,7 +12,7 @@ export const Contact = () => {
                     name="description"
                     content="株式会社U's企画へのお問い合わせフォーム。IRコンサルティング、Capital Voice Japan、受託開発・Web制作のご相談などはこちらから。"
                 />
-                <link rel="canonical" href="https://www.us-kikaku.com/contact" />
+                <link rel="canonical" href="https://us-kikaku.com/contact" />
             </Helmet>
             <div className="pt-48 pb-40 px-4 md:px-8 bg-[#F9FAFB]">
                 <div className="max-w-4xl mx-auto">

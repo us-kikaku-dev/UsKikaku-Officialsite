@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.us-kikaku.com/sitemap.xml
+Sitemap: https://us-kikaku.com/sitemap.xml

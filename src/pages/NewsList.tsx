@@ -124,7 +124,7 @@ export const NewsList = () => {
                     name="description"
                     content="株式会社U's企画の最新ニュース・お知らせ・プレスリリースをご覧いただけます。"
                 />
-                <link rel="canonical" href="https://www.us-kikaku.com/news" />
+                <link rel="canonical" href="https://us-kikaku.com/news" />
             </Helmet>
             <div className="max-w-5xl mx-auto px-5 lg:px-8">
                 <motion.div
