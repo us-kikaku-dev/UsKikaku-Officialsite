@@ -21,8 +21,10 @@ export const useContactSubmit = ({ getValues, trigger }: UseContactSubmitParams)
     // 表示順を担保するために明示的に保持）
     const fieldOrder: Array<keyof ContactFormInputs | string> = [
         'companyName', 'personName', 'email', 'phoneNumber',
-        'inquiryType', 'cvjInquiryCategory', 'cvjListingStatus',
-        'cvjSecurityCode', 'cvjArticleUrl', 'irConsultingContents',
+        'inquiryType', 'cvjPersona', 'cvjInquiryCategory', 'cvjListingStatus',
+        'cvjSecurityCode', 'cvjArticleUrl',
+        'irvPersona', 'irvInquiryCategory', 'irvListingStatus', 'irvSecurityCode', 'irvConsiderationTiming',
+        'irConsultingContents',
         'irProductionSystem', 'securityCode', 'irReferenceUrl',
         'devType', 'budget', 'deadline', 'devReferenceUrl', 'message'
     ];

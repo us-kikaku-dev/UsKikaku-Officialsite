@@ -2,7 +2,7 @@ import { RefObject } from 'react';
 import { motion } from 'motion/react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { UseFormGetValues } from 'react-hook-form';
-import { ContactFormInputs, InquiryType } from './types';
+import { ContactFormInputs, InquiryType, IRV_PERSONA_BUSINESS, CVJ_PERSONA_BUSINESS } from './types';
 import { FormRow } from './FormRow';
 
 // 環境変数からのみ取得。fallbackを設けず、未設定なら送信不可とする
@@ -55,10 +55,30 @@ export const Step2Confirm = ({
                     {/* Conditional Previews */}
                     {inquiryType === 'Capital Voice Japanについて' && (
                         <>
+                            <FormRow label="ご利用の立場" value={getValues('cvjPersona') || '-'} />
                             <FormRow label="お問い合わせ区分" value={getValues('cvjInquiryCategory') || '-'} />
-                            <FormRow label="上場区分" value={getValues('cvjListingStatus') || '-'} />
-                            <FormRow label="証券コード" value={getValues('cvjSecurityCode') || '-'} />
+                            {/* 企業・事業者向け項目は、立場が企業のときだけ確認画面にも出す */}
+                            {getValues('cvjPersona') === CVJ_PERSONA_BUSINESS && (
+                                <>
+                                    <FormRow label="上場区分" value={getValues('cvjListingStatus') || '-'} />
+                                    <FormRow label="証券コード" value={getValues('cvjSecurityCode') || '-'} />
+                                </>
+                            )}
                             <FormRow label="対象記事URL" value={getValues('cvjArticleUrl') || '-'} />
+                        </>
+                    )}
+                    {inquiryType === 'IR Voiceについて' && (
+                        <>
+                            <FormRow label="ご利用の立場" value={getValues('irvPersona') || '-'} />
+                            <FormRow label="お問い合わせ区分" value={getValues('irvInquiryCategory') || '-'} />
+                            {/* 企業向け詳細項目は、立場が企業のときだけ確認画面にも出す */}
+                            {getValues('irvPersona') === IRV_PERSONA_BUSINESS && (
+                                <>
+                                    <FormRow label="上場区分" value={getValues('irvListingStatus') || '-'} />
+                                    <FormRow label="証券コード" value={getValues('irvSecurityCode') || '-'} />
+                                    <FormRow label="導入検討時期" value={getValues('irvConsiderationTiming') || '-'} />
+                                </>
+                            )}
                         </>
                     )}
                     {inquiryType === 'IRコンサルティング' && (

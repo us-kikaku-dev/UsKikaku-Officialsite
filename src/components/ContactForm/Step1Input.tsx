@@ -1,11 +1,23 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { ContactFormInputs, InquiryType } from './types';
+import {
+    ContactFormInputs,
+    InquiryType,
+    IRV_PERSONA_BUSINESS,
+    CVJ_PERSONA_READER,
+    CVJ_PERSONA_BUSINESS,
+    CVJ_READER_CATEGORIES,
+    CVJ_BUSINESS_CATEGORIES,
+} from './types';
 
 interface Step1InputProps {
     register: UseFormRegister<ContactFormInputs>;
     errors: FieldErrors<ContactFormInputs>;
     inquiryType: InquiryType;
+    /** IR Voice: ご利用の立場（企業のときだけ詳細項目を表示する） */
+    irvPersona?: string;
+    /** Capital Voice Japan: ご利用の立場（区分の選択肢が立場で切り替わる） */
+    cvjPersona?: string;
     onConfirm: () => void;
 }
 
@@ -16,7 +28,9 @@ const inputStyle = "force-input-style";
 const errorStyle = "force-error-message";
 const radioStyle = "w-5 h-5 text-[#D4AF37] border-gray-300 focus:ring-[#D4AF37]";
 
-export const Step1Input = ({ register, errors, inquiryType, onConfirm }: Step1InputProps) => {
+export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPersona, onConfirm }: Step1InputProps) => {
+    // CVJ: 立場に応じた区分の選択肢
+    const cvjCategories = cvjPersona === CVJ_PERSONA_BUSINESS ? CVJ_BUSINESS_CATEGORIES : CVJ_READER_CATEGORIES;
     return (
         <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -88,7 +102,7 @@ export const Step1Input = ({ register, errors, inquiryType, onConfirm }: Step1In
                         <span className="force-required-mark">※必須</span>
                     </label>
                     <div className="flex flex-col md:flex-row gap-6 flex-wrap">
-                        {['Capital Voice Japanについて', 'IRコンサルティング', '受託開発・Web制作', 'その他'].map((type) => (
+                        {['Capital Voice Japanについて', 'IR Voiceについて', 'IRコンサルティング', '受託開発・Web制作', 'その他'].map((type) => (
                             <label key={type} className="flex items-center cursor-pointer group">
                                 <input
                                     type="radio"
@@ -119,47 +133,165 @@ export const Step1Input = ({ register, errors, inquiryType, onConfirm }: Step1In
                         >
                             <div>
                                 <label className={labelStyle}>
+                                    ご利用の立場
+                                    <span className="force-required-mark">※必須</span>
+                                </label>
+                                <div className="flex flex-col md:flex-row gap-6 flex-wrap">
+                                    {[CVJ_PERSONA_READER, CVJ_PERSONA_BUSINESS].map(item => (
+                                        <label key={item} className="flex items-center cursor-pointer group">
+                                            <input type="radio" value={item} aria-invalid={!!errors.cvjPersona} {...register('cvjPersona', { required: '※ご利用の立場を選択してください' })} className={radioStyle + " mr-3"} />
+                                            <span className="text-[#050A14] group-hover:text-[#D4AF37] transition-colors">{item}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                                {errors.cvjPersona && <span className={errorStyle}>{errors.cvjPersona.message}</span>}
+                            </div>
+
+                            {/* 区分は立場を選ぶと表示され、選択肢が立場で切り替わる */}
+                            {cvjPersona && (
+                                <motion.div
+                                    key={cvjPersona}
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="overflow-hidden"
+                                    style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
+                                >
+                                    <div>
+                                        <label className={labelStyle}>
+                                            お問い合わせ区分
+                                            <span className="force-required-mark">※必須</span>
+                                        </label>
+                                        <div className="flex flex-col gap-4">
+                                            {cvjCategories.map(item => (
+                                                <label key={item} className="flex items-center cursor-pointer group">
+                                                    <input type="radio" value={item} aria-invalid={!!errors.cvjInquiryCategory} {...register('cvjInquiryCategory', { required: '※お問い合わせ区分を選択してください' })} className={radioStyle + " mr-3"} />
+                                                    <span className="text-[#050A14] group-hover:text-[#D4AF37] transition-colors">{item}</span>
+                                                </label>
+                                            ))}
+                                        </div>
+                                        {errors.cvjInquiryCategory && <span className={errorStyle}>{errors.cvjInquiryCategory.message}</span>}
+                                    </div>
+
+                                    {/* 企業・事業者のときだけ、上場区分と証券コードを出す */}
+                                    {cvjPersona === CVJ_PERSONA_BUSINESS && (
+                                        <>
+                                            <div>
+                                                <label className={labelStyle}>上場区分</label>
+                                                <div className="flex flex-col md:flex-row gap-6 flex-wrap">
+                                                    {['上場企業', '上場準備中', 'その他'].map(item => (
+                                                        <label key={item} className="flex items-center cursor-pointer group">
+                                                            <input type="radio" value={item} {...register('cvjListingStatus')} className={radioStyle + " mr-3"} />
+                                                            <span className="text-[#050A14] group-hover:text-[#D4AF37] transition-colors">{item}</span>
+                                                        </label>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label className={labelStyle}>証券コード</label>
+                                                <input type="text" className={inputStyle} placeholder="1234" {...register('cvjSecurityCode')} />
+                                            </div>
+                                        </>
+                                    )}
+
+                                    <div>
+                                        <label className={labelStyle}>対象記事URL</label>
+                                        <input type="text" className={inputStyle} placeholder="https://capital-voice.com/article/..." {...register('cvjArticleUrl')} />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </motion.div>
+                    )}
+
+                    {inquiryType === 'IR Voiceについて' && (
+                        <motion.div
+                            key="irv"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="pt-6 border-t border-gray-100 overflow-hidden"
+                            style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
+                        >
+                            <div>
+                                <label className={labelStyle}>
+                                    ご利用の立場
+                                    <span className="force-required-mark">※必須</span>
+                                </label>
+                                <div className="flex flex-col md:flex-row gap-6 flex-wrap">
+                                    {[
+                                        IRV_PERSONA_BUSINESS,
+                                        '個人投資家の方',
+                                        'その他（メディア・パートナー等）',
+                                    ].map(item => (
+                                        <label key={item} className="flex items-center cursor-pointer group">
+                                            <input type="radio" value={item} aria-invalid={!!errors.irvPersona} {...register('irvPersona', { required: '※ご利用の立場を選択してください' })} className={radioStyle + " mr-3"} />
+                                            <span className="text-[#050A14] group-hover:text-[#D4AF37] transition-colors">{item}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                                {errors.irvPersona && <span className={errorStyle}>{errors.irvPersona.message}</span>}
+                            </div>
+
+                            <div>
+                                <label className={labelStyle}>
                                     お問い合わせ区分
                                     <span className="force-required-mark">※必須</span>
                                 </label>
                                 <div className="flex flex-col gap-4">
                                     {[
-                                        '取材依頼（自社の取材を希望）',
-                                        '取材対象の推薦',
-                                        '記事へのご意見・ご感想',
-                                        'メディア提携・広告のご相談',
+                                        '導入・デモのご相談',
+                                        'リリース情報・アプリについて',
+                                        '取材・提携のご相談',
                                         'その他',
                                     ].map(item => (
                                         <label key={item} className="flex items-center cursor-pointer group">
-                                            <input type="radio" value={item} aria-invalid={!!errors.cvjInquiryCategory} {...register('cvjInquiryCategory', { required: '※お問い合わせ区分を選択してください' })} className={radioStyle + " mr-3"} />
+                                            <input type="radio" value={item} aria-invalid={!!errors.irvInquiryCategory} {...register('irvInquiryCategory', { required: '※お問い合わせ区分を選択してください' })} className={radioStyle + " mr-3"} />
                                             <span className="text-[#050A14] group-hover:text-[#D4AF37] transition-colors">{item}</span>
                                         </label>
                                     ))}
                                 </div>
-                                {errors.cvjInquiryCategory && <span className={errorStyle}>{errors.cvjInquiryCategory.message}</span>}
+                                {errors.irvInquiryCategory && <span className={errorStyle}>{errors.irvInquiryCategory.message}</span>}
                             </div>
 
-                            <div>
-                                <label className={labelStyle}>上場区分</label>
-                                <div className="flex flex-col md:flex-row gap-6 flex-wrap">
-                                    {['上場企業', '上場準備中', 'その他'].map(item => (
-                                        <label key={item} className="flex items-center cursor-pointer group">
-                                            <input type="radio" value={item} {...register('cvjListingStatus')} className={radioStyle + " mr-3"} />
-                                            <span className="text-[#050A14] group-hover:text-[#D4AF37] transition-colors">{item}</span>
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
+                            {/* 企業のIRご担当者様のときだけ、リード把握用の詳細項目を出す */}
+                            {irvPersona === IRV_PERSONA_BUSINESS && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="overflow-hidden"
+                                    style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
+                                >
+                                    <div>
+                                        <label className={labelStyle}>上場区分</label>
+                                        <div className="flex flex-col md:flex-row gap-6 flex-wrap">
+                                            {['上場企業', '上場準備中', 'その他'].map(item => (
+                                                <label key={item} className="flex items-center cursor-pointer group">
+                                                    <input type="radio" value={item} {...register('irvListingStatus')} className={radioStyle + " mr-3"} />
+                                                    <span className="text-[#050A14] group-hover:text-[#D4AF37] transition-colors">{item}</span>
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
 
-                            <div>
-                                <label className={labelStyle}>証券コード</label>
-                                <input type="text" className={inputStyle} placeholder="1234" {...register('cvjSecurityCode')} />
-                            </div>
+                                    <div>
+                                        <label className={labelStyle}>証券コード</label>
+                                        <input type="text" className={inputStyle} placeholder="1234" {...register('irvSecurityCode')} />
+                                    </div>
 
-                            <div>
-                                <label className={labelStyle}>対象記事URL</label>
-                                <input type="text" className={inputStyle} placeholder="https://capital-voice.com/article/..." {...register('cvjArticleUrl')} />
-                            </div>
+                                    <div>
+                                        <label className={labelStyle}>導入検討時期</label>
+                                        <select className="force-input-style" {...register('irvConsiderationTiming')}>
+                                            <option value="">選択してください</option>
+                                            <option value="情報収集段階">情報収集段階</option>
+                                            <option value="具体的に検討中">具体的に検討中</option>
+                                            <option value="リリース後に検討">リリース後に検討</option>
+                                            <option value="未定">未定</option>
+                                        </select>
+                                    </div>
+                                </motion.div>
+                            )}
                         </motion.div>
                     )}
 
