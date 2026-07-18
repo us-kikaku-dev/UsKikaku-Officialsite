@@ -54,7 +54,17 @@ export const IRVoiceForBusiness = () => {
                 >
                     <span className="irv-eyebrow">For Business</span>
                     <h2 className="irv-heading irv-section-title">
-                        投資家の反応が、<br className="irv-br-narrow" /><span className="irv-marker">数字でわかる。</span>
+                        投資家の反応が、<br className="irv-br-narrow" />
+                        {/* マーカーはスクロールで見えたときに引かれる */}
+                        <motion.span
+                            className="irv-marker"
+                            initial={{ backgroundSize: '0% 100%' }}
+                            whileInView={{ backgroundSize: '100% 100%' }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
+                        >
+                            数字でわかる。
+                        </motion.span>
                     </h2>
                     <p className="irv-business-lead">
                         閲覧・フォロー・アンケートで投資家の反応を見える化する、企業のIRご担当者様向けダッシュボード。

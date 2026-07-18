@@ -60,7 +60,17 @@ export const IRVoiceFeatures = () => {
                         transition={{ duration: 0.7 }}
                     >
                         <div className="irv-feature-text">
-                            <span className="irv-feature-num" aria-hidden="true">{feature.numeral}</span>
+                            {/* 数字はスプリングで弾んで登場する */}
+                            <motion.span
+                                className="irv-feature-num"
+                                aria-hidden="true"
+                                initial={{ opacity: 0, scale: 0.4, y: 14 }}
+                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-80px' }}
+                                transition={{ type: 'spring', bounce: 0.55, duration: 0.8, delay: 0.15 }}
+                            >
+                                {feature.numeral}
+                            </motion.span>
                             <h3 className="irv-heading irv-feature-title">{feature.title}</h3>
                             <p className="irv-feature-desc">{feature.desc}</p>
                         </div>

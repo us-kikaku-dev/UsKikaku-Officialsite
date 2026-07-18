@@ -34,9 +34,14 @@
     color: #17272e;
 }
 
-/* 黄色いマーカー。LPの見出し強調をそのまま踏襲。多用せず、各セクション1語まで */
+/* 黄色いマーカー。LPの見出し強調をそのまま踏襲。多用せず、各セクション1語まで。
+   背景をグラデーション画像にして background-size を動かすと、
+   蛍光ペンで左から引かれるアニメーションになる（motion.span側で制御） */
 .irv-marker {
-    background: #ffd83d;
+    background-image: linear-gradient(#ffd83d, #ffd83d);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: left center;
     color: #1e3a5f;
     padding: 0.04em 0.14em;
     margin: 0 0.04em;
@@ -69,7 +74,8 @@
     font-size: clamp(1.375rem, 5vw, 2rem);
 }
 
-/* ══ ボタン（LPのピル）══ */
+/* ══ ボタン（LPのピル・押せる物理ボタン）══
+   下に「厚み」のハードシャドウを持ち、押すと沈んで厚みが消える */
 .irv-btn {
     display: inline-flex;
     align-items: center;
@@ -82,36 +88,63 @@
     font-weight: 700;
     letter-spacing: 0.02em;
     text-decoration: none;
-    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.2s ease, color 0.2s ease;
     white-space: nowrap;
     border: 2px solid transparent;
     cursor: pointer;
 }
 
-.irv-btn:hover {
-    transform: translateY(-1px);
+/* アイコンはホバー（押し込み）で文字側に少し寄る */
+.irv-btn svg {
+    transition: transform 0.2s ease;
 }
 
-/* 主導線: イエロー */
+/* 押し込みの比喩で統一する。影の下端は全状態で固定し、ボタンだけが沈む:
+   静止 = 厚み4px / ホバー = 2px沈んで厚み2px（半押し）/ クリック = 4px沈んで厚み0（全押し） */
+.irv-btn:hover {
+    transform: translateY(2px);
+}
+
+.irv-btn:hover svg {
+    transform: translateX(-2px);
+}
+
+.irv-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 transparent;
+}
+
+/* 主導線: イエロー。厚みは深いイエロー */
 .irv-btn--primary {
     background: #ffd83d;
     color: #1e3a5f;
+    box-shadow: 0 4px 0 #f2c200;
 }
 
 .irv-btn--primary:hover {
     background: #ffe66b;
+    box-shadow: 0 2px 0 #f2c200;
 }
 
-/* 副導線: ネイビーの枠線（明るい面用） */
+.irv-btn--primary:active {
+    box-shadow: 0 0 0 #f2c200;
+}
+
+/* 副導線: ネイビーの枠線（明るい面用）。白地＋ネイビーの厚み */
 .irv-btn--outline {
     border-color: #1e3a5f;
     color: #1e3a5f;
-    background: transparent;
+    background: #ffffff;
+    box-shadow: 0 4px 0 #1e3a5f;
 }
 
 .irv-btn--outline:hover {
-    background: #1e3a5f;
-    color: #ffffff;
+    background: #f6f9fc;
+    box-shadow: 0 2px 0 #1e3a5f;
+}
+
+.irv-btn--outline:active {
+    box-shadow: 0 0 0 #1e3a5f;
 }
 
 /* 副導線: 白の枠線（濃紺面用） */
@@ -119,11 +152,17 @@
     border-color: rgba(255, 255, 255, 0.55);
     color: #ffffff;
     background: transparent;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.45);
 }
 
 .irv-btn--outline-dark:hover {
     background: #ffffff;
     color: #1e3a5f;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.irv-btn--outline-dark:active {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.45);
 }
 
 .irv-btn:focus-visible {
@@ -178,6 +217,16 @@
     flex-direction: column;
     align-items: flex-start;
     min-width: 0;
+}
+
+/* リリース予定日。ロゴの上に小さく置く */
+.irv-hero-release {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #0d9488;
+    margin-bottom: 1rem;
 }
 
 /* 製品ロゴ＋製品名のロックアップ */
@@ -254,6 +303,62 @@
     }
 }
 
+/* ヒーローの実機は呼吸するようにゆっくり浮遊させる */
+.irv-hero-phone .irv-phone {
+    animation: irvFloatPhone 7s ease-in-out infinite;
+}
+
+@keyframes irvFloatPhone {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 波形ロゴの脈動。「声」が鳴っているように5本のバーを時間差で揺らす */
+.irv-brandmark--animated rect {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: irvVoicePulse 1.8s ease-in-out infinite;
+}
+
+.irv-brandmark--animated rect:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.irv-brandmark--animated rect:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.irv-brandmark--animated rect:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.irv-brandmark--animated rect:nth-child(4) {
+    animation-delay: 0.45s;
+}
+
+.irv-brandmark--animated rect:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+@keyframes irvVoicePulse {
+
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(0.55);
+    }
+}
+
 /* ══ 機能 ══
    ヒーロー(クリーム)と直結するため白にして面を切り替える */
 .irv-features {
@@ -327,6 +432,12 @@
 
 .irv-feature-visual .irv-phone {
     max-width: 280px;
+    transition: transform 0.35s ease;
+}
+
+/* ホバーでふわっと持ち上がり、少しだけ傾く */
+.irv-feature-visual:hover .irv-phone {
+    transform: translateY(-6px) rotate(-1.2deg);
 }
 
 /* ══ 企業向け ══ */
@@ -388,6 +499,12 @@
     border: 1px solid rgba(255, 255, 255, 0.16);
     margin-bottom: 1.375rem;
     background: #ffffff;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.irv-business-item:hover .irv-shot {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.55);
 }
 
 .irv-business-item-title {
@@ -430,7 +547,21 @@
 
 /* ══ モーション設定を尊重する ══ */
 @media (prefers-reduced-motion: reduce) {
-    .irv-btn {
+
+    .irv-btn,
+    .irv-btn svg,
+    .irv-feature-visual .irv-phone,
+    .irv-shot {
         transition: none;
+    }
+
+    .irv-hero-phone .irv-phone,
+    .irv-brandmark--animated rect {
+        animation: none;
+    }
+
+    /* マーカーは引かれた状態で固定する */
+    .irv-marker {
+        background-size: 100% 100% !important;
     }
 }

@@ -17,11 +17,14 @@ export function BrandMark({
     className,
     tone = 'dark',
     size = 24,
+    animated = false,
 }: {
     className?: string;
     tone?: 'light' | 'dark';
     /** 表示高さ(px)。幅はロゴの縦横比から自動で決まる */
     size?: number;
+    /** 音声のようにバーを脈動させる（スタイルは IRVoicePage.css 側で定義） */
+    animated?: boolean;
 }) {
     const bars =
         tone === 'light'
@@ -33,7 +36,7 @@ export function BrandMark({
         // バーの描画範囲は x:44〜81, y:22〜58（中央バーは y=22 + 高さ36 = 58 まで伸びる）。
         // 上下左右に2ずつ余白を持たせてトリミングする
         <svg
-            className={className}
+            className={`${className ?? ''} ${animated ? 'irv-brandmark--animated' : ''}`.trim() || undefined}
             viewBox="42 20 41 40"
             aria-hidden="true"
             height={size}

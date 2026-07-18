@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import './IRVoiceProduct.css';
 import { PhoneFrame } from './IRVoice/PhoneFrame';
 import { BrandMark } from './IRVoice/BrandMark';
+import { IR_VOICE_RELEASE_DATE_LABEL } from '../config/irVoice';
 import AppHome from '../assets/ir-voice/app_home.webp';
 
 /**
@@ -26,7 +27,7 @@ export const IRVoiceProduct = () => {
                     >
                         <div className="irvoice-eyebrow">
                             <span className="irvoice-eyebrow-label">Product</span>
-                            <span className="irvoice-status">近日公開</span>
+                            <span className="irvoice-status">{IR_VOICE_RELEASE_DATE_LABEL} リリース予定</span>
                         </div>
 
                         <h3 className="irvoice-title">

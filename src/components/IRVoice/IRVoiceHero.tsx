@@ -4,8 +4,7 @@ import { ExternalLink } from 'lucide-react';
 import './IRVoicePage.css';
 import { PhoneFrame } from './PhoneFrame';
 import { BrandMark } from './BrandMark';
-import { ComingSoonBadge } from './ComingSoonBadge';
-import { IR_VOICE_LP_URL, isLpLinkReady } from '../../config/irVoice';
+import { IR_VOICE_LP_URL, IR_VOICE_RELEASE_DATE_LABEL, isLpLinkReady } from '../../config/irVoice';
 import AppHome from '../../assets/ir-voice/app_home.webp';
 
 export const IRVoiceHero = () => {
@@ -20,15 +19,27 @@ export const IRVoiceHero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
+                        {/* リリース予定日。日付は設定ファイルで一元管理 */}
+                        <p className="irv-hero-release">{IR_VOICE_RELEASE_DATE_LABEL} リリース予定</p>
+
                         {/* 製品ロゴ＋製品名のロックアップ。マークは装飾扱いで、名前はテキストで読ませる */}
                         <div className="irv-brand-lockup">
-                            <BrandMark tone="dark" size={30} />
+                            <BrandMark tone="dark" size={30} animated />
                             <span className="irv-brand-wordmark">IR Voice</span>
                         </div>
                         <p className="irv-brand-desc">投資家のための IRフィードアプリ</p>
 
                         <h1 className="irv-heading irv-hero-title">
-                            気になる企業の<br />“今”が、<span className="irv-marker">毎日届く。</span>
+                            気になる企業の<br />“今”が、
+                            {/* マーカーが蛍光ペンのように左から引かれる */}
+                            <motion.span
+                                className="irv-marker"
+                                initial={{ backgroundSize: '0% 100%' }}
+                                animate={{ backgroundSize: '100% 100%' }}
+                                transition={{ duration: 0.7, delay: 0.7, ease: 'easeOut' }}
+                            >
+                                毎日届く。
+                            </motion.span>
                         </h1>
 
                         <p className="irv-hero-sub">
@@ -36,8 +47,6 @@ export const IRVoiceHero = () => {
                         </p>
 
                         <div className="irv-hero-launch">
-                            <ComingSoonBadge tone="light" size="lg" />
-                            <p className="irv-hero-caption">App Store / Google Play にて配信予定です</p>
                             {isLpLinkReady() ? (
                                 <a
                                     href={IR_VOICE_LP_URL}
@@ -52,6 +61,7 @@ export const IRVoiceHero = () => {
                                 /* ドメイン確定までリンクは出さない。押せない案内に留める */
                                 <p className="irv-note">公式サイトは近日公開予定です</p>
                             )}
+                            <p className="irv-hero-caption">App Store / Google Play にて配信予定です</p>
                         </div>
                     </motion.div>
 
