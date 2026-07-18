@@ -1,27 +1,22 @@
 /**
  * IR Voice のHP掲載まわりの設定値。
- *
- * 公式LPは本番公開・独自ドメイン取得がまだ完了していないため、
- * リンク先URLはこのファイルだけを差し替えれば全箇所に反映される形にしている。
- * 各コンポーネントにURLを直書きしないこと。
+ * リンク先URLはこのファイルに集約し、各コンポーネントにURLを直書きしないこと。
  */
 
 /**
- * 公式LPのURL。
- *
- * ★ドメイン確定後、ここだけを実URLに差し替える（例: 'https://ir-voice.jp'）。
- * 空文字の間はLPへのリンクを描画せず「準備中」表示にフォールバックするため、
- * リンク切れ（'#' への遷移）は発生しない。
- *
- * ※検証環境 https://web-biz--ir-saas-staging.asia-east1.hosted.app/lp は
- *   社内確認用のため、公開リンク先として設定しないこと。
+ * 公式LPのURL（2026-07-18 公開済み）。
+ * 空文字に戻すとLPへのリンクを描画せず「準備中」表示にフォールバックする。
  */
-export const IR_VOICE_LP_URL = '';
+export const IR_VOICE_LP_URL = 'https://ir-voice.com';
 
-/** 企業向けページのURL。LPのURLが決まると自動で組み立てられる */
-export const IR_VOICE_LP_FOR_BUSINESS_URL = IR_VOICE_LP_URL
-    ? `${IR_VOICE_LP_URL.replace(/\/$/, '')}/for-business`
-    : '';
+/**
+ * 企業向けページのURL。
+ *
+ * ※本番の企業向けページは /lp/for-business 配下にある（2026-07-18時点）。
+ *   /for-business は404。ルートへの移設や /for-business へのリダイレクトが
+ *   IR-SaaS側で入ったらここを更新すること。
+ */
+export const IR_VOICE_LP_FOR_BUSINESS_URL = 'https://ir-voice.com/lp/for-business';
 
 /**
  * App Store で公開済みかどうか。
