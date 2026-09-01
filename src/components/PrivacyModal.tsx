@@ -61,7 +61,7 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                   <h4 className="font-bold text-[#050A14] mb-2">2. 利用目的</h4>
                   <p className="mb-2">取得した情報は、以下の目的で利用します。</p>
                   <ul className="list-disc pl-5 space-y-1">
-                    <li>当社サービス（IRコンサルティング、IR Voice）の提供・運営</li>
+                    <li>本サービス（IRコンサルティング、IR Voice等）の提供・運営</li>
                     <li>各種お問い合わせ対応</li>
                     <li>サービス品質向上・機能改善のための分析</li>
                     <li>メンテナンス・重要なお知らせ等のご案内</li>
