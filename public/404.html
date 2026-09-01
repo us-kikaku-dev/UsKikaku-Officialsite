@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>ページが見つかりません | 株式会社U's企画</title>
+  <style>
+    /* アプリバンドルに依存しない自己完結の404ページ */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #050A14;
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
+      text-align: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    /* 白背景で4.5:1以上のコントラストを確保した濃いゴールド */
+    .code {
+      color: #806C1E;
+      letter-spacing: 0.3em;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: 28px;
+      font-weight: 500;
+      margin: 0 0 16px;
+    }
+
+    p {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.9;
+      margin: 0 0 32px;
+    }
+
+    /* リンク文字は濃紺（白背景で高コントラスト）、金は枠線の装飾に使う */
+    a {
+      display: inline-block;
+      border: 1px solid #D4AF37;
+      color: #050A14;
+      text-decoration: none;
+      letter-spacing: 0.15em;
+      font-size: 13px;
+      padding: 12px 32px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    a:hover,
+    a:focus-visible {
+      background: #D4AF37;
+      color: #050A14;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="code">404 NOT FOUND</div>
+    <h1>ページが見つかりません</h1>
+    <p>お探しのページは見つかりませんでした。<br />URLが変更されたか、削除された可能性があります。</p>
+    <a href="/">トップページへ戻る</a>
+  </main>
+</body>
+
+</html>

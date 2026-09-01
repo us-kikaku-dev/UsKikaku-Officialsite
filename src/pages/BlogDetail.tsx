@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Seo } from '../components/Seo';
 import { useParams, Link } from 'react-router-dom';
 import { client, Blog } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
@@ -125,18 +125,15 @@ export const BlogDetail = () => {
 
     return (
         <div className="pt-48 pb-40 bg-white min-h-screen">
-            <Helmet>
-                <title>{blog.title} | 株式会社U's企画</title>
-                <meta property="og:title" content={blog.title} />
-                <meta property="og:description" content={blog.description || '株式会社U\'s企画のコラム記事です。'} />
-                <meta property="og:type" content="article" />
-                <meta property="og:url" content={window.location.href} />
-                {blog.thumbnail && <meta property="og:image" content={blog.thumbnail.url} />}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={blog.title} />
-                <meta name="twitter:description" content={blog.description || '株式会社U\'s企画のコラム記事です。'} />
-                {blog.thumbnail && <meta name="twitter:image" content={blog.thumbnail.url} />}
-            </Helmet>
+            {/* canonical/og:urlはクエリを除いた正規URLに固定する（window.location.hrefを使わない） */}
+            <Seo
+                path={`/blog/${blog.id}`}
+                title={`${blog.title} | 株式会社U's企画`}
+                description={blog.description || '株式会社U\'s企画のコラム記事です。'}
+                ogType="article"
+                ogImage={blog.thumbnail?.url}
+                publishedTime={blog.publishedAt}
+            />
 
             <article className="max-w-3xl mx-auto px-6 md:px-8 lg:px-12">
                 <motion.div

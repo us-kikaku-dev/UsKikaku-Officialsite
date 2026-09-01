@@ -1,0 +1,70 @@
+{
+  "siteUrl": "https://us-kikaku.com",
+  "siteName": "株式会社U's企画",
+  "defaultOgImage": "/ogp.png",
+  "routes": [
+    {
+      "path": "/",
+      "title": "株式会社U's企画 | IR Consulting Firm",
+      "description": "株式会社U's企画は、戦略設計から開示資料作成、投資家コミュニケーションまで一気通貫で支援するIRコンサルティングファームです。企業の「顔」となる決算説明資料のクオリティを高め、企業価値の向上に貢献します。",
+      "changefreq": "monthly",
+      "priority": "1.0"
+    },
+    {
+      "path": "/company",
+      "title": "会社情報 | 株式会社U's企画",
+      "description": "株式会社U's企画の会社概要・代表メッセージ・メンバー・提携先・所在地のご案内。IRコンサルティングを軸に、企業価値の向上に貢献します。",
+      "changefreq": "monthly",
+      "priority": "0.8"
+    },
+    {
+      "path": "/service",
+      "title": "IRコンサルティングサービス | 株式会社U's企画",
+      "description": "IR戦略の設計から決算説明資料・統合報告書の作成支援、投資家コミュニケーションの高度化まで、上場・上場準備企業のIR活動を一貫してサポートします。",
+      "changefreq": "monthly",
+      "priority": "0.9"
+    },
+    {
+      "path": "/product",
+      "title": "プロダクト IR Voice | 株式会社U's企画",
+      "description": "株式会社U's企画が開発するIRフィードアプリ「IR Voice」のご紹介。開示・動画・イベントなど散らばるIR情報をひとつのフィードにまとめ、企業のIRご担当者様には投資家の反応が見えるダッシュボードを提供します。近日公開予定。",
+      "changefreq": "monthly",
+      "priority": "0.7"
+    },
+    {
+      "path": "/news",
+      "title": "ニュース | 株式会社U's企画",
+      "description": "株式会社U's企画の最新ニュース・お知らせ・プレスリリースをご覧いただけます。",
+      "changefreq": "weekly",
+      "priority": "0.7"
+    },
+    {
+      "path": "/blog",
+      "title": "コラム記事 | 株式会社U's企画",
+      "description": "IR・資本市場・企業価値向上に関する株式会社U's企画スタッフによる考察記事を掲載しています。",
+      "changefreq": "weekly",
+      "priority": "0.7"
+    },
+    {
+      "path": "/tashiro",
+      "title": "田代 昌之 | U's企画",
+      "description": "U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケット・テラス」コメンテーター。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。",
+      "changefreq": "monthly",
+      "priority": "0.6"
+    },
+    {
+      "path": "/tashiro/articles",
+      "title": "執筆記事一覧 | 田代 昌之 | U's企画",
+      "description": "自社メディア『Capital Voice Japan』および各種媒体への田代昌之の執筆記事を掲載しています。",
+      "changefreq": "weekly",
+      "priority": "0.5"
+    },
+    {
+      "path": "/contact",
+      "title": "お問い合わせ | 株式会社U's企画",
+      "description": "株式会社U's企画へのお問い合わせフォーム。IRコンサルティング、Capital Voice Japan、受託開発・Web制作のご相談などはこちらから。",
+      "changefreq": "monthly",
+      "priority": "0.5"
+    }
+  ]
+}

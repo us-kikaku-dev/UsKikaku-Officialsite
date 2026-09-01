@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Seo } from '../components/Seo';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   fetchUnifiedTashiroArticles,
@@ -120,14 +120,7 @@ export const TashiroArticles = () => {
 
   return (
     <>
-      <Helmet>
-        <title>執筆記事一覧 | 田代 昌之 | U's企画</title>
-        <meta
-          name="description"
-          content="自社メディア『Capital Voice Japan』および各種媒体への田代昌之の執筆記事を掲載しています。"
-        />
-        <link rel="canonical" href="https://us-kikaku.com/tashiro/articles" />
-      </Helmet>
+      <Seo path="/tashiro/articles" />
 
       <div className="pt-20 bg-white antialiased" style={{ color: '#1e293b' }}>
         {/* ページヘッダー */}

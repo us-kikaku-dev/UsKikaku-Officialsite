@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Seo } from '../components/Seo';
 import { ExternalLink } from 'lucide-react';
 import {
   fetchUnifiedTashiroArticles,
@@ -36,14 +36,7 @@ export const Tashiro = () => {
 
   return (
     <>
-      <Helmet>
-        <title>田代 昌之 | U's企画</title>
-        <meta
-          name="description"
-          content="U's企画 執行役員 田代昌之の公式プロフィール。ラジオNIKKEI「マーケット・テラス」コメンテーター。年間延べ5,000社の決算短信を読み、500社のIR担当者と話す。MFTA®保有。"
-        />
-        <link rel="canonical" href="https://us-kikaku.com/tashiro" />
-      </Helmet>
+      <Seo path="/tashiro" />
 
       <div className="pt-20 bg-white antialiased" style={{ color: '#1e293b' }}>
         {/* ===== Hero ===== */}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Seo } from '../components/Seo';
 import { client, Blog } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
 import { scrollBehavior } from '../lib/scroll';
@@ -95,14 +95,7 @@ export const BlogList = () => {
 
     return (
         <div className="pt-48 pb-40 bg-white min-h-screen">
-            <Helmet>
-                <title>コラム記事 | 株式会社U's企画</title>
-                <meta
-                    name="description"
-                    content="IR・資本市場・企業価値向上に関する株式会社U's企画スタッフによる考察記事を掲載しています。"
-                />
-                <link rel="canonical" href="https://us-kikaku.com/blog" />
-            </Helmet>
+            <Seo path="/blog" />
             <div className="max-w-5xl mx-auto px-5 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
