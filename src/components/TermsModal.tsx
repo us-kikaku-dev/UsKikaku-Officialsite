@@ -43,7 +43,7 @@ export const TermsModal = ({ isOpen, onClose }: TermsModalProps) => {
 
               {/* Body */}
               <div className="px-4 py-5 sm:p-6 text-sm text-gray-600 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                <p>本規約は、株式会社U’s企画（以下「当社」）が提供する自社サービス「OKKAKE」および当社ウェブサイト（以下「本サービス」）の利用条件を定めるものです。本サービスを利用することにより、ユーザーは本規約に同意したものとみなします。</p>
+                <p>本規約は、株式会社U’s企画（以下「当社」）が提供する自社アプリ「IR Voice」その他の自社サービスおよび当社ウェブサイト（以下「本サービス」）の利用条件を定めるものです。本サービスを利用することにより、ユーザーは本規約に同意したものとみなします。</p>
 
                 <section>
                   <h4 className="font-bold text-[#050A14] mb-2">1. 適用</h4>

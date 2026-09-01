@@ -43,7 +43,7 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
 
               {/* Body */}
               <div className="px-4 py-5 sm:p-6 text-sm text-gray-600 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                <p>株式会社U’s企画（以下「当社」）は、当社が提供するIRコンサルティング事業、並びに自社サービス「OKKAKE」（以下「本サービス」）の運営において取得する個人情報について、以下の方針に基づき適切に管理・保護いたします。</p>
+                <p>株式会社U’s企画（以下「当社」）は、当社が提供するIRコンサルティング事業、並びに自社アプリ「IR Voice」その他の自社サービス（以下「本サービス」）の運営において取得する個人情報について、以下の方針に基づき適切に管理・保護いたします。</p>
 
                 <section>
                   <h4 className="font-bold text-[#050A14] mb-2">1. 取得する情報</h4>
@@ -61,7 +61,7 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                   <h4 className="font-bold text-[#050A14] mb-2">2. 利用目的</h4>
                   <p className="mb-2">取得した情報は、以下の目的で利用します。</p>
                   <ul className="list-disc pl-5 space-y-1">
-                    <li>当社サービス（IRコンサルティング、OKKAKE）の提供・運営</li>
+                    <li>本サービス（IRコンサルティング、IR Voice等）の提供・運営</li>
                     <li>各種お問い合わせ対応</li>
                     <li>サービス品質向上・機能改善のための分析</li>
                     <li>メンテナンス・重要なお知らせ等のご案内</li>
