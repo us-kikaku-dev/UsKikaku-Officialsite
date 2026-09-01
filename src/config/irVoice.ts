@@ -7,7 +7,9 @@
  * 公式LPのURL（2026-07-18 公開済み）。
  * 空文字に戻すとLPへのリンクを描画せず「準備中」表示にフォールバックする。
  */
-export const IR_VOICE_LP_URL = 'https://ir-voice.com';
+// string型注釈は「空文字に戻すと準備中表示へフォールバック」という運用を
+// 型上も許すため（リテラル型に狭めない）
+export const IR_VOICE_LP_URL: string = 'https://ir-voice.com';
 
 /**
  * 企業向けページのURL。
