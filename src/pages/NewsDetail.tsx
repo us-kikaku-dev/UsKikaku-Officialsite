@@ -4,7 +4,7 @@ import { client, News } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
 import { motion } from 'motion/react';
 import { ChevronLeft } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
+import { Seo } from '../components/Seo';
 import DOMPurify from 'dompurify';
 import '../RichText.css';
 
@@ -113,18 +113,15 @@ export const NewsDetail = () => {
 
     return (
         <div className="pt-48 pb-40 bg-white min-h-screen">
-            <Helmet>
-                <title>{news.title} | 株式会社U's企画</title>
-                <meta property="og:title" content={news.title} />
-                <meta property="og:description" content="株式会社U's企画のニュース記事です。" />
-                <meta property="og:type" content="article" />
-                <meta property="og:url" content={window.location.href} />
-                {news.image && <meta property="og:image" content={news.image.url} />}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={news.title} />
-                <meta name="twitter:description" content="株式会社U's企画のニュース記事です。" />
-                {news.image && <meta name="twitter:image" content={news.image.url} />}
-            </Helmet>
+            {/* canonical/og:urlはクエリを除いた正規URLに固定する（window.location.hrefを使わない） */}
+            <Seo
+                path={`/news/${news.id}`}
+                title={`${news.title} | 株式会社U's企画`}
+                description="株式会社U's企画のニュース記事です。"
+                ogType="article"
+                ogImage={news.image?.url}
+                publishedTime={news.publishedAt}
+            />
 
             <article className="max-w-3xl mx-auto px-6 md:px-8 lg:px-12">
                 <motion.div

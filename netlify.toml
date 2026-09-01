@@ -1,8 +1,8 @@
 [build]
-  command = "npm run build"
+  command = "npm run build:site"
   publish = "dist"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# SPAフォールバック（/* → /index.html 200）は廃止。
+# 既知ルートはビルド時に scripts/generate-seo-pages.mjs が <route>.html を
+# 物理ファイルとして生成し、未知のURLは dist/404.html により実際の404を返す。
+# 新記事の公開を反映するには再デプロイが必要（microCMS Webhook → Netlify Build Hook）。
