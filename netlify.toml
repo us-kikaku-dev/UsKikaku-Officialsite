@@ -2,7 +2,76 @@
   command = "npm run build:site"
   publish = "dist"
 
-# SPAフォールバック（/* → /index.html 200）は廃止。
-# 既知ルートはビルド時に scripts/generate-seo-pages.mjs が <route>.html を
-# 物理ファイルとして生成し、未知のURLは dist/404.html により実際の404を返す。
-# 新記事の公開を反映するには再デプロイが必要（microCMS Webhook → Netlify Build Hook）。
+# アセット最適化によるURL正規化（/company → /company/ 等のリダイレクト）を無効化し、
+# ルーティングを下記の明示的な200 rewriteのみで決定論的に制御する。
+# canonical / sitemap / og:url は「末尾スラッシュなし」で統一している。
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = false
+
+# ─────────────────────────────────────────────
+# 既知ルート → ビルド時生成のSEOスタブHTMLへ 200 rewrite（URLは変わらない）。
+# 実ファイルが存在するパスは shadowing により rewrite より優先される。
+# ─────────────────────────────────────────────
+[[redirects]]
+  from = "/company"
+  to = "/company.html"
+  status = 200
+
+[[redirects]]
+  from = "/service"
+  to = "/service.html"
+  status = 200
+
+[[redirects]]
+  from = "/product"
+  to = "/product.html"
+  status = 200
+
+[[redirects]]
+  from = "/news"
+  to = "/news.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/tashiro"
+  to = "/tashiro.html"
+  status = 200
+
+[[redirects]]
+  from = "/tashiro/articles"
+  to = "/tashiro/articles.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+# 記事詳細（生成済みIDのみHTMLが存在する。存在しないIDは404にフォールバック）
+[[redirects]]
+  from = "/news/*"
+  to = "/news/:splat.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog/:splat.html"
+  status = 200
+
+# ─────────────────────────────────────────────
+# 未知URLは実404（SPAフォールバックは廃止済み）。
+# 必ず最後に置き、force は付けないこと（実ファイルの配信を妨げない）。
+# 新記事の公開反映には再デプロイが必要（microCMS Webhook → Netlify Build Hook）。
+# ─────────────────────────────────────────────
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

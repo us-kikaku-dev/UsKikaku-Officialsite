@@ -111,7 +111,9 @@ const fetchAll = async (endpoint, fields) => {
     const limit = 100;
     let offset = 0;
     for (;;) {
-        const url = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${endpoint}?limit=${limit}&offset=${offset}&fields=${fields}&orders=-publishedAt`;
+        // orders は複数フィールドで安定ソートにする（publishedAt が同値でも
+        // ページ境界の重複・欠落が起きないよう createdAt をタイブレークに使う）
+        const url = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${endpoint}?limit=${limit}&offset=${offset}&fields=${fields}&orders=-publishedAt,createdAt`;
         const res = await fetch(url, { headers: { 'X-MICROCMS-API-KEY': API_KEY } });
         if (!res.ok) {
             throw new Error(`microCMS ${endpoint} の取得に失敗しました: HTTP ${res.status}`);
