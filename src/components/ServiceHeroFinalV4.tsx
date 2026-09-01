@@ -1,22 +1,26 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import ServiceHeroImage from '../assets/service-hero.jpg';
+import { scrollBehavior } from '../lib/scroll';
 
 export const ServiceHeroFinalV4 = () => {
     const ref = useRef(null);
+    // 「動きを減らす」設定時はパララックスを止める（useTransformはMotionConfigの対象外のため個別対応）
+    const prefersReducedMotion = useReducedMotion();
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ['start start', 'end start'],
     });
 
     // パララックス：背景がスクロールより遅く動く
-    const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+    const parallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+    const backgroundY = prefersReducedMotion ? '0%' : parallaxY;
 
     const scrollToNext = () => {
         if (ref.current) {
             const next = (ref.current as HTMLElement).nextElementSibling;
             if (next) {
-                next.scrollIntoView({ behavior: 'smooth' });
+                next.scrollIntoView({ behavior: scrollBehavior() });
             }
         }
     };
@@ -65,21 +69,23 @@ export const ServiceHeroFinalV4 = () => {
                     <span className="gold-gradient-text">本質的な対話</span>を。
                 </motion.h1>
 
-                {/* Centered Scroll Indicator */}
-                <motion.div
+                {/* Centered Scroll Indicator（キーボード操作できるようbutton要素にする） */}
+                <motion.button
+                    type="button"
+                    aria-label="次のセクションへスクロール"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
-                    className="mt-16 flex flex-col items-center cursor-pointer group"
+                    className="scroll-cue-button mt-16 flex flex-col items-center cursor-pointer group"
                     onClick={scrollToNext}
                 >
                     <span className="text-[#D4AF37]/80 text-[10px] tracking-[0.2em] mb-4 uppercase font-light transition-colors group-hover:text-[#F3E5AB]">
                         Scroll
                     </span>
-                    <div className="w-[1px] h-24 bg-white/10 relative overflow-hidden">
+                    <div aria-hidden="true" className="w-[1px] h-24 bg-white/10 relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#D4AF37] to-transparent animate-scroll-line"></div>
                     </div>
-                </motion.div>
+                </motion.button>
             </div>
         </header>
     );

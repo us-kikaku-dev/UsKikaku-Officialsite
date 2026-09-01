@@ -1,10 +1,13 @@
 import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { MotionConfig } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { PrivacyModal } from './components/PrivacyModal';
-import { TermsModal } from './components/TermsModal';
 import { ScrollToTop } from './components/ScrollToTop';
+
+// 法務モーダルは本文が長くRadix Dialogも同梱されるため、開くまで読み込まない
+const PrivacyModal = lazy(() => import('./components/PrivacyModal').then(module => ({ default: module.PrivacyModal })));
+const TermsModal = lazy(() => import('./components/TermsModal').then(module => ({ default: module.TermsModal })));
 
 // Lazy loading pages
 const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
@@ -30,13 +33,21 @@ const Loading = () => (
 export default function App() {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  // 一度開いたらマウントを維持する（閉じるアニメーションを壊さないため、
+  // isOpenでの条件付きアンマウントはしない）
+  const [privacyMounted, setPrivacyMounted] = useState(false);
+  const [termsMounted, setTermsMounted] = useState(false);
 
   return (
+    // reducedMotion="user": OSの「動きを減らす」設定時にMotionのtransform系アニメーションを自動で抑制する
+    <MotionConfig reducedMotion="user">
     <Router>
       <ScrollToTop />
       <div className="bg-white text-[#374151] font-sans antialiased flex flex-col min-h-screen">
+        {/* キーボード利用者向け: フォーカス時のみ表示されるスキップリンク */}
+        <a href="#main-content" className="skip-link">本文へスキップ</a>
         <Navbar />
-        <main className="flex-grow">
+        <main id="main-content" tabIndex={-1} className="flex-grow">
           <Suspense fallback={<Loading />}>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -56,19 +67,28 @@ export default function App() {
           </Suspense>
         </main>
         <Footer
-          onPrivacyClick={() => setIsPrivacyOpen(true)}
-          onTermsClick={() => setIsTermsOpen(true)}
+          onPrivacyClick={() => { setPrivacyMounted(true); setIsPrivacyOpen(true); }}
+          onTermsClick={() => { setTermsMounted(true); setIsTermsOpen(true); }}
         />
 
-        <PrivacyModal
-          isOpen={isPrivacyOpen}
-          onClose={() => setIsPrivacyOpen(false)}
-        />
-        <TermsModal
-          isOpen={isTermsOpen}
-          onClose={() => setIsTermsOpen(false)}
-        />
+        {privacyMounted && (
+          <Suspense fallback={null}>
+            <PrivacyModal
+              isOpen={isPrivacyOpen}
+              onClose={() => setIsPrivacyOpen(false)}
+            />
+          </Suspense>
+        )}
+        {termsMounted && (
+          <Suspense fallback={null}>
+            <TermsModal
+              isOpen={isTermsOpen}
+              onClose={() => setIsTermsOpen(false)}
+            />
+          </Suspense>
+        )}
       </div>
     </Router>
+    </MotionConfig>
   );
 }

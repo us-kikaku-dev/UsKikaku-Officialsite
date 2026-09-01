@@ -1,6 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import * as Dialog from '@radix-ui/react-dialog';
 
 interface PrivacyModalProps {
   isOpen: boolean;
@@ -8,19 +9,34 @@ interface PrivacyModalProps {
 }
 
 export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
+  // forceMount + AnimatePresence構成ではRadixの自動フォーカス復帰が効かないため、
+  // Radixがフォーカスを奪う前（レンダー時点）のフォーカス元を記録し、閉じ切った後に明示復帰する
+  const triggerRef = React.useRef<HTMLElement | null>(null);
+  const wasOpen = React.useRef(false);
+  if (isOpen && !wasOpen.current && document.activeElement instanceof HTMLElement) {
+    triggerRef.current = document.activeElement;
+  }
+  wasOpen.current = isOpen;
+
+  // Radix Dialogでフォーカストラップ・Escape閉じ・aria通知を担保し、
+  // 見た目は既存クラスとMotionアニメーションを維持する（exit維持のため forceMount + AnimatePresence）
   return (
-    <AnimatePresence>
+    <Dialog.Root open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <AnimatePresence onExitComplete={() => triggerRef.current?.focus()}>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] overflow-y-auto" role="dialog" aria-modal="true">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#050A14]/80 backdrop-blur-sm"
-            onClick={onClose}
-          ></motion.div>
+        <Dialog.Portal forceMount>
+        <div className="fixed inset-0 z-[100] overflow-y-auto">
+          <Dialog.Overlay asChild forceMount>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-[#050A14]/80 backdrop-blur-sm"
+            ></motion.div>
+          </Dialog.Overlay>
 
           <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0 pointer-events-none">
+            <Dialog.Content asChild forceMount aria-describedby={undefined}>
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -30,15 +46,18 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
             >
               {/* Header */}
               <div className="bg-[#0B1C3D] px-4 py-3 sm:px-6 flex justify-between items-center">
-                <h3 className="text-lg font-medium leading-6 text-white serif-text">プライバシーポリシー</h3>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="rounded-md text-gray-300 hover:text-white focus:outline-none"
-                >
-                  <span className="sr-only">Close</span>
-                  <X className="w-6 h-6" />
-                </button>
+                <Dialog.Title asChild>
+                  <h3 className="text-lg font-medium leading-6 text-white serif-text">プライバシーポリシー</h3>
+                </Dialog.Title>
+                <Dialog.Close asChild>
+                  <button
+                    type="button"
+                    className="modal-close-button rounded-md text-gray-300 hover:text-white"
+                  >
+                    <span className="sr-only">閉じる</span>
+                    <X className="w-6 h-6" />
+                  </button>
+                </Dialog.Close>
               </div>
 
               {/* Body */}
@@ -116,9 +135,12 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                 </section>
               </div>
             </motion.div>
+            </Dialog.Content>
           </div>
         </div>
+        </Dialog.Portal>
       )}
     </AnimatePresence>
+    </Dialog.Root>
   );
 };

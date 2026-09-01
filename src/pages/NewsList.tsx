@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { client, News } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
+import { scrollBehavior } from '../lib/scroll';
 import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
 import '../components/LatestNews.css'; // Import shared styles
@@ -75,7 +76,7 @@ export const NewsList = () => {
         };
 
         fetchNews();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: scrollBehavior() });
     }, [currentPage]);
 
     // Pagination Calculation

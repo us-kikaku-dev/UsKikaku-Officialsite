@@ -18,50 +18,51 @@ export const CompanyProfile = () => {
                         <span className="text-[#998438] tracking-widest text-sm uppercase block mb-2">
                             COMPANY PROFILE
                         </span>
-                        <h2 className="serif-text text-3xl md:text-4xl text-[#050A14]">
+                        {/* 会社情報ページのページタイトルにあたるためh1にする */}
+                        <h1 className="serif-text text-3xl md:text-4xl text-[#050A14]">
                             会社概要
-                        </h2>
+                        </h1>
                     </div>
 
-                    {/* Table */}
-                    <div className="company-profile-table">
+                    {/* 会社情報の一覧: 用語と説明の対なので dl/dt/dd で意味付けする */}
+                    <dl className="company-profile-table">
                         <div className="company-profile-row">
-                            <div className="company-profile-label">会社名</div>
-                            <div className="company-profile-value">株式会社U's企画</div>
+                            <dt className="company-profile-label">会社名</dt>
+                            <dd className="company-profile-value">株式会社U's企画</dd>
                         </div>
 
                         <div className="company-profile-row">
-                            <div className="company-profile-label">設立</div>
-                            <div className="company-profile-value">2023年11月</div>
+                            <dt className="company-profile-label">設立</dt>
+                            <dd className="company-profile-value">2023年11月</dd>
                         </div>
 
                         <div className="company-profile-row">
-                            <div className="company-profile-label">代表者</div>
-                            <div className="company-profile-value">石原 優多</div>
+                            <dt className="company-profile-label">代表者</dt>
+                            <dd className="company-profile-value">石原 優多</dd>
                         </div>
 
                         <div className="company-profile-row">
-                            <div className="company-profile-label">所在地</div>
-                            <div className="company-profile-value">神奈川県川崎市中原区今井南町4-11-101</div>
+                            <dt className="company-profile-label">所在地</dt>
+                            <dd className="company-profile-value">神奈川県川崎市中原区今井南町4-11-101</dd>
                         </div>
 
                         <div className="company-profile-row">
-                            <div className="company-profile-label">事業内容</div>
-                            <div className="company-profile-value">
+                            <dt className="company-profile-label">事業内容</dt>
+                            <dd className="company-profile-value">
                                 IRコンサルティング事業<br />
                                 プロダクト開発事業
-                            </div>
+                            </dd>
                         </div>
 
                         <div className="company-profile-row">
-                            <div className="company-profile-label">お問い合わせ</div>
-                            <div className="company-profile-value">
+                            <dt className="company-profile-label">お問い合わせ</dt>
+                            <dd className="company-profile-value">
                                 <Link to="/contact" className="company-profile-link">
                                     お問い合わせはこちら
                                 </Link>
-                            </div>
+                            </dd>
                         </div>
-                    </div>
+                    </dl>
 
                 </motion.div>
             </div>

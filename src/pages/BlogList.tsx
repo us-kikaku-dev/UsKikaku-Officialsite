@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { client, Blog } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
+import { scrollBehavior } from '../lib/scroll';
 import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
 import '../components/BlogSection.css'; // Import shared styles for cards
@@ -79,7 +80,7 @@ export const BlogList = () => {
         };
 
         fetchBlogs();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: scrollBehavior() });
     }, [currentPage]);
 
     const totalPages = Math.ceil(totalCount / PER_PAGE);

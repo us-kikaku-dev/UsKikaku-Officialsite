@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,12 +48,12 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center group cursor-pointer" onClick={() => navigate('/')}>
+          {/* Logo（キーボード操作・リンクとしての意味付けのためLinkにする） */}
+          <Link to="/" aria-label="トップページへ" className="flex-shrink-0 flex items-center group cursor-pointer">
             <span className="text-2xl serif-text font-bold tracking-widest text-white">
               U's<span className="text-[#D4AF37]">企画</span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-10">

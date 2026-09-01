@@ -3,6 +3,7 @@ import { SubmitHandler, UseFormGetValues, UseFormTrigger } from 'react-hook-form
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { ContactFormInputs } from './types';
+import { scrollBehavior } from '../../lib/scroll';
 
 interface UseContactSubmitParams {
     getValues: UseFormGetValues<ContactFormInputs>;
@@ -37,14 +38,14 @@ export const useContactSubmit = ({ getValues, trigger }: UseContactSubmitParams)
         for (const name of fieldOrder) {
             const el = document.querySelector(`[name="${name}"][aria-invalid="true"]`);
             if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.scrollIntoView({ behavior: scrollBehavior(), block: 'center' });
                 return;
             }
         }
         // 念のためフォールバック：優先順リストに無いフィールドが無効な場合
         const fallback = document.querySelector('[aria-invalid="true"]');
         if (fallback) {
-            fallback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            fallback.scrollIntoView({ behavior: scrollBehavior(), block: 'center' });
         }
     };
 
@@ -54,7 +55,7 @@ export const useContactSubmit = ({ getValues, trigger }: UseContactSubmitParams)
         const isValid = await trigger(undefined, { shouldFocus: true });
         if (isValid) {
             setStep(2);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: scrollBehavior() });
         } else {
             // DOM 反映後にスクロール（クロージャの古い errors を参照しない）
             requestAnimationFrame(scrollToFirstError);
@@ -65,7 +66,7 @@ export const useContactSubmit = ({ getValues, trigger }: UseContactSubmitParams)
     const handleBack = () => {
         setStep(1);
         setRecaptchaToken(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: scrollBehavior() });
     };
 
     // Step 2 -> Step 3 (Submit)
@@ -91,7 +92,7 @@ export const useContactSubmit = ({ getValues, trigger }: UseContactSubmitParams)
             await emailjs.send(serviceId, templateId, templateParams as unknown as Record<string, unknown>, publicKey);
 
             setStep(3);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: scrollBehavior() });
         } catch (error) {
             // 内部エラー詳細（設定値・外部サービスのレスポンス）はユーザーに露出させず、ログにのみ残す
             console.error('EmailJS Error:', error);
