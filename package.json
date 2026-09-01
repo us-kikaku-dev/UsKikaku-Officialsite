@@ -25,11 +25,13 @@
             "@types/react-dom": "^18.3.1",
             "@types/react-google-recaptcha": "^2.1.9",
             "@vitejs/plugin-react-swc": "^3.10.2",
+            "typescript": "^7.0.2",
             "vite": "^6.4.3"
       },
       "scripts": {
             "dev": "vite",
             "build": "vite build",
-            "build:site": "vite build && node scripts/generate-seo-pages.mjs"
+            "build:site": "vite build && node scripts/generate-seo-pages.mjs",
+            "typecheck": "tsc --noEmit"
       }
 }

@@ -1,0 +1,39 @@
+# PR・mainプッシュ時の品質チェック（監査バッチ5A）
+# 型検査 → ビルド → SEOスタブ生成のオフライン検証（CMSシークレット不要）
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# 検証のみのジョブなので最小権限に制限する
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 後続ステップ（npm ci等）へGitHubトークンを渡さない
+          persist-credentials: false
+
+      # NodeバージョンはNetlifyビルドと .nvmrc で統一する
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: 依存関係のインストール
+        run: npm ci
+
+      - name: 型検査
+        run: npm run typecheck
+
+      - name: ビルド
+        run: npm run build
+
+      - name: SEOスタブ生成の検証（静的ルートのみ・CMS不要）
+        run: SEO_SKIP_CMS=1 node scripts/generate-seo-pages.mjs
