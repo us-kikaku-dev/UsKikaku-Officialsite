@@ -95,9 +95,10 @@
     border-bottom-color: #C0A060;
     opacity: 0.8;
 }
-/* dl/dd化（監査バッチ2）に伴うブラウザ既定マージンのリセット */
+/* dl/dd化（監査バッチ2）に伴うブラウザ既定マージンのリセット。
+   margin-top: 60px は上の .company-profile-table 指定を活かすため触らない */
 dl.company-profile-table {
-    margin: 0;
+    margin-bottom: 0;
 }
 dd.company-profile-value {
     margin: 0;

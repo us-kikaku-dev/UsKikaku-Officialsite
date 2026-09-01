@@ -6,23 +6,20 @@ import * as Dialog from '@radix-ui/react-dialog';
 interface TermsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  /** 閉じた後にフォーカスを戻す要素（開いたトリガー）。
+      Safariはクリックしたbuttonにフォーカスを移さないため、呼び出し側で
+      クリックイベントのcurrentTargetを記録して渡す */
+  triggerRef?: React.RefObject<HTMLElement | null>;
 }
 
-export const TermsModal = ({ isOpen, onClose }: TermsModalProps) => {
-  // forceMount + AnimatePresence構成ではRadixの自動フォーカス復帰が効かないため、
-  // Radixがフォーカスを奪う前（レンダー時点）のフォーカス元を記録し、閉じ切った後に明示復帰する
-  const triggerRef = React.useRef<HTMLElement | null>(null);
-  const wasOpen = React.useRef(false);
-  if (isOpen && !wasOpen.current && document.activeElement instanceof HTMLElement) {
-    triggerRef.current = document.activeElement;
-  }
-  wasOpen.current = isOpen;
-
+export const TermsModal = ({ isOpen, onClose, triggerRef }: TermsModalProps) => {
   // Radix Dialogでフォーカストラップ・Escape閉じ・aria通知を担保し、
   // 見た目は既存クラスとMotionアニメーションを維持する（exit維持のため forceMount + AnimatePresence）
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
-    <AnimatePresence onExitComplete={() => triggerRef.current?.focus()}>
+    {/* forceMount + AnimatePresence構成ではRadixの自動フォーカス復帰が効かないため、
+        閉じるアニメーション完了後にトリガーへ明示復帰する */}
+    <AnimatePresence onExitComplete={() => triggerRef?.current?.focus()}>
       {isOpen && (
         <Dialog.Portal forceMount>
         <div className="fixed inset-0 z-[100] overflow-y-auto">

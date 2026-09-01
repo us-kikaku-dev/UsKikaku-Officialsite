@@ -37,6 +37,11 @@ export default function App() {
   // isOpenでの条件付きアンマウントはしない）
   const [privacyMounted, setPrivacyMounted] = useState(false);
   const [termsMounted, setTermsMounted] = useState(false);
+  // モーダルを閉じた後のフォーカス復帰先。Safariはクリックしたbuttonに
+  // フォーカスを移さないため、activeElementではなくクリックイベントの
+  // currentTarget を記録する
+  const privacyTriggerRef = React.useRef<HTMLElement | null>(null);
+  const termsTriggerRef = React.useRef<HTMLElement | null>(null);
 
   return (
     // reducedMotion="user": OSの「動きを減らす」設定時にMotionのtransform系アニメーションを自動で抑制する
@@ -67,8 +72,8 @@ export default function App() {
           </Suspense>
         </main>
         <Footer
-          onPrivacyClick={() => { setPrivacyMounted(true); setIsPrivacyOpen(true); }}
-          onTermsClick={() => { setTermsMounted(true); setIsTermsOpen(true); }}
+          onPrivacyClick={(e) => { privacyTriggerRef.current = e.currentTarget; setPrivacyMounted(true); setIsPrivacyOpen(true); }}
+          onTermsClick={(e) => { termsTriggerRef.current = e.currentTarget; setTermsMounted(true); setIsTermsOpen(true); }}
         />
 
         {privacyMounted && (
@@ -76,6 +81,7 @@ export default function App() {
             <PrivacyModal
               isOpen={isPrivacyOpen}
               onClose={() => setIsPrivacyOpen(false)}
+              triggerRef={privacyTriggerRef}
             />
           </Suspense>
         )}
@@ -84,6 +90,7 @@ export default function App() {
             <TermsModal
               isOpen={isTermsOpen}
               onClose={() => setIsTermsOpen(false)}
+              triggerRef={termsTriggerRef}
             />
           </Suspense>
         )}

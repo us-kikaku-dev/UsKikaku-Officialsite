@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 interface FooterProps {
-  onPrivacyClick: () => void;
-  onTermsClick: () => void;
+  // クリックイベントを渡すのは、モーダルを閉じた後のフォーカス復帰先
+  // （currentTarget）を呼び出し側で記録するため
+  onPrivacyClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onTermsClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const Footer = ({ onPrivacyClick, onTermsClick }: FooterProps) => {
