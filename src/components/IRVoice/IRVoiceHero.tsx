@@ -20,7 +20,7 @@ export const IRVoiceHero = () => {
                         transition={{ duration: 0.8 }}
                     >
                         {/* リリース予定日。日付は設定ファイルで一元管理 */}
-                        <p className="irv-hero-release">{IR_VOICE_RELEASE_DATE_LABEL} リリース予定</p>
+                        <p className="irv-hero-release">{IR_VOICE_RELEASE_DATE_LABEL}リリース予定</p>
 
                         {/* 製品ロゴ＋製品名のロックアップ。マークは装飾扱いで、名前はテキストで読ませる */}
                         <div className="irv-brand-lockup">

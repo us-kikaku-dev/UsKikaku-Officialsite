@@ -27,7 +27,7 @@ export const IRVoiceProduct = () => {
                     >
                         <div className="irvoice-eyebrow">
                             <span className="irvoice-eyebrow-label">Product</span>
-                            <span className="irvoice-status">{IR_VOICE_RELEASE_DATE_LABEL} リリース予定</span>
+                            <span className="irvoice-status">{IR_VOICE_RELEASE_DATE_LABEL}リリース予定</span>
                         </div>
 
                         <h3 className="irvoice-title">

@@ -22,8 +22,9 @@ export const IR_VOICE_LP_FOR_BUSINESS_URL = 'https://ir-voice.com/lp/for-busines
  * リリース予定日の表示ラベル。
  * トップページとヒーローの両方で使う。延期等の変更はここだけ直せばよい。
  * 表示側では必ず「リリース予定」と組で使うこと（断定表記にしない）。
+ * リリース日未定の間は「近日」とし、日付が確定したら「2026年◯月◯日」形式に戻す。
  */
-export const IR_VOICE_RELEASE_DATE_LABEL = '2026年8月1日';
+export const IR_VOICE_RELEASE_DATE_LABEL = '近日';
 
 /**
  * App Store で公開済みかどうか。
