@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Seo } from '../components/Seo';
-import { client, News } from '../lib/client';
+import { News } from '../lib/client';
+import { useCmsList } from '../hooks/useCmsList';
 import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
 import { scrollBehavior } from '../lib/scroll';
 import { motion } from 'motion/react';
@@ -29,53 +30,37 @@ const MOCK_NEWS_ALL = generateMockNews(25); // 25 items for testing
 const PER_PAGE = 10;
 
 export const NewsList = () => {
-    const [news, setNews] = useState<News[]>([]);
-    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(0);
+    const cmsConfigured = isCmsConfigured();
+    const { state, retry } = useCmsList<News>({
+        endpoint: 'news',
+        queries: { limit: PER_PAGE, offset: (currentPage - 1) * PER_PAGE, orders: '-publishedAt' },
+        enabled: cmsConfigured,
+    });
+
+    // 未設定時：開発はモック、本番は空のまま
+    const mockMode = !cmsConfigured && allowMockFallback();
+    const mockOffset = (currentPage - 1) * PER_PAGE;
+    const news: News[] =
+        state.status === 'success'
+            ? state.contents
+            : mockMode
+                ? MOCK_NEWS_ALL.slice(mockOffset, mockOffset + PER_PAGE)
+                : [];
+    const totalCount = state.status === 'success' ? state.totalCount : mockMode ? MOCK_NEWS_ALL.length : 0;
+
+    // 開発モックでもローディングスケルトンを確認できるよう、従来の500ms待機を再現する
+    const [mockLoading, setMockLoading] = useState(mockMode);
+    useEffect(() => {
+        if (!mockMode) return;
+        setMockLoading(true);
+        const timer = setTimeout(() => setMockLoading(false), 500);
+        return () => clearTimeout(timer);
+    }, [mockMode, currentPage]);
+
+    const loading = state.status === 'loading' || (mockMode && mockLoading);
 
     useEffect(() => {
-        const fetchNews = async () => {
-            setLoading(true);
-
-            const setMockPage = () => {
-                const offset = (currentPage - 1) * PER_PAGE;
-                setNews(MOCK_NEWS_ALL.slice(offset, offset + PER_PAGE));
-                setTotalCount(MOCK_NEWS_ALL.length);
-            };
-
-            // 未設定時：開発はモック、本番は空のまま
-            if (!isCmsConfigured()) {
-                if (allowMockFallback()) {
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    setMockPage();
-                }
-                setLoading(false);
-                return;
-            }
-
-            try {
-                const data = await client.get({
-                    endpoint: 'news',
-                    queries: {
-                        limit: PER_PAGE,
-                        offset: (currentPage - 1) * PER_PAGE,
-                        orders: '-publishedAt',
-                    }
-                });
-                setNews(data.contents);
-                setTotalCount(data.totalCount);
-            } catch (error) {
-                console.error('Failed to fetch news:', error);
-                // 失敗時はモックを出さず空状態に
-                setNews([]);
-                setTotalCount(0);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchNews();
         window.scrollTo({ top: 0, behavior: scrollBehavior() });
     }, [currentPage]);
 
@@ -155,6 +140,11 @@ export const NewsList = () => {
                                     </li>
                                 ))}
                             </ul>
+                        ) : state.status === 'error' ? (
+                            <div className="text-center py-16">
+                                <p className="text-gray-400 mb-6">お知らせの読み込みに失敗しました。時間をおいて再度お試しください。</p>
+                                <button type="button" onClick={retry} className="cms-retry-button">再試行</button>
+                            </div>
                         ) : news.length === 0 ? (
                             <p className="text-center text-gray-400 py-16">現在表示できるお知らせはありません。</p>
                         ) : (

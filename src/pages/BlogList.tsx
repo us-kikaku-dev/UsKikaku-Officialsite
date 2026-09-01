@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Seo } from '../components/Seo';
-import { client, Blog } from '../lib/client';
+import { Blog } from '../lib/client';
+import { useCmsList } from '../hooks/useCmsList';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
 import { scrollBehavior } from '../lib/scroll';
 import { motion } from 'motion/react';
@@ -33,53 +34,37 @@ const MOCK_BLOGS_ALL = generateMockBlogs(25);
 const PER_PAGE = 9;
 
 export const BlogList = () => {
-    const [blogs, setBlogs] = useState<Blog[]>([]);
-    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(0);
+    const cmsConfigured = isCmsConfigured();
+    const { state, retry } = useCmsList<Blog>({
+        endpoint: 'blog',
+        queries: { limit: PER_PAGE, offset: (currentPage - 1) * PER_PAGE, orders: '-publishedAt' },
+        enabled: cmsConfigured,
+    });
+
+    // 未設定時：開発はモック、本番は空のまま
+    const mockMode = !cmsConfigured && allowMockFallback();
+    const mockOffset = (currentPage - 1) * PER_PAGE;
+    const blogs: Blog[] =
+        state.status === 'success'
+            ? state.contents
+            : mockMode
+                ? MOCK_BLOGS_ALL.slice(mockOffset, mockOffset + PER_PAGE)
+                : [];
+    const totalCount = state.status === 'success' ? state.totalCount : mockMode ? MOCK_BLOGS_ALL.length : 0;
+
+    // 開発モックでもローディングスケルトンを確認できるよう、従来の500ms待機を再現する
+    const [mockLoading, setMockLoading] = useState(mockMode);
+    useEffect(() => {
+        if (!mockMode) return;
+        setMockLoading(true);
+        const timer = setTimeout(() => setMockLoading(false), 500);
+        return () => clearTimeout(timer);
+    }, [mockMode, currentPage]);
+
+    const loading = state.status === 'loading' || (mockMode && mockLoading);
 
     useEffect(() => {
-        const fetchBlogs = async () => {
-            setLoading(true);
-
-            const setMockPage = () => {
-                const offset = (currentPage - 1) * PER_PAGE;
-                setBlogs(MOCK_BLOGS_ALL.slice(offset, offset + PER_PAGE));
-                setTotalCount(MOCK_BLOGS_ALL.length);
-            };
-
-            // 未設定時：開発はモック、本番は空のまま
-            if (!isCmsConfigured()) {
-                if (allowMockFallback()) {
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    setMockPage();
-                }
-                setLoading(false);
-                return;
-            }
-
-            try {
-                const data = await client.get({
-                    endpoint: 'blog',
-                    queries: {
-                        limit: PER_PAGE,
-                        offset: (currentPage - 1) * PER_PAGE,
-                        orders: '-publishedAt',
-                    }
-                });
-                setBlogs(data.contents);
-                setTotalCount(data.totalCount);
-            } catch (error) {
-                console.error('Failed to fetch blogs:', error);
-                // 失敗時はモックを出さず空状態に
-                setBlogs([]);
-                setTotalCount(0);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchBlogs();
         window.scrollTo({ top: 0, behavior: scrollBehavior() });
     }, [currentPage]);
 
@@ -129,6 +114,11 @@ export const BlogList = () => {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                        ) : state.status === 'error' ? (
+                            <div className="text-center py-16">
+                                <p className="text-gray-400 mb-6">記事の読み込みに失敗しました。時間をおいて再度お試しください。</p>
+                                <button type="button" onClick={retry} className="cms-retry-button">再試行</button>
                             </div>
                         ) : blogs.length === 0 ? (
                             <p className="text-center text-gray-400 py-16">現在表示できる記事はありません。</p>

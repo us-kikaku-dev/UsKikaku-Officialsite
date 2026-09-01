@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { client, News } from '../lib/client';
+import { News } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
+import { useCmsList } from '../hooks/useCmsList';
 import { motion } from 'motion/react';
 import './LatestNews.css';
 
@@ -34,42 +35,21 @@ const MOCK_NEWS: News[] = [
 ];
 
 export const LatestNews = () => {
-    const [news, setNews] = useState<News[]>([]);
-    const [loading, setLoading] = useState(true);
+    const cmsConfigured = isCmsConfigured();
+    const { state, retry } = useCmsList<News>({
+        endpoint: 'news',
+        queries: { limit: 3, orders: '-publishedAt' },
+        enabled: cmsConfigured,
+    });
 
-    useEffect(() => {
-        let cancelled = false;
-        const fetchNews = async () => {
-            // 未設定時のみ開発でモック表示（初期セットアップ用途）
-            if (!isCmsConfigured()) {
-                if (!cancelled && allowMockFallback()) setNews(MOCK_NEWS.slice(0, 3));
-                if (!cancelled) setLoading(false);
-                return;
-            }
-
-            try {
-                const data = await client.get({
-                    endpoint: 'news',
-                    queries: {
-                        limit: 3,
-                        orders: '-publishedAt',
-                    },
-                });
-                if (!cancelled) setNews(data.contents);
-            } catch (error) {
-                console.error('Failed to fetch news:', error);
-                // 失敗時はモックを出さず空状態に（偽情報を表示しない）
-                if (!cancelled) setNews([]);
-            } finally {
-                if (!cancelled) setLoading(false);
-            }
-        };
-
-        fetchNews();
-        return () => {
-            cancelled = true;
-        };
-    }, []);
+    // 未設定時のみ開発でモック表示（初期セットアップ用途）。本番は空状態のまま
+    const news: News[] =
+        state.status === 'success'
+            ? state.contents
+            : !cmsConfigured && allowMockFallback()
+                ? MOCK_NEWS.slice(0, 3)
+                : [];
+    const loading = state.status === 'loading';
 
     return (
         <section className="latest-news-section">
@@ -93,6 +73,11 @@ export const LatestNews = () => {
                     <div>
                         {loading ? (
                             <p className="text-center text-gray-400">Loading...</p>
+                        ) : state.status === 'error' ? (
+                            <div className="text-center py-12">
+                                <p className="text-gray-400 mb-6">お知らせの読み込みに失敗しました。時間をおいて再度お試しください。</p>
+                                <button type="button" onClick={retry} className="cms-retry-button">再試行</button>
+                            </div>
                         ) : news.length === 0 ? (
                             <p className="text-center text-gray-400 py-12">現在表示できるお知らせはありません。</p>
                         ) : (

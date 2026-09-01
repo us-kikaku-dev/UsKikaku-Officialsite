@@ -1,9 +1,10 @@
 import React, { useState, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
+import { ErrorBoundary, AppErrorFallback, PageErrorFallback } from './components/ErrorBoundary';
 
 // 法務モーダルは本文が長くRadix Dialogも同梱されるため、開くまで読み込まない
 const PrivacyModal = lazy(() => import('./components/PrivacyModal').then(module => ({ default: module.PrivacyModal })));
@@ -22,6 +23,16 @@ const Contact = lazy(() => import('./pages/Contact').then(module => ({ default: 
 const Tashiro = lazy(() => import('./pages/Tashiro').then(module => ({ default: module.Tashiro })));
 const TashiroArticles = lazy(() => import('./pages/TashiroArticles').then(module => ({ default: module.TashiroArticles })));
 const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
+
+// ページ表示領域のError Boundary。ルート遷移でリセットするためpathnameをkeyにする
+const RouteBoundary = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  return (
+    <ErrorBoundary key={location.pathname} fallback={<PageErrorFallback />}>
+      {children}
+    </ErrorBoundary>
+  );
+};
 
 // Loading Component
 const Loading = () => (
@@ -44,7 +55,9 @@ export default function App() {
   const termsTriggerRef = React.useRef<HTMLElement | null>(null);
 
   return (
-    // reducedMotion="user": OSの「動きを減らす」設定時にMotionのtransform系アニメーションを自動で抑制する
+    // 最上位のError Boundary: 描画例外での白画面を防ぐ（Router障害時も素の<a>で導線を残す）
+    <ErrorBoundary fallback={<AppErrorFallback />}>
+    {/* reducedMotion="user": OSの「動きを減らす」設定時にMotionのtransform系アニメーションを自動で抑制する */}
     <MotionConfig reducedMotion="user">
     <Router>
       <ScrollToTop />
@@ -53,6 +66,7 @@ export default function App() {
         <a href="#main-content" className="skip-link">本文へスキップ</a>
         <Navbar />
         <main id="main-content" tabIndex={-1} className="flex-grow">
+          <RouteBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -70,6 +84,7 @@ export default function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
+          </RouteBoundary>
         </main>
         <Footer
           onPrivacyClick={(e) => { privacyTriggerRef.current = e.currentTarget; setPrivacyMounted(true); setIsPrivacyOpen(true); }}
@@ -97,5 +112,6 @@ export default function App() {
       </div>
     </Router>
     </MotionConfig>
+    </ErrorBoundary>
   );
 }
