@@ -2661,3 +2661,65 @@ html {
   .lg\:p-10 { padding: calc(var(--spacing) * 10); }
   .lg\:justify-center { justify-content: center; }
 }
+/* ============================================================
+   アクセシビリティ関連（監査バッチ2で追加）
+   ※本プロジェクトはTailwindビルドが無いため生CSSで記述する
+   ============================================================ */
+
+/* スキップリンク: キーボードフォーカス時のみ画面内に表示する */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  background: #0B1C3D;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: top 0.15s ease-out;
+}
+.skip-link:focus {
+  top: 16px;
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* スキップリンク遷移先（main）のプログラムフォーカス時は枠線を出さない */
+#main-content:focus {
+  outline: none;
+}
+
+/* スクロール導線ボタン: button既定スタイルをリセットし、フォーカスリングは維持する */
+.scroll-cue-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+.scroll-cue-button:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 4px;
+}
+
+/* モーダルの閉じるボタン: 視認できるフォーカスリングを保証する */
+.modal-close-button:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* OSの「動きを減らす」設定時はアニメーション・トランジションを実質無効化する
+   （animation: none ではなく極小durationにすることで、完了時状態は維持する） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

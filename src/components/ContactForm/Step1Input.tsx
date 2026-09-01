@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import {
@@ -28,11 +29,20 @@ const inputStyle = "force-input-style";
 const errorStyle = "force-error-message";
 const radioStyle = "w-5 h-5 text-[#D4AF37] border-gray-300 focus:ring-[#D4AF37]";
 
+// fieldset/legend はブラウザ既定の枠線・余白をリセットし、divと同じ見た目を維持する
+const fieldsetReset: CSSProperties = { border: 0, padding: 0, margin: 0, minWidth: 0 };
+const legendReset: CSSProperties = { padding: 0 };
+
 export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPersona, onConfirm }: Step1InputProps) => {
     // CVJ: 立場に応じた区分の選択肢
     const cvjCategories = cvjPersona === CVJ_PERSONA_BUSINESS ? CVJ_BUSINESS_CATEGORIES : CVJ_READER_CATEGORIES;
     return (
-        <motion.div
+        <motion.form
+            noValidate
+            onSubmit={(e) => {
+                e.preventDefault();
+                onConfirm();
+            }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -42,38 +52,46 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                 {/* A. 共通ヘッダー */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
                     <div>
-                        <label className={labelStyle}>会社名</label>
+                        <label className={labelStyle} htmlFor="contact-companyName">会社名</label>
                         <input
+                            id="contact-companyName"
                             type="text"
                             className={inputStyle}
                             placeholder="株式会社U's企画（個人の方は空欄で可）"
+                            autoComplete="organization"
                             {...register('companyName')}
                         />
                     </div>
                     <div>
-                        <label className={labelStyle}>
+                        <label className={labelStyle} htmlFor="contact-personName">
                             お名前
                             <span className="force-required-mark">※必須</span>
                         </label>
                         <input
+                            id="contact-personName"
                             type="text"
                             className={inputStyle}
                             placeholder="山田 太郎"
+                            autoComplete="name"
                             aria-invalid={!!errors.personName}
+                            aria-describedby={errors.personName ? 'contact-personName-error' : undefined}
                             {...register('personName', { required: '※お名前を入力してください' })}
                         />
-                        {errors.personName && <span className={errorStyle}>{errors.personName.message}</span>}
+                        {errors.personName && <span id="contact-personName-error" role="alert" className={errorStyle}>{errors.personName.message}</span>}
                     </div>
                     <div>
-                        <label className={labelStyle}>
+                        <label className={labelStyle} htmlFor="contact-email">
                             メールアドレス
                             <span className="force-required-mark">※必須</span>
                         </label>
                         <input
+                            id="contact-email"
                             type="email"
                             className={inputStyle}
                             placeholder="example@us-kikaku.com"
+                            autoComplete="email"
                             aria-invalid={!!errors.email}
+                            aria-describedby={errors.email ? 'contact-email-error' : undefined}
                             {...register('email', {
                                 required: '※メールアドレスを入力してください',
                                 pattern: {
@@ -82,25 +100,27 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                 }
                             })}
                         />
-                        {errors.email && <span className={errorStyle}>{errors.email.message}</span>}
+                        {errors.email && <span id="contact-email-error" role="alert" className={errorStyle}>{errors.email.message}</span>}
                     </div>
                     <div>
-                        <label className={labelStyle}>電話番号</label>
+                        <label className={labelStyle} htmlFor="contact-phoneNumber">電話番号</label>
                         <input
+                            id="contact-phoneNumber"
                             type="tel"
                             className={inputStyle}
                             placeholder="03-1234-5678"
+                            autoComplete="tel"
                             {...register('phoneNumber')}
                         />
                     </div>
                 </div>
 
                 {/* B. お問い合わせ種別 - Horizontal Radio */}
-                <div>
-                    <label className={`${labelStyle} mb-4 block`}>
+                <fieldset style={fieldsetReset} aria-describedby={errors.inquiryType ? 'contact-inquiryType-error' : undefined}>
+                    <legend className={`${labelStyle} mb-4 block`} style={legendReset}>
                         お問い合わせ種別
                         <span className="force-required-mark">※必須</span>
-                    </label>
+                    </legend>
                     <div className="flex flex-col md:flex-row gap-6 flex-wrap">
                         {['Capital Voice Japanについて', 'IR Voiceについて', 'IRコンサルティング', '受託開発・Web制作', 'その他'].map((type) => (
                             <label key={type} className="flex items-center cursor-pointer group">
@@ -117,8 +137,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                             </label>
                         ))}
                     </div>
-                    {errors.inquiryType && <span className={errorStyle}>{errors.inquiryType.message}</span>}
-                </div>
+                    {errors.inquiryType && <span id="contact-inquiryType-error" role="alert" className={errorStyle}>{errors.inquiryType.message}</span>}
+                </fieldset>
 
                 {/* C. 詳細項目 (Dynamic) - Flat Style */}
                 <AnimatePresence mode='wait'>
@@ -131,11 +151,11 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                             className="pt-6 border-t border-gray-100 overflow-hidden"
                             style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
                         >
-                            <div>
-                                <label className={labelStyle}>
+                            <fieldset style={fieldsetReset} aria-describedby={errors.cvjPersona ? 'contact-cvjPersona-error' : undefined}>
+                                <legend className={labelStyle} style={legendReset}>
                                     ご利用の立場
                                     <span className="force-required-mark">※必須</span>
-                                </label>
+                                </legend>
                                 <div className="flex flex-col md:flex-row gap-6 flex-wrap">
                                     {[CVJ_PERSONA_READER, CVJ_PERSONA_BUSINESS].map(item => (
                                         <label key={item} className="flex items-center cursor-pointer group">
@@ -144,8 +164,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                         </label>
                                     ))}
                                 </div>
-                                {errors.cvjPersona && <span className={errorStyle}>{errors.cvjPersona.message}</span>}
-                            </div>
+                                {errors.cvjPersona && <span id="contact-cvjPersona-error" role="alert" className={errorStyle}>{errors.cvjPersona.message}</span>}
+                            </fieldset>
 
                             {/* 区分は立場を選ぶと表示され、選択肢が立場で切り替わる */}
                             {cvjPersona && (
@@ -157,11 +177,11 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                     className="overflow-hidden"
                                     style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
                                 >
-                                    <div>
-                                        <label className={labelStyle}>
+                                    <fieldset style={fieldsetReset} aria-describedby={errors.cvjInquiryCategory ? 'contact-cvjInquiryCategory-error' : undefined}>
+                                        <legend className={labelStyle} style={legendReset}>
                                             お問い合わせ区分
                                             <span className="force-required-mark">※必須</span>
-                                        </label>
+                                        </legend>
                                         <div className="flex flex-col gap-4">
                                             {cvjCategories.map(item => (
                                                 <label key={item} className="flex items-center cursor-pointer group">
@@ -170,14 +190,14 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                                 </label>
                                             ))}
                                         </div>
-                                        {errors.cvjInquiryCategory && <span className={errorStyle}>{errors.cvjInquiryCategory.message}</span>}
-                                    </div>
+                                        {errors.cvjInquiryCategory && <span id="contact-cvjInquiryCategory-error" role="alert" className={errorStyle}>{errors.cvjInquiryCategory.message}</span>}
+                                    </fieldset>
 
                                     {/* 企業・事業者のときだけ、上場区分と証券コードを出す */}
                                     {cvjPersona === CVJ_PERSONA_BUSINESS && (
                                         <>
-                                            <div>
-                                                <label className={labelStyle}>上場区分</label>
+                                            <fieldset style={fieldsetReset}>
+                                                <legend className={labelStyle} style={legendReset}>上場区分</legend>
                                                 <div className="flex flex-col md:flex-row gap-6 flex-wrap">
                                                     {['上場企業', '上場準備中', 'その他'].map(item => (
                                                         <label key={item} className="flex items-center cursor-pointer group">
@@ -186,18 +206,18 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                                         </label>
                                                     ))}
                                                 </div>
-                                            </div>
+                                            </fieldset>
 
                                             <div>
-                                                <label className={labelStyle}>証券コード</label>
-                                                <input type="text" className={inputStyle} placeholder="1234" {...register('cvjSecurityCode')} />
+                                                <label className={labelStyle} htmlFor="contact-cvjSecurityCode">証券コード</label>
+                                                <input id="contact-cvjSecurityCode" type="text" className={inputStyle} placeholder="1234" {...register('cvjSecurityCode')} />
                                             </div>
                                         </>
                                     )}
 
                                     <div>
-                                        <label className={labelStyle}>対象記事URL</label>
-                                        <input type="text" className={inputStyle} placeholder="https://capital-voice.com/article/..." {...register('cvjArticleUrl')} />
+                                        <label className={labelStyle} htmlFor="contact-cvjArticleUrl">対象記事URL</label>
+                                        <input id="contact-cvjArticleUrl" type="text" className={inputStyle} placeholder="https://capital-voice.com/article/..." {...register('cvjArticleUrl')} />
                                     </div>
                                 </motion.div>
                             )}
@@ -213,11 +233,11 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                             className="pt-6 border-t border-gray-100 overflow-hidden"
                             style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
                         >
-                            <div>
-                                <label className={labelStyle}>
+                            <fieldset style={fieldsetReset} aria-describedby={errors.irvPersona ? 'contact-irvPersona-error' : undefined}>
+                                <legend className={labelStyle} style={legendReset}>
                                     ご利用の立場
                                     <span className="force-required-mark">※必須</span>
-                                </label>
+                                </legend>
                                 <div className="flex flex-col md:flex-row gap-6 flex-wrap">
                                     {[
                                         IRV_PERSONA_BUSINESS,
@@ -230,14 +250,14 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                         </label>
                                     ))}
                                 </div>
-                                {errors.irvPersona && <span className={errorStyle}>{errors.irvPersona.message}</span>}
-                            </div>
+                                {errors.irvPersona && <span id="contact-irvPersona-error" role="alert" className={errorStyle}>{errors.irvPersona.message}</span>}
+                            </fieldset>
 
-                            <div>
-                                <label className={labelStyle}>
+                            <fieldset style={fieldsetReset} aria-describedby={errors.irvInquiryCategory ? 'contact-irvInquiryCategory-error' : undefined}>
+                                <legend className={labelStyle} style={legendReset}>
                                     お問い合わせ区分
                                     <span className="force-required-mark">※必須</span>
-                                </label>
+                                </legend>
                                 <div className="flex flex-col gap-4">
                                     {[
                                         '導入・デモのご相談',
@@ -251,8 +271,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                         </label>
                                     ))}
                                 </div>
-                                {errors.irvInquiryCategory && <span className={errorStyle}>{errors.irvInquiryCategory.message}</span>}
-                            </div>
+                                {errors.irvInquiryCategory && <span id="contact-irvInquiryCategory-error" role="alert" className={errorStyle}>{errors.irvInquiryCategory.message}</span>}
+                            </fieldset>
 
                             {/* 企業のIRご担当者様のときだけ、リード把握用の詳細項目を出す */}
                             {irvPersona === IRV_PERSONA_BUSINESS && (
@@ -263,8 +283,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                     className="overflow-hidden"
                                     style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
                                 >
-                                    <div>
-                                        <label className={labelStyle}>上場区分</label>
+                                    <fieldset style={fieldsetReset}>
+                                        <legend className={labelStyle} style={legendReset}>上場区分</legend>
                                         <div className="flex flex-col md:flex-row gap-6 flex-wrap">
                                             {['上場企業', '上場準備中', 'その他'].map(item => (
                                                 <label key={item} className="flex items-center cursor-pointer group">
@@ -273,16 +293,16 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                                 </label>
                                             ))}
                                         </div>
+                                    </fieldset>
+
+                                    <div>
+                                        <label className={labelStyle} htmlFor="contact-irvSecurityCode">証券コード</label>
+                                        <input id="contact-irvSecurityCode" type="text" className={inputStyle} placeholder="1234" {...register('irvSecurityCode')} />
                                     </div>
 
                                     <div>
-                                        <label className={labelStyle}>証券コード</label>
-                                        <input type="text" className={inputStyle} placeholder="1234" {...register('irvSecurityCode')} />
-                                    </div>
-
-                                    <div>
-                                        <label className={labelStyle}>導入検討時期</label>
-                                        <select className="force-input-style" {...register('irvConsiderationTiming')}>
+                                        <label className={labelStyle} htmlFor="contact-irvConsiderationTiming">導入検討時期</label>
+                                        <select id="contact-irvConsiderationTiming" className="force-input-style" {...register('irvConsiderationTiming')}>
                                             <option value="">選択してください</option>
                                             <option value="情報収集段階">情報収集段階</option>
                                             <option value="具体的に検討中">具体的に検討中</option>
@@ -304,8 +324,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                             className="pt-6 border-t border-gray-100 overflow-hidden"
                             style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
                         >
-                            <div>
-                                <label className={labelStyle}>ご相談内容（複数可）</label>
+                            <fieldset style={fieldsetReset}>
+                                <legend className={labelStyle} style={legendReset}>ご相談内容（複数可）</legend>
                                 <div className="flex flex-col md:flex-row gap-6 flex-wrap">
                                     {['決算説明資料', '統合報告書', 'IRサイト制作', 'その他'].map(item => (
                                         <label key={item} className="flex items-center cursor-pointer group">
@@ -314,10 +334,10 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                         </label>
                                     ))}
                                 </div>
-                            </div>
+                            </fieldset>
 
-                            <div>
-                                <label className={labelStyle}>現在の作成体制</label>
+                            <fieldset style={fieldsetReset}>
+                                <legend className={labelStyle} style={legendReset}>現在の作成体制</legend>
                                 <div className="flex flex-col md:flex-row gap-6 flex-wrap">
                                     {['自社で作成', '一部外注', '全て外注'].map(item => (
                                         <label key={item} className="flex items-center cursor-pointer group">
@@ -326,15 +346,15 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                         </label>
                                     ))}
                                 </div>
-                            </div>
+                            </fieldset>
 
                             <div>
-                                <label className={labelStyle}>証券コード</label>
-                                <input type="text" className={inputStyle} placeholder="1234" {...register('securityCode')} />
+                                <label className={labelStyle} htmlFor="contact-securityCode">証券コード</label>
+                                <input id="contact-securityCode" type="text" className={inputStyle} placeholder="1234" {...register('securityCode')} />
                             </div>
                             <div>
-                                <label className={labelStyle}>参考URL</label>
-                                <input type="text" className={inputStyle} placeholder="https://..." {...register('irReferenceUrl')} />
+                                <label className={labelStyle} htmlFor="contact-irReferenceUrl">参考URL</label>
+                                <input id="contact-irReferenceUrl" type="text" className={inputStyle} placeholder="https://..." {...register('irReferenceUrl')} />
                             </div>
                         </motion.div>
                     )}
@@ -349,8 +369,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                             style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
                         >
                             <div>
-                                <label className={labelStyle}>開発の種類</label>
-                                <select className="force-input-style" {...register('devType')}>
+                                <label className={labelStyle} htmlFor="contact-devType">開発の種類</label>
+                                <select id="contact-devType" className="force-input-style" {...register('devType')}>
                                     <option value="">選択してください</option>
                                     <option value="コーポレートサイト制作">コーポレートサイト制作</option>
                                     <option value="採用サイト制作">採用サイト制作</option>
@@ -359,8 +379,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                 </select>
                             </div>
                             <div>
-                                <label className={labelStyle}>ご予算感</label>
-                                <select className="force-input-style" {...register('budget')}>
+                                <label className={labelStyle} htmlFor="contact-budget">ご予算感</label>
+                                <select id="contact-budget" className="force-input-style" {...register('budget')}>
                                     <option value="">選択してください</option>
                                     <option value="〜300万円">〜300万円</option>
                                     <option value="〜500万円">〜500万円</option>
@@ -371,8 +391,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                             </div>
 
                             <div>
-                                <label className={labelStyle}>希望納期</label>
-                                <select className="force-input-style" {...register('deadline')}>
+                                <label className={labelStyle} htmlFor="contact-deadline">希望納期</label>
+                                <select id="contact-deadline" className="force-input-style" {...register('deadline')}>
                                     <option value="">選択してください</option>
                                     <option value="特になし">特になし</option>
                                     <option value="3ヶ月以内">3ヶ月以内</option>
@@ -381,8 +401,8 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
                                 </select>
                             </div>
                             <div>
-                                <label className={labelStyle}>参考サイト・既存サイトURL</label>
-                                <input type="text" className={inputStyle} placeholder="https://..." {...register('devReferenceUrl')} />
+                                <label className={labelStyle} htmlFor="contact-devReferenceUrl">参考サイト・既存サイトURL</label>
+                                <input id="contact-devReferenceUrl" type="text" className={inputStyle} placeholder="https://..." {...register('devReferenceUrl')} />
                             </div>
                         </motion.div>
                     )}
@@ -391,32 +411,33 @@ export const Step1Input = ({ register, errors, inquiryType, irvPersona, cvjPerso
 
                 {/* D. 共通フッター */}
                 <div>
-                    <label className={labelStyle}>
+                    <label className={labelStyle} htmlFor="contact-message">
                         お問い合わせ詳細
                         <span className="force-required-mark">※必須</span>
                     </label>
                     <textarea
+                        id="contact-message"
                         className="w-full force-input-style force-textarea-style"
                         rows={6}
                         placeholder="具体的なご相談内容や、現在お困りの点をご記入ください"
                         aria-invalid={!!errors.message}
+                        aria-describedby={errors.message ? 'contact-message-error' : undefined}
                         {...register('message', { required: '※お問い合わせ詳細を入力してください' })}
                     ></textarea>
-                    {errors.message && <span className={errorStyle}>{errors.message.message}</span>}
+                    {errors.message && <span id="contact-message-error" role="alert" className={errorStyle}>{errors.message.message}</span>}
                 </div>
 
 
                 {/* Submit Button */}
                 <div className="text-center" style={{ marginTop: '16px' }}>
                     <button
-                        onClick={onConfirm}
                         className="force-btn-style"
-                        type="button"
+                        type="submit"
                     >
                         確認画面へ進む
                     </button>
                 </div>
             </div>
-        </motion.div>
+        </motion.form>
     );
 };

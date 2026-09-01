@@ -7,6 +7,7 @@ import {
   UnifiedTashiroArticle,
 } from '../lib/tashiro';
 import { TashiroArticleCard } from '../components/TashiroArticleCard';
+import { scrollBehavior } from '../lib/scroll';
 
 const PER_PAGE = 9;
 
@@ -89,7 +90,7 @@ export const TashiroArticles = () => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
   }, [currentPage]);
 
   const totalPages = Math.ceil(allArticles.length / PER_PAGE);
