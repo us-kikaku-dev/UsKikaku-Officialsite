@@ -1,6 +1,6 @@
 import { ExternalLink } from 'lucide-react';
-import { UnifiedTashiroArticle } from '../lib/tashiro';
-import { formatDate } from '../lib/cms';
+import { UnifiedTashiroArticle } from '../../lib/tashiro';
+import { formatDate } from '../../lib/cms';
 
 export function TashiroArticleCard({
   article,

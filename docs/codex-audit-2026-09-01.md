@@ -2,6 +2,12 @@
 
 > 実行: scripts/codex-review.sh --effort high (ChatGPT枠) / 274,887 tokens
 
+> **注記（2026-09-02追記）**: 本レポートは監査時点（2026-09-01）のスナップショットであり、
+> 記載のファイルパス・行番号は当時のものです。指摘事項は改善バッチ1〜5で対応済みで、
+> その過程のディレクトリ再編成（バッチ4b）により `components/ContactForm` →
+> `features/contact`、`ServiceHeroFinalV4` → `features/service/ServiceHero` など
+> 現在のパスとは異なります。対応の経緯は各PRとコミットログを参照してください。
+
 監査はコード変更なしで実施しました。`.env` 系・`node_modules`・`dist`・`build`・`test-results` は読み取っていません。作業ツリー外での本番ビルドは成功しています。
 
 ## 優先度：高

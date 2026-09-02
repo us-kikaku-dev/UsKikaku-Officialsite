@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import './IRVoiceProduct.css';
-import { PhoneFrame } from './IRVoice/PhoneFrame';
-import { BrandMark } from './IRVoice/BrandMark';
-import { IR_VOICE_RELEASE_DATE_LABEL } from '../config/irVoice';
-import AppHome from '../assets/ir-voice/app_home.webp';
+import { PhoneFrame } from './PhoneFrame';
+import { BrandMark } from './BrandMark';
+import { IR_VOICE_RELEASE_DATE_LABEL } from '../../config/irVoice';
+import AppHome from '../../assets/ir-voice/app_home.webp';
 
 /**
  * トップページのプロダクト紹介セクション。

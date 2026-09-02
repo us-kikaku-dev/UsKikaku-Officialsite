@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
-import ServiceHeroImage from '../assets/service-hero.jpg';
-import { scrollBehavior } from '../lib/scroll';
+import ServiceHeroImage from '../../assets/service-hero.jpg';
+import { scrollBehavior } from '../../lib/scroll';
 
-export const ServiceHeroFinalV4 = () => {
+export const ServiceHero = () => {
     const ref = useRef(null);
     // 「動きを減らす」設定時はパララックスを止める（useTransformはMotionConfigの対象外のため個別対応）
     const prefersReducedMotion = useReducedMotion();

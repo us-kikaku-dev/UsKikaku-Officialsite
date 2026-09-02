@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/common/Seo';
 import { News } from '../lib/client';
 import { useCmsList } from '../hooks/useCmsList';
 import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
 import { scrollBehavior } from '../lib/scroll';
 import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
-import '../components/LatestNews.css'; // Import shared styles
+import '../styles/LatestNews.css'; // Import shared styles
 
 // Helper to generate mock data
 const generateMockNews = (count: number): News[] => {

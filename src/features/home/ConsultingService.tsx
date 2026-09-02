@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import './ConsultingService.css';
-import ConsultingImage from '../assets/home-hero.jpg';
+import ConsultingImage from '../../assets/home-hero.jpg';
 
 export const ConsultingService = () => {
     return (

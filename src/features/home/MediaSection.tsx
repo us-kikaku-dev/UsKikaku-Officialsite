@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ExternalLink } from 'lucide-react';
-import { capitalVoiceClient, CapitalVoiceArticle } from '../lib/client';
-import { isCapitalVoiceConfigured, allowMockFallback, formatDate } from '../lib/cms';
-import CapitalVoiceHeroImage from '../assets/capital-voice-hero.jpg';
+import { capitalVoiceClient, CapitalVoiceArticle } from '../../lib/client';
+import { isCapitalVoiceConfigured, allowMockFallback, formatDate } from '../../lib/cms';
+import CapitalVoiceHeroImage from '../../assets/capital-voice-hero.jpg';
 import './MediaSection.css';
 
 const CAPITAL_VOICE_BASE = 'https://capital-voice.com';
