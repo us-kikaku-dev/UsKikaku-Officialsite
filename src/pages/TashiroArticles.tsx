@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/common/Seo';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   fetchUnifiedTashiroArticles,
   UnifiedTashiroArticle,
 } from '../lib/tashiro';
-import { TashiroArticleCard } from '../components/TashiroArticleCard';
+import { TashiroArticleCard } from '../features/tashiro/TashiroArticleCard';
 import { scrollBehavior } from '../lib/scroll';
 
 const PER_PAGE = 9;

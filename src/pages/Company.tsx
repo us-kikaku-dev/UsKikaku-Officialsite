@@ -1,8 +1,8 @@
-import { Seo } from '../components/Seo';
-import { CompanyProfile } from '../components/CompanyProfile';
-import { Members } from '../components/Members';
-import { Partners } from '../components/Partners';
-import { CompanyMap } from '../components/CompanyMap';
+import { Seo } from '../components/common/Seo';
+import { CompanyProfile } from '../features/company/CompanyProfile';
+import { Members } from '../features/company/Members';
+import { Partners } from '../features/company/Partners';
+import { CompanyMap } from '../features/company/CompanyMap';
 
 export const Company = () => {
     return (

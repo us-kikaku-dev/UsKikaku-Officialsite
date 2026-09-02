@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/common/Seo';
 import { Blog } from '../lib/client';
 import { useCmsList } from '../hooks/useCmsList';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
 import { scrollBehavior } from '../lib/scroll';
 import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
-import '../components/BlogSection.css'; // Import shared styles for cards
+import '../styles/BlogSection.css'; // Import shared styles for cards
 
 // Helper to generate mock data
 const generateMockBlogs = (count: number): Blog[] => {

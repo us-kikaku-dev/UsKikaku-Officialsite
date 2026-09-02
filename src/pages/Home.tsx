@@ -1,11 +1,11 @@
-import { Seo } from '../components/Seo';
-import { Hero } from '../components/Hero';
-import { LatestNews } from '../components/LatestNews';
-import { Message } from '../components/Message';
-import { MediaSection } from '../components/MediaSection';
-import { ConsultingService } from '../components/ConsultingService';
-import { IRVoiceProduct } from '../components/IRVoiceProduct';
-import { BlogSection } from '../components/BlogSection';
+import { Seo } from '../components/common/Seo';
+import { Hero } from '../features/home/Hero';
+import { LatestNews } from '../features/home/LatestNews';
+import { Message } from '../features/home/Message';
+import { MediaSection } from '../features/home/MediaSection';
+import { ConsultingService } from '../features/home/ConsultingService';
+import { IRVoiceProduct } from '../features/ir-voice/IRVoiceProduct';
+import { BlogSection } from '../features/home/BlogSection';
 
 export const Home = () => {
   return (

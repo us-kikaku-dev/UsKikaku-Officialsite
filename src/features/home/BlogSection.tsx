@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Blog } from '../lib/client';
-import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
-import { useCmsList } from '../hooks/useCmsList';
-import './BlogSection.css';
+import { Blog } from '../../lib/client';
+import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../../lib/cms';
+import { useCmsList } from '../../hooks/useCmsList';
+import '../../styles/BlogSection.css';
 
 // Reuse mock data format matching Blog types
 const MOCK_BLOGS: Blog[] = [

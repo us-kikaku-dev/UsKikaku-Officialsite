@@ -1,7 +1,7 @@
 import React from 'react';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/common/Seo';
 import { motion } from 'motion/react';
-import { ContactForm } from '../components/ContactForm';
+import { ContactForm } from '../features/contact';
 
 export const Contact = () => {
     return (

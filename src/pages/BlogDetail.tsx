@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/common/Seo';
 import { useParams, Link } from 'react-router-dom';
 import { client, Blog } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';

@@ -4,7 +4,7 @@ import { client, News } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
 import { motion } from 'motion/react';
 import { ChevronLeft } from 'lucide-react';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/common/Seo';
 import DOMPurify from 'dompurify';
 import '../RichText.css';
 

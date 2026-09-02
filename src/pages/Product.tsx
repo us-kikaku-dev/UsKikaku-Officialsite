@@ -1,9 +1,9 @@
 import React from 'react';
-import { Seo } from '../components/Seo';
-import { IRVoiceHero } from '../components/IRVoice/IRVoiceHero';
-import { IRVoiceFeatures } from '../components/IRVoice/IRVoiceFeatures';
-import { IRVoiceForBusiness } from '../components/IRVoice/IRVoiceForBusiness';
-import { IRVoiceFAQ } from '../components/IRVoice/IRVoiceFAQ';
+import { Seo } from '../components/common/Seo';
+import { IRVoiceHero } from '../features/ir-voice/IRVoiceHero';
+import { IRVoiceFeatures } from '../features/ir-voice/IRVoiceFeatures';
+import { IRVoiceForBusiness } from '../features/ir-voice/IRVoiceForBusiness';
+import { IRVoiceFAQ } from '../features/ir-voice/IRVoiceFAQ';
 
 /**
  * プロダクト紹介ページ。

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Seo } from '../components/Seo';
-import { Services } from '../components/Services';
-import { ServiceFlow } from '../components/ServiceFlow';
-import { FAQ } from '../components/FAQ';
-import { ServiceHeroFinalV4 } from '../components/ServiceHeroFinalV4';
-import { ServiceApproach } from '../components/ServiceApproach';
+import { Seo } from '../components/common/Seo';
+import { Services } from '../features/service/Services';
+import { ServiceFlow } from '../features/service/ServiceFlow';
+import { FAQ } from '../features/service/FAQ';
+import { ServiceHero } from '../features/service/ServiceHero';
+import { ServiceApproach } from '../features/service/ServiceApproach';
 
 export const ServicePage = () => {
     return (
         <div className="bg-white min-h-screen">
             <Seo path="/service" />
-            <ServiceHeroFinalV4 />
+            <ServiceHero />
             <ServiceApproach />
 
             <div className="pt-24 pb-24">

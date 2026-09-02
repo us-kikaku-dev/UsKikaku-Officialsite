@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { News } from '../lib/client';
-import { isCmsConfigured, allowMockFallback, formatDate } from '../lib/cms';
-import { useCmsList } from '../hooks/useCmsList';
+import { News } from '../../lib/client';
+import { isCmsConfigured, allowMockFallback, formatDate } from '../../lib/cms';
+import { useCmsList } from '../../hooks/useCmsList';
 import { motion } from 'motion/react';
-import './LatestNews.css';
+import '../../styles/LatestNews.css';
 
 // Mock data
 const MOCK_NEWS: News[] = [

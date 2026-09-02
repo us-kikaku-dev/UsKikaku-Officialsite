@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/common/Seo';
 import { ExternalLink } from 'lucide-react';
 import {
   fetchLatestUnifiedTashiroArticles,
   UnifiedTashiroArticle,
 } from '../lib/tashiro';
-import { TashiroArticleCard } from '../components/TashiroArticleCard';
+import { TashiroArticleCard } from '../features/tashiro/TashiroArticleCard';
 import tashiroProfile from '../assets/tashiro-profile.webp';
 
 const X_PROFILE_URL = 'https://x.com/crypto_fin256?s=21';

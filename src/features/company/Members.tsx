@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import './LatestNews.css';
+import '../../styles/LatestNews.css';
 
 export const Members = () => {
   // 共通スタイル

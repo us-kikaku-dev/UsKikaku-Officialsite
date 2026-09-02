@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
-import HeroImage from '../assets/home-hero.jpg';
-import { scrollBehavior } from '../lib/scroll';
+import HeroImage from '../../assets/home-hero.jpg';
+import { scrollBehavior } from '../../lib/scroll';
 
 export const Hero = () => {
   const ref = useRef(null);

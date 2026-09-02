@@ -1,14 +1,14 @@
 import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'motion/react';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
-import { ScrollToTop } from './components/ScrollToTop';
-import { ErrorBoundary, AppErrorFallback, PageErrorFallback } from './components/ErrorBoundary';
+import { Navbar } from './components/layout/Navbar';
+import { Footer } from './components/layout/Footer';
+import { ScrollToTop } from './components/layout/ScrollToTop';
+import { ErrorBoundary, AppErrorFallback, PageErrorFallback } from './components/common/ErrorBoundary';
 
 // 法務モーダルは本文が長くRadix Dialogも同梱されるため、開くまで読み込まない
-const PrivacyModal = lazy(() => import('./components/PrivacyModal').then(module => ({ default: module.PrivacyModal })));
-const TermsModal = lazy(() => import('./components/TermsModal').then(module => ({ default: module.TermsModal })));
+const PrivacyModal = lazy(() => import('./components/legal/PrivacyModal').then(module => ({ default: module.PrivacyModal })));
+const TermsModal = lazy(() => import('./components/legal/TermsModal').then(module => ({ default: module.TermsModal })));
 
 // Lazy loading pages
 const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));

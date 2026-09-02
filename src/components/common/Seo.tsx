@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import seoConfig from '../config/seoRoutes.json';
+import seoConfig from '../../config/seoRoutes.json';
 
 /**
  * 全ページ共通のSEOメタタグ出力コンポーネント。
