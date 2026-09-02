@@ -2,6 +2,22 @@
   command = "npm run build:site"
   publish = "dist"
 
+# ─────────────────────────────────────────────
+# セキュリティヘッダー（監査バッチ6）
+# CSPの許可先は実測した外部オリジンのみ:
+#   microCMS API/画像・EmailJS・reCAPTCHA v2（Google公式FAQ準拠のパス限定）・
+#   Google Fonts・Google Maps埋め込み
+# 変更時はDeploy Previewで reCAPTCHAチャレンジ表示〜フォーム送信・地図・
+# 記事画像・フォントをEnforce状態で確認すること
+# ─────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.microcms-assets.io; connect-src 'self' https://uskikaku.microcms.io https://irmedia.microcms.io https://api.emailjs.com https://www.google.com/recaptcha/; frame-src https://www.google.com https://maps.google.com https://recaptcha.google.com/recaptcha/; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; script-src-attr 'none'"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
 # アセット最適化によるURL正規化（/company → /company/ 等のリダイレクト）を無効化し、
 # ルーティングを下記の明示的な200 rewriteのみで決定論的に制御する。
 # canonical / sitemap / og:url は「末尾スラッシュなし」で統一している。

@@ -13,7 +13,8 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'esnext',
+    // target未指定でViteデフォルト（es2020相当のbaseline）に委ねる。
+    // esnext指定は企業ユーザーの古いブラウザ互換を狭めるため廃止（監査指摘）
     outDir: 'dist',
   },
   server: {
