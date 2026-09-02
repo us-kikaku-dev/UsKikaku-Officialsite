@@ -137,3 +137,50 @@ export const fetchUnifiedTashiroArticles = async (): Promise<
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 };
+
+/**
+ * プロフィールページ用: 最新 limit 件だけを軽量に取得する。
+ * 全件取得してからsliceする無駄を避け、各APIから日付降順で limit 件ずつ取り、
+ * マージ・再ソート後に limit 件へ絞る。片側の失敗は許容する。
+ */
+export const fetchLatestUnifiedTashiroArticles = async (
+  limit = 3,
+): Promise<UnifiedTashiroArticle[]> => {
+  const [tashiroRes, cvjRes] = await Promise.allSettled([
+    client.get({
+      endpoint: 'article',
+      queries: { limit, orders: '-date' },
+    }) as Promise<MicroCMSListResponse<TashiroArticle>>,
+    capitalVoiceClient.get({
+      endpoint: 'articles',
+      queries: {
+        limit,
+        orders: '-publishdate',
+        filters: `interviewer[equals]${TASHIRO_INTERVIEWER_ID}`,
+      },
+    }) as Promise<MicroCMSListResponse<CapitalVoiceArticle>>,
+  ]);
+
+  const tashiroArticles =
+    tashiroRes.status === 'fulfilled'
+      ? tashiroRes.value.contents.map(normalizeTashiroArticle)
+      : [];
+  if (tashiroRes.status === 'rejected') {
+    console.error('Failed to fetch Tashiro articles:', tashiroRes.reason);
+  }
+
+  const cvjArticles =
+    cvjRes.status === 'fulfilled'
+      ? cvjRes.value.contents.map(normalizeCapitalVoiceArticle)
+      : [];
+  if (cvjRes.status === 'rejected') {
+    console.error(
+      'Failed to fetch Capital Voice Japan articles:',
+      cvjRes.reason,
+    );
+  }
+
+  return [...tashiroArticles, ...cvjArticles]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, limit);
+};

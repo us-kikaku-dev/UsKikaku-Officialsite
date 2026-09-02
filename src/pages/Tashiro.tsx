@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Seo } from '../components/Seo';
 import { ExternalLink } from 'lucide-react';
 import {
-  fetchUnifiedTashiroArticles,
+  fetchLatestUnifiedTashiroArticles,
   UnifiedTashiroArticle,
 } from '../lib/tashiro';
 import { TashiroArticleCard } from '../components/TashiroArticleCard';
@@ -19,8 +19,9 @@ export const Tashiro = () => {
     let cancelled = false;
     const load = async () => {
       try {
-        const all = await fetchUnifiedTashiroArticles();
-        if (!cancelled) setArticles(all.slice(0, 3));
+        // 最新3件だけを軽量取得する（全件取得→sliceの無駄を解消）
+        const latest = await fetchLatestUnifiedTashiroArticles(3);
+        if (!cancelled) setArticles(latest);
       } catch (error) {
         console.error('Failed to fetch tashiro articles:', error);
         if (!cancelled) setArticles([]);

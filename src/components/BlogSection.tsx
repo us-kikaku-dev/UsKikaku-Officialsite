@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { client, Blog } from '../lib/client';
+import { Blog } from '../lib/client';
 import { isCmsConfigured, allowMockFallback, formatDateSlash } from '../lib/cms';
+import { useCmsList } from '../hooks/useCmsList';
 import './BlogSection.css';
 
 // Reuse mock data format matching Blog types
@@ -58,42 +59,21 @@ const MOCK_BLOGS: Blog[] = [
 ];
 
 export const BlogSection = () => {
-    const [blogs, setBlogs] = useState<Blog[]>([]);
-    const [loading, setLoading] = useState(true);
+    const cmsConfigured = isCmsConfigured();
+    const { state, retry } = useCmsList<Blog>({
+        endpoint: 'blog',
+        queries: { limit: 3, orders: '-publishedAt' },
+        enabled: cmsConfigured,
+    });
 
-    useEffect(() => {
-        let cancelled = false;
-        const fetchBlogs = async () => {
-            // 未設定時のみ開発でモック表示（初期セットアップ用途）
-            if (!isCmsConfigured()) {
-                if (!cancelled && allowMockFallback()) setBlogs(MOCK_BLOGS.slice(0, 3));
-                if (!cancelled) setLoading(false);
-                return;
-            }
-
-            try {
-                const data = await client.get({
-                    endpoint: 'blog',
-                    queries: {
-                        limit: 3,
-                        orders: '-publishedAt',
-                    },
-                });
-                if (!cancelled) setBlogs(data.contents);
-            } catch (error) {
-                console.error('Failed to fetch blogs:', error);
-                // 失敗時はモックを出さず空状態に（偽情報を表示しない）
-                if (!cancelled) setBlogs([]);
-            } finally {
-                if (!cancelled) setLoading(false);
-            }
-        };
-
-        fetchBlogs();
-        return () => {
-            cancelled = true;
-        };
-    }, []);
+    // 未設定時のみ開発でモック表示（初期セットアップ用途）。本番は空状態のまま
+    const blogs: Blog[] =
+        state.status === 'success'
+            ? state.contents
+            : !cmsConfigured && allowMockFallback()
+                ? MOCK_BLOGS.slice(0, 3)
+                : [];
+    const loading = state.status === 'loading';
 
     return (
         <section className="blog-section">
@@ -118,6 +98,11 @@ export const BlogSection = () => {
                     <div className="blog-grid">
                         {loading ? (
                             <p className="text-center text-gray-400 col-span-full">Loading...</p>
+                        ) : state.status === 'error' ? (
+                            <div className="text-center col-span-full py-12">
+                                <p className="text-gray-400 mb-6">記事の読み込みに失敗しました。時間をおいて再度お試しください。</p>
+                                <button type="button" onClick={retry} className="cms-retry-button">再試行</button>
+                            </div>
                         ) : blogs.length === 0 ? (
                             <p className="text-center text-gray-400 col-span-full py-12">現在表示できる記事はありません。</p>
                         ) : (
