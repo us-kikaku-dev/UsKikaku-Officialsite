@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { ContactFormInputs, InquiryType } from './types';
-import { ContactFormStyles } from './styles';
+import './styles.css';
 import { StepIndicator } from './StepIndicator';
 import { Step1Input } from './Step1Input';
 import { Step2Confirm } from './Step2Confirm';
@@ -62,9 +62,6 @@ export const ContactForm = () => {
         <div className="w-full max-w-2xl mx-auto" style={{ paddingTop: '0', paddingBottom: '160px' }}>
             {/* Step Indicator */}
             <StepIndicator step={step} />
-
-            {/* Global Styles for Contact Form - Restored */}
-            <ContactFormStyles />
 
             {/* Error Message */}
             {sendError && (

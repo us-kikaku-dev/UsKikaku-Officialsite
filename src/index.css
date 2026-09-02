@@ -19,17 +19,17 @@
     from {
       height: 0;
     }
-  
+
     to {
       height: var(--radix-accordion-content-height, var(--bits-accordion-content-height));
     }
   }
-  
+
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height, var(--bits-accordion-content-height));
     }
-  
+
     to {
       height: 0;
     }
@@ -523,7 +523,7 @@ html {
 }
 /* ============================================================
    アクセシビリティ関連（監査バッチ2で追加）
-   ※本プロジェクトはTailwindビルドが無いため生CSSで記述する
+   ※ユーティリティで表現しにくい独自UI（スキップリンク等）のための生CSS
    ============================================================ */
 
 /* スキップリンク: キーボードフォーカス時のみ画面内に表示する */
